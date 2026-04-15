@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Richa Kandoi — Product Designer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,400&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/@phosphor-icons/web" defer></script>
+  <style>
+    /* ─── TOKENS ─────────────────────────────────── */
+    :root {
+      --bg:          #FAFAF7;
+      --navy:        #15113A;
+      --yellow:      #F7D102;
+      --grey-text:   #6B6B6B;
+      --grey-border: #E6E6E6;
+      --card-bg:     #EEEDE6;
+
+      /* dash shorthand vars — 7px dash, 6px gap, 13px period */
+      --d-h: repeating-linear-gradient(90deg,  #E6E6E6 0, #E6E6E6 7px, transparent 7px, transparent 13px);
+      --d-v: repeating-linear-gradient(180deg, #E6E6E6 0, #E6E6E6 7px, transparent 7px, transparent 13px);
+      --d-y: repeating-linear-gradient(90deg,  var(--yellow) 0, var(--yellow) 7px, transparent 7px, transparent 13px);
+    }
+
+    /* ─── RESET ──────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; cursor: none; }
+    html { scroll-behavior: smooth; cursor: none; overflow-x: hidden; }
+    ::selection { background: rgba(247,209,2,0.75); color: #15113A; }
+    ::-moz-selection { background: rgba(247,209,2,0.75); color: #15113A; }
+    body {
+      background: var(--bg);
+      color: var(--navy);
+      font-family: 'Source Sans 3', sans-serif;
+      cursor: none;
+      /* overflow-x: hidden removed — it promotes body to a scroll container
+         which breaks position:sticky on all descendants */
+    }
+    a, button, input, select, textarea, label { cursor: none; }
+
+    /* ─── CUSTOM CURSOR ──────────────────────────── */
+    #cursor {
+      position: fixed;
+      width: 16px; height: 16px;
+      background-color: rgba(247,209,2,0.65);
+      border: 1px solid transparent;
+      pointer-events: none;
+      z-index: 9999;
+      top: 0; left: 0;
+      transform: translate(-50%,-50%);
+      transition: width .3s cubic-bezier(0.2,0.8,0.2,1), height .3s cubic-bezier(0.2,0.8,0.2,1), background-color .3s ease, border-color .3s ease, filter .3s ease;
+      will-change: transform;
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+    }
+    .cursor-text {
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 14px; font-weight: 500;
+      color: #15113A;
+      display: flex; align-items: center; gap: 8px;
+      opacity: 0;
+      white-space: nowrap;
+      transition: opacity .2s ease;
+    }
+    .cursor-arrow {
+      font-size: 16px;
+      display: inline-block;
+    }
+    #cursor.is-card-hover {
+      width: 165px;
+      height: 48px;
+      background-color: rgba(247,209,2,1);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+      filter: none !important;
+    }
+    #cursor.is-card-hover .cursor-text {
+      opacity: 1;
+      transition-delay: .15s;
+    }
+    @keyframes cursorBowShoot {
+      0%   { transform: translate(0, 0); }
+      20%  { transform: translate(-2px, 2px); }
+      50%  { transform: translate(3px, -3px); }
+      75%  { transform: translate(-0.5px, 0.5px); }
+      90%  { transform: translate(0.5px, -0.5px); }
+      100% { transform: translate(0, 0); }
+    }
+    #cursor.is-card-hover .cursor-arrow {
+      animation: cursorBowShoot 1.4s ease-in-out infinite;
+    }
+
+    /* ─── PAGE WRAPPER ───────────────────────────── */
+    .page-container {
+      max-width: 1280px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    /* ─── VERTICAL EDGE LINES ────────────────────── */
+    .edge-line {
+      position: absolute; top: 0; bottom: 0; width: 2px;
+      background: var(--d-v);
+      z-index: 200; pointer-events: none;
+    }
+    .edge-line-l { left: 0; }
+    .edge-line-r { right: 0; }
+
+    /* ─── NAV ────────────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      height: 64px;
+      background: rgba(250,250,247,0.92);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      z-index: 100;
+    }
+    .nav-inner {
+      max-width: 1280px; width: 100%; height: 100%; margin: 0 auto;
+      padding: 0 96px;
+      display: flex; justify-content: space-between;
+      align-items: center;
+    }
+    .nav-brand { }
+    .nav-cta { }
+
+    .nav-links { display: flex; gap: 52px; list-style: none; }
+    .nav-brand, .nav-links a, .nav-cta {
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 20px; font-weight: 400; line-height: 1;
+      color: var(--navy);
+      text-decoration: none;
+      position: relative; padding-bottom: 3px;
+      display: inline-block;
+      vertical-align: middle;
+    }
+    /* marching yellow dashed underline */
+    .nav-brand::after, .nav-links a::after, .nav-cta::after, .footer-nav a.nav-main::after {
+      content: '';
+      position: absolute; left: 0; bottom: 0;
+      width: 100%; height: 2px;
+      background: var(--d-y);
+      background-size: 200% 100%;
+      opacity: 0;
+      transition: opacity .15s;
+    }
+    .nav-brand:hover::after, .nav-links a:hover::after, .nav-cta:hover::after, .footer-nav a.nav-main:hover::after {
+      opacity: 1;
+      animation: march .5s linear infinite;
+    }
+    @keyframes march {
+      from { background-position: 0 0; }
+      to   { background-position: 13px 0; }
+    }
+
+    /* ─── HERO ───────────────────────────────────── */
+    .hero {
+      display: flex; flex-direction: column;
+      padding: calc(64px + 120px) 96px 80px;
+    }
+
+    /* ── hero entrance keyframes ── */
+    @keyframes focusIn {
+      from { opacity: 0.4; filter: blur(12px); }
+      to   { opacity: 1;   filter: blur(0px);  }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    /* hero-body: transition for JS scroll-blur */
+    .hero-body { transition: filter .28s ease; }
+
+    .hero-greeting {
+      font-family: 'Merriweather', serif;
+      font-weight: 300; font-size: 22px;
+      margin-bottom: 24px;
+      opacity: 0;
+      animation: fadeIn .8s ease-out 2000ms forwards;
+    }
+    .hero-headline {
+      font-family: 'Source Sans 3', sans-serif;
+      font-weight: 500; font-size: 54px; line-height: 1.1;
+      margin-bottom: 40px;
+    }
+    /* line 1 sharpens first */
+    .hl-1 {
+      display: block;
+      opacity: 0.4; filter: blur(12px);
+      animation: focusIn 1.2s ease-out 200ms forwards;
+    }
+    /* line 2 starts while line 1 is still finishing */
+    .hl-2 {
+      display: block;
+      opacity: 0.4; filter: blur(12px);
+      animation: focusIn 1.2s ease-out 800ms forwards;
+    }
+    .hero-pills {
+      display: flex; flex-wrap: wrap; gap: 12px;
+      margin-bottom: 80px;
+      opacity: 0;
+      animation: fadeIn .8s ease-out 2300ms forwards;
+    }
+    .pill {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 8px 18px;
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 18px; font-weight: 400; color: var(--navy);
+      border: 1px solid var(--grey-border);
+      background: transparent;
+      border-radius: 0;
+    }
+
+    /* pulsing availability dot */
+    .pulse-dot {
+      position: relative;
+      display: inline-block;
+      width: 10px; height: 10px;
+      flex-shrink: 0;
+    }
+    .pulse-dot::before,
+    .pulse-dot::after {
+      content: '';
+      position: absolute;
+      border-radius: 50%;
+    }
+    .pulse-dot::before {
+      inset: 0;
+      background: radial-gradient(circle, #22c55e 30%, rgba(34,197,94,0.55) 65%, transparent 100%);
+    }
+    .pulse-dot::after {
+      inset: -4px;
+      background: radial-gradient(circle, rgba(34,197,94,0.4) 20%, transparent 75%);
+      animation: dot-pulse 1.6s ease-out infinite;
+    }
+    @keyframes dot-pulse {
+      0%   { transform: scale(0.7); opacity: 1; }
+      100% { transform: scale(2.2); opacity: 0; }
+    }
+
+    /* ─── STATS ROW ──────────────────────────────── */
+    .stats-row {
+      margin-left: -48px; margin-right: -48px;
+      position: relative;
+      display: grid; grid-template-columns: repeat(4,1fr);
+      opacity: 0;
+      animation: fadeIn .8s ease-out 2600ms forwards;
+    }
+
+    /* top and bottom dashed lines across full bleed */
+    .stats-row::before,
+    .stats-row::after {
+      content: '';
+      position: absolute; left: calc(50% - 50vw); width: 100vw; height: 2px;
+      background: var(--d-h);
+    }
+    .stats-row::before { top: 0; }
+    .stats-row::after  { bottom: 0; }
+
+    .stat-cell {
+      padding: 36px 48px;
+      display: flex; flex-direction: column; gap: 8px;
+      position: relative;
+    }
+    /* vertical dashed divider between cells */
+    .stat-cell + .stat-cell::before {
+      content: '';
+      position: absolute; top: 0; left: 0; bottom: 0; width: 2px;
+      background: var(--d-v);
+    }
+
+    .stat-number {
+      font-family: 'Merriweather', serif;
+      font-weight: 700; font-size: 26px;
+    }
+    .stat-label {
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 16px; color: var(--grey-text);
+      white-space: nowrap;
+    }
+
+    /* ─── SCROLL REVEAL ──────────────────────────── */
+    .sr {
+      opacity: 0;
+      transform: translateY(24px);
+      filter: blur(6px);
+      transition:
+        opacity   .7s cubic-bezier(.22,1,.36,1),
+        transform .7s cubic-bezier(.22,1,.36,1),
+        filter    .7s cubic-bezier(.22,1,.36,1);
+    }
+    .sr.visible { opacity: 1; transform: translateY(0); filter: blur(0); }
+
+    /* ─── SECTION COMMON ─────────────────────────── */
+    .section { padding: 120px 96px; }
+
+    .eyebrow {
+      display: inline-block;
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 11px; font-weight: 600;
+      letter-spacing: .12em; text-transform: uppercase;
+      color: var(--navy);
+      border: 1px solid var(--grey-border);
+      padding: 6px 12px;
+      margin-bottom: 28px;
+      border-radius: 0;
+    }
+
+    .section-heading {
+      font-size: 46px; line-height: 1.18;
+      margin-bottom: 64px;
+    }
+    .section-heading .sans  { font-family: 'Source Sans 3', sans-serif; font-weight: 500; }
+    .section-heading .serif { font-family: 'Merriweather', serif; font-weight: 100; font-style: italic; font-size: 40px; }
+
+    /* ─── WORK SECTION ───────────────────────────── */
+    #work { padding: 64px 0 0 0; }
+    #work .section-head { padding: 0 96px; }
+
+    .cards-stack { padding: 0 96px; }
+
+    /*
+     * Sticky lives on .card-section so all three share .cards-stack as their
+     * containing block. This is the critical fix: when sticky was on the inner
+     * .card-sticky-wrap, each card's containing block was its own .card-section,
+     * which caused each card to unstick before the next card could ever reach it.
+     *
+     * margin-bottom (not padding-bottom) creates scroll runway between cards
+     * without that space being part of the stuck element's visible box.
+     */
+    .cards-stack {
+      position: relative;
+    }
+
+    .card-section {
+      position: sticky;
+      transform-origin: top center;
+      margin-bottom: 40vh;
+    }
+    .card-section:last-of-type {
+      margin-bottom: 0;
+    }
+
+    /* 40px offset descending tabs */
+    .card-section:nth-child(1) { top: 120px; z-index: 1; }
+    .card-section:nth-child(2) { top: 160px; z-index: 2; }
+    .card-section:nth-child(3) { top: 200px; z-index: 3; }
+
+    /* .card-sticky-wrap is no longer the sticky element — it's a plain wrapper
+       that receives the JS scale/brightness animation safely as a child. */
+    .card-sticky-wrap { transform-origin: top center; }
+
+    /* Fixes WebKit bounding bug: padding-bottom is ignored by position:sticky.
+       Physical node guarantees Card 3 stays stuck. Adjusted to 80px to close gap visually. */
+    .cards-end-spacer { height: 80px; }
+
+    /* ─── PROJECT CARD ───────────────────────────── */
+    .card {
+      display: flex;
+      justify-content: space-between;
+      height: 505px;
+      padding: 50px;
+      overflow: hidden;
+      border: .5px solid rgba(21,17,58,.12);
+      border-radius: 0;
+      box-shadow: 0 -12px 40px rgba(0,0,0,0.05);
+    }
+
+    /* ── left column ── */
+    .card-left {
+      display: flex; flex-direction: column;
+      flex: 0 0 auto;
+      max-width: 48%; /* Restricts text width to force natural line wrapping */
+    }
+
+    .card-top-label {
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 20px; line-height: 28px; color: #7E7E7E;
+      margin-bottom: auto; display: flex; align-items: center; gap: 8px;
+    }
+    .card-top-label i { font-size: 24px; color: #7E7E7E; }
+
+    .card-impact-area {
+      flex: 0 0 auto;
+      margin-bottom: auto;
+    }
+
+    .card-headline {
+      font-family: 'Merriweather', serif;
+      font-weight: 500; font-size: 24px; line-height: 1.3; color: #15113A;
+      margin: 0;
+    }
+
+    .card-bottom { flex-shrink: 0; }
+
+    .card-tags-new {
+      display: flex; flex-wrap: nowrap; gap: 8px;
+    }
+    .card-tag-new {
+      font-family: 'Source Sans 3', sans-serif;
+      font-weight: 400; font-size: 14px; line-height: 18px;
+      text-transform: uppercase; color: #15113A;
+      border: 1px dashed #15113A; padding: 4px 12px;
+    }
+
+    /* ── right column ── */
+    .card-right {
+      display: flex; flex-direction: column;
+      position: relative;
+      flex: 1; /* expand dynamically */
+      max-width: 48%;
+      justify-content: center;
+    }
+    .card-gif {
+      flex: 1;
+      display: flex; align-items: center; justify-content: flex-end;
+      height: 100%;
+    }
+    .card-gif img {
+      display: block;
+      max-width: 100%; max-height: 100%;
+      width: auto; height: auto;
+      object-fit: contain;
+    }
+
+    /* ─── TESTIMONIALS ───────────────────────────── */
+    #testimonials { padding: 144px 0; position: relative; }
+    .testi-head { padding: 0 96px; }
+
+    .testi-section-wrapper {
+      position: relative;
+      padding: 0 96px; /* Nav arrows outside track within default bounds */
+      display: flex; align-items: center; justify-content: center;
+    }
+    
+    .testi-carousel {
+      flex: 1;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .testi-grid {
+      display: flex; gap: 24px;
+    }
+
+    /* top dashed border above testimonials */
+    #testimonials::before {
+      content: '';
+      position: absolute; top: 0; left: calc(50% - 50vw); width: 100vw; height: 2px;
+      background: var(--d-h);
+    }
+
+    .testi-nav-btn {
+      position: absolute;
+      top: 50%; transform: translateY(-50%);
+      width: 48px; height: 48px;
+      display: flex; align-items: center; justify-content: center;
+      background: transparent; color: var(--navy); border: none; cursor: pointer;
+      font-size: 24px; z-index: 10;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .testi-nav-btn:hover { transform: translateY(-50%) scale(1.1); }
+    .testi-nav-btn:disabled { opacity: 0.3; cursor: default; transform: translateY(-50%); }
+    .testi-nav-btn.prev { left: 24px; }
+    .testi-nav-btn.next { right: 24px; }
+
+    .testi-cell {
+      flex: 0 0 calc(50% - 12px); /* Specifically fits 2 visible cards with 24px gap */
+      padding: 40px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      border: 1px solid var(--grey-border); /* Pill-like stroke styling */
+      background: transparent;
+    }
+    .testi-quote {
+      font-family: 'Merriweather', serif;
+      font-weight: 300; font-size: 17px; line-height: 1.75;
+      color: var(--navy);
+      margin-bottom: 32px;
+    }
+    .testi-quote::before { content: '\201C'; }
+    .testi-quote::after  { content: '\201D'; }
+    .testi-author {
+      font-family: 'Source Sans 3', sans-serif;
+      font-weight: 600; font-size: 15px; color: var(--navy);
+      margin-top: auto;
+    }
+    .testi-role {
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 14px; color: var(--grey-text); margin-top: 4px;
+    }
+
+    .footer-role {
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 14px; color: var(--grey-text); margin-top: 4px;
+    }
+
+    /* ─── FOOTER ─────────────────────────────────── */
+    footer {
+      position: relative;
+      padding: 64px 96px;
+      display: flex; align-items: flex-start; justify-content: space-between;
+      gap: 32px;
+    }
+    
+    /* bottom dashed border above footer */
+    footer::before {
+      content: '';
+      position: absolute; top: 0; left: calc(50% - 50vw); width: 100vw; height: 2px;
+      background: var(--d-h);
+    }
+
+    .footer-left { display: flex; flex-direction: column; }
+    .footer-heading { font-size: 37px; line-height: 1.18; margin-bottom: 8px; }
+    .footer-heading .sans { font-family: 'Source Sans 3', sans-serif; font-weight: 500; color: var(--navy); }
+    .footer-heading .serif { font-family: 'Merriweather', serif; font-weight: 100; font-style: italic; font-size: 31px; color: var(--navy); }
+    
+    .footer-socials { font-family: 'Source Sans 3', sans-serif; font-size: 15px; color: var(--navy); }
+    .footer-socials a { color: var(--navy); text-decoration: none; font-weight: 500; }
+    .footer-socials a:hover { text-decoration: underline; }
+
+    .footer-nav { display: flex; list-style: none; margin-top: 6px; }
+    .nav-col { display: flex; flex-direction: column; gap: 10px; }
+    .footer-nav a { font-family: 'Source Sans 3', sans-serif; text-decoration: none; }
+    .footer-nav a.nav-main {
+      font-size: 15px; font-weight: 600; color: var(--navy);
+      position: relative; padding-bottom: 3px; display: inline-block; align-self: flex-start;
+    }
+    .footer-nav a.nav-sub { font-size: 14px; color: var(--grey-text); }
+    .footer-nav a.nav-sub:first-of-type { margin-top: -2px; } /* Pull projects slightly vertically closer to Work */
+    .footer-nav a.nav-sub:hover { color: var(--navy); text-decoration: underline; }
+
+    .footer-right { margin-top: 6px; display: flex; flex-direction: column; align-items: flex-start; }
+
+    /* ─── MOBILE ─────────────────────────────────── */
+    @media (max-width: 768px) {
+      #cursor { display: none; }
+      body { cursor: auto; }
+      nav { padding: 0 24px; }
+      .edge-line { display: none; }
+      .hero { padding: calc(64px + 60px) 24px 0; }
+      .hero-headline { font-size: 36px; }
+      .stats-row { grid-template-columns: repeat(2,1fr); margin-left: -24px; margin-right: -24px; }
+      .stat-cell { padding: 28px 24px; }
+      .section { padding: 80px 24px; }
+      #work { padding: 80px 0; }
+      #work .section-head { padding: 0 24px; }
+      .cards-stack { padding: 0 24px; }
+      .card-section:nth-child(1),
+      .card-section:nth-child(2),
+      .card-section:nth-child(3) { position: relative; top: auto; }
+      .card-sticky-wrap { transform: none !important; filter: none !important; }
+      .card { grid-template-columns: 1fr; height: auto; min-height: 0; overflow: visible; }
+      .card-left { padding: 24px; }
+      .card-impact { font-size: 20px; }
+      .card-right { padding: 24px; gap: 16px; }
+      .card-tags { justify-content: flex-start; }
+      #testimonials { padding: 80px 0 0; }
+      .testi-head { padding: 0 24px; margin-bottom: 48px; }
+      .testi-grid { grid-template-columns: 1fr; }
+      .testi-cell { padding: 40px 24px; }
+      .testi-cell:first-child { padding-left: 24px; }
+      .testi-cell:last-child  { padding-right: 24px; }
+      /* flip vertical dividers to horizontal on single-column layout */
+      .testi-cell + .testi-cell::before {
+        top: 0; left: calc(50% - 50vw); right: auto; bottom: auto;
+        width: 100vw; height: 2px;
+        background: var(--d-h);
+      }
+      footer { flex-direction: column; align-items: flex-start; padding: 60px 24px; gap: 48px; }
+      .footer-nav { flex-direction: column; gap: 32px; margin-top: 0; }
+      .footer-right { margin-top: 0; }
+      body, a, button, *, *::before, *::after { cursor: auto; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── Cursor ───────────────────────────────── -->
+<div id="cursor">
+  <span class="cursor-text">View Case Study <i class="ph ph-arrow-up-right cursor-arrow"></i></span>
+</div>
+
+<!-- ── Page Container ───────────────────────── -->
+<div class="page-container">
+
+<!-- ── Edge Lines ───────────────────────────── -->
+<div class="edge-line edge-line-l"></div>
+<div class="edge-line edge-line-r"></div>
+
+<!-- ── Nav ─────────────────────────────────── -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="nav-brand">Richa Kandoi</a>
+    <ul class="nav-links">
+      <li><a href="#work">Work</a></li>
+      <li><a href="#about">About</a></li>
+    </ul>
+    <a href="mailto:richa@richakandoi.com" class="nav-cta">Let's Talk</a>
+  </div>
+</nav>
+
+<!-- ── Hero ─────────────────────────────────── -->
+<section class="hero">
+  <div class="hero-body">
+    <p class="hero-greeting">Hi! I'm Richa.</p>
+    <h1 class="hero-headline">
+      <span class="hl-1">Product Designer. Ex-architect.</span>
+      <span class="hl-2">Systems thinking in my DNA.</span>
+    </h1>
+    <div class="hero-pills">
+      <span class="pill">B2B | B2C | 0-to-1</span>
+      <span class="pill">
+        <!-- location pin SVG -->
+        <svg width="13" height="16" viewBox="0 0 13 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M6.5 0C4.01 0 2 2.01 2 4.5c0 3.38 4.5 9 4.5 9s4.5-5.62 4.5-9C11 2.01 8.99 0 6.5 0Zm0 6.5a2 2 0 1 1 0-4 2 2 0 0 1 0 4Z" fill="#15113A"/>
+        </svg>
+        Based in NYC-area
+      </span>
+      <span class="pill">
+        <span class="pulse-dot"></span>
+        Open to Product Design Opportunities
+      </span>
+    </div>
+  </div>
+
+  <div class="stats-row">
+    <div class="stat-cell">
+      <span class="stat-number">10+</span>
+      <span class="stat-label">Years in design</span>
+    </div>
+    <div class="stat-cell">
+      <span class="stat-number">7</span>
+      <span class="stat-label">Cities lived in</span>
+    </div>
+    <div class="stat-cell">
+      <span class="stat-number">5</span>
+      <span class="stat-label">Languages spoken</span>
+    </div>
+    <div class="stat-cell">
+      <span class="stat-number">30+</span>
+      <span class="stat-label">Professional projects</span>
+    </div>
+  </div>
+</section>
+
+<!-- ── Work ─────────────────────────────────── -->
+<section id="work">
+  <div class="section-head">
+    <div class="eyebrow sr">Work</div>
+    <h2 class="section-heading sr">
+      <span class="sans">Highlights from my most recent </span><span class="serif">work.</span>
+    </h2>
+  </div>
+
+  <div class="cards-stack">
+
+    <!-- CARD 1 — Abulé Admin Portal -->
+    <div class="card-section">
+      <div class="card-sticky-wrap">
+        <div class="card" style="background:#EEEDE6;">
+          <div class="card-left">
+            <p class="card-top-label"><i class="ph ph-lock-key"></i> Role-based Admin Portal Design · 2025</p>
+            <div class="card-impact-area">
+              <h3 class="card-headline">Designed a 6-level role system with 65+ screens in 2 months. Reduced engineering effort by ~25%.</h3>
+            </div>
+            <div class="card-bottom">
+              <div class="card-tags-new">
+                <span class="card-tag-new">0 TO 1</span>
+                <span class="card-tag-new">PHASED ROLL-OUT</span>
+                <span class="card-tag-new">PLATFORM ARCHITECTURE</span>
+              </div>
+            </div>
+          </div>
+          <div class="card-right">
+            <div class="card-gif">
+              <img src="assets/abule-admin.png" alt="Abulé Admin Portal" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CARD 2 — Layerpath -->
+    <div class="card-section">
+      <div class="card-sticky-wrap">
+        <div class="card" style="background:#EBF8F1;">
+          <div class="card-left">
+            <p class="card-top-label">Layerpath Website & Web-app Redesign · 2024</p>
+            <div class="card-impact-area">
+              <h3 class="card-headline">Increased WAUs by 50%. Designs implemented on live website within a week.</h3>
+            </div>
+            <div class="card-bottom">
+              <div class="card-tags-new">
+                <span class="card-tag-new">B2B</span>
+                <span class="card-tag-new">USER RESEARCH</span>
+                <span class="card-tag-new">USABILITY TESTING</span>
+              </div>
+            </div>
+          </div>
+          <div class="card-right">
+            <div class="card-gif">
+              <img src="assets/layerpath.png" alt="Layerpath" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CARD 3 — Abulé Web-app Navigation -->
+    <div class="card-section">
+      <div class="card-sticky-wrap">
+        <div class="card" style="background:#EEEDE6;">
+          <div class="card-left">
+            <p class="card-top-label"><i class="ph ph-lock-key"></i> Web-app Navigation Redesign · 2025</p>
+            <div class="card-impact-area">
+              <h3 class="card-headline">Drove core product development with a scalable, multi-role system across desktop and mobile.</h3>
+            </div>
+            <div class="card-bottom">
+              <div class="card-tags-new">
+                <span class="card-tag-new">B2B</span>
+                <span class="card-tag-new">B2C</span>
+                <span class="card-tag-new">IA</span>
+                <span class="card-tag-new">RESPONSIVE DESIGN</span>
+              </div>
+            </div>
+          </div>
+          <div class="card-right">
+            <div class="card-gif">
+              <img src="assets/abule-webapp.png" alt="Abulé Web-app Navigation" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Guarantees Card 3 gets its physical sticky slide bounds unaffected by WebKit bugs -->
+    <div class="cards-end-spacer"></div>
+  </div>
+</section>
+
+<!-- ── Testimonials ──────────────────────────── -->
+<section id="testimonials">
+  <div class="testi-head">
+    <div class="eyebrow sr">Testimonials</div>
+    <h2 class="section-heading sr">
+      <span class="sans">What others </span><span class="serif">say.</span>
+    </h2>
+  </div>
+  <div class="testi-section-wrapper">
+    <button class="testi-nav-btn prev" id="testi-prev"><i class="ph ph-caret-left"></i></button>
+    <div class="testi-carousel">
+      <div class="testi-grid" id="testi-track">
+        <div class="testi-cell">
+          <p class="testi-quote">Her leadership and teamwork kept us all motivated and focused. She's got a knack for asking the right questions, which helped us refine the user experience and spot potential issues early on. Richa's dedication and skills made a significant impact on our project.</p>
+          <p class="testi-author">Vinay C.</p>
+          <p class="testi-role">Founder, Layerpath</p>
+        </div>
+        <div class="testi-cell">
+          <p class="testi-quote">She has led multiple projects with due diligence. While designing and detailing, she took responsibility of curating a team for her projects. She has successfully co-ordinated with clients, consultants and various vendors involved in the multiple projects led by her.</p>
+          <p class="testi-author">Venkat K.</p>
+          <p class="testi-role">Principal, Form Architects</p>
+        </div>
+        <div class="testi-cell">
+          <p class="testi-quote">Richa demonstrates strong work ethics and problem-solving skills. She tackles both simple and complex challenges with a solutions-oriented approach. Her eagerness to learn new skills is evident in her willingness to take on new responsibilities within her roles.</p>
+          <p class="testi-author">Farah A.</p>
+          <p class="testi-role">Co-founder, The Way We Build</p>
+        </div>
+      </div>
+    </div>
+    <button class="testi-nav-btn next" id="testi-next"><i class="ph ph-caret-right"></i></button>
+  </div>
+</section>
+
+<!-- ── Footer ───────────────────────────────── -->
+<footer class="sr">
+  <div class="footer-left">
+    <h2 class="footer-heading">
+      <span class="sans">Made with </span><span class="serif">care.</span>
+    </h2>
+    <div class="footer-socials">
+      <a href="#" target="_blank">Resume</a> &middot; <a href="#" target="_blank">LinkedIn</a> &middot; <a href="javascript:void(0)" id="copyEmailLink">Email</a>
+    </div>
+  </div>
+  
+  <div class="footer-right">
+    <ul class="footer-nav">
+      <li class="nav-col">
+        <a href="#work" class="nav-main">Work</a>
+        <a href="#work" class="nav-sub">Admin Portal Design</a>
+        <a href="#work" class="nav-sub">Layerpath Website &amp; Web-app Redesign</a>
+        <a href="#work" class="nav-sub">Web-app Navigation Redesign</a>
+        <a href="#about" class="nav-main" style="margin-top: 24px;">About</a>
+      </li>
+    </ul>
+  </div>
+</footer>
+</div> <!-- /page-container -->
+
+<!-- Footer starts immediately -->
+
+<script>
+/* ─── CUSTOM CURSOR ─────────────────────────── */
+(function () {
+  const cursor = document.getElementById('cursor');
+  if (!cursor) return;
+
+  let mx = window.innerWidth / 2;
+  let my = window.innerHeight / 2;
+  document.addEventListener('mousemove', e => {
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top  = e.clientY + 'px';
+  });
+
+  document.querySelectorAll('.card').forEach(card => {
+    card.addEventListener('mouseenter', () => {
+      cursor.classList.add('is-card-hover');
+    });
+    card.addEventListener('mouseleave', () => {
+      cursor.classList.remove('is-card-hover');
+    });
+  });
+})();
+
+/* ─── SCROLL REVEAL ─────────────────────────── */
+(function () {
+  const els = document.querySelectorAll('.sr');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(en => {
+      if (en.isIntersecting) {
+        en.target.classList.add('visible');
+        io.unobserve(en.target);
+      }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -32px 0px' });
+  els.forEach(el => io.observe(el));
+})();
+
+/* ─── STICKY CARD STACK ──────────────────────── */
+(function () {
+  const sections = Array.from(document.querySelectorAll('.card-section'));
+  const wraps = Array.from(document.querySelectorAll('.card-sticky-wrap'));
+  if (wraps.length < 2 || sections.length !== wraps.length) return;
+
+  /*
+   * Per-card animated state. tScale / tBright are the scroll-derived targets;
+   * scale / bright are the currently-displayed values, lerped each frame toward
+   * the target so motion feels soft and physical rather than mechanical.
+   */
+  const state = wraps.map(() => ({ scale: 1, bright: 1, tScale: 1, tBright: 1 }));
+
+  /* Read scroll position → update targets. Called on every scroll event. */
+  function readTargets() {
+    sections.forEach((sec, i) => {
+      let totalP = 0;
+      
+      // Accumulate the overlap from all subsequent cards
+      for (let j = i + 1; j < sections.length; j++) {
+        const wr = sections[j - 1].getBoundingClientRect();
+        const nr = sections[j].getBoundingClientRect();
+        
+        // Overlap ratio between card (j-1) and card (j)
+        const p = Math.max(0, Math.min(1,
+          1 - (nr.top - wr.top) / wr.height
+        ));
+        
+        totalP += p;
+      }
+
+      state[i].tScale  = 1 - totalP * 0.09;
+      state[i].tBright = 1 - totalP * 0.25;
+    });
+  }
+
+  /*
+   * Lerp factor controls how sluggishly the cards track the scroll target.
+   * Lower = heavier, slower feel. 0.10 gives a "deck of heavy cards" quality.
+   */
+  const LERP = 0.10;
+  let rafPending = false;
+
+  /* Animation loop — runs only while there's something to animate. */
+  function tick() {
+    rafPending = false;
+    let settled = true;
+
+    wraps.forEach((wrap, i) => {
+      const s = state[i];
+      s.scale  += (s.tScale  - s.scale)   * LERP;
+      s.bright += (s.tBright - s.bright)  * LERP;
+
+      if (Math.abs(s.tScale - s.scale) > 0.0002 ||
+          Math.abs(s.tBright - s.bright) > 0.0002) {
+        settled = false;
+      }
+
+      /* Only apply transform/filter when they differ meaningfully from identity.
+         Leaving an inline transform: scale(1) on a position:sticky element
+         promotes it to a compositing layer, which breaks sticky in Safari
+         and many Chromium builds. Clearing the style keeps the element in
+         normal layout flow when nothing is animating. */
+      if (Math.abs(s.scale - 1) > 0.001 || Math.abs(s.bright - 1) > 0.001) {
+        wrap.style.transform = `scale(${s.scale.toFixed(4)})`;
+        wrap.style.filter    = `brightness(${s.bright.toFixed(4)})`;
+      } else {
+        wrap.style.transform = '';
+        wrap.style.filter    = '';
+      }
+    });
+
+    if (!settled) {
+      rafPending = true;
+      requestAnimationFrame(tick);
+    }
+  }
+
+  function scheduleUpdate() {
+    readTargets();
+    if (!rafPending) {
+      rafPending = true;
+      requestAnimationFrame(tick);
+    }
+  }
+
+  window.addEventListener('scroll', scheduleUpdate, { passive: true });
+  window.addEventListener('resize', scheduleUpdate);
+
+  /* Run once immediately so initial state is correct. */
+  scheduleUpdate();
+})();
+
+
+/* ─── COPY EMAIL ────────────────────────────── */
+(function () {
+  const link = document.getElementById('copyEmailLink');
+  if (!link) return;
+  link.addEventListener('click', () => {
+    navigator.clipboard.writeText('richashah.kandoi@gmail.com').then(() => {
+      link.textContent = 'Copied!';
+      setTimeout(() => {
+        link.textContent = 'Email';
+      }, 2200);
+    }).catch(() => {
+      link.textContent = 'Email';
+    });
+  });
+})();
+
+/* ─── TESTIMONIALS CAROUSEL ────────────────────────────── */
+(function() {
+  const testiTrack = document.getElementById('testi-track');
+  const btnPrev = document.getElementById('testi-prev');
+  const btnNext = document.getElementById('testi-next');
+  
+  if (testiTrack && btnPrev && btnNext) {
+    const originalCells = Array.from(testiTrack.querySelectorAll('.testi-cell'));
+    if (!originalCells.length) return;
+
+    // Clone for infinite seamless loop: [1, 2, 3] becomes [1, 2, 3, 1, 2, 3]
+    originalCells.forEach(cell => {
+      const clone = cell.cloneNode(true);
+      testiTrack.appendChild(clone);
+    });
+
+    const cells = testiTrack.querySelectorAll('.testi-cell');
+    const realCount = originalCells.length;
+    let currentIndex = 0;
+    let isTransitioning = false;
+
+    function getShift(index) {
+      const cellWidth = cells[0].offsetWidth;
+      const gap = 24; 
+      return index * (cellWidth + gap);
+    }
+
+    function slideTo(index, animate = true) {
+      if (animate) {
+        testiTrack.style.transition = 'transform 0.4s cubic-bezier(0.25, 1, 0.5, 1)';
+        isTransitioning = true;
+      } else {
+        testiTrack.style.transition = 'none';
+      }
+      
+      const shift = getShift(index);
+      testiTrack.style.transform = `translateX(-${shift}px)`;
+      currentIndex = index;
+    }
+
+    testiTrack.addEventListener('transitionend', () => {
+      isTransitioning = false;
+      // Snap silently if we just animated to the duplicate first element
+      if (currentIndex === realCount) {
+        slideTo(0, false);
+      }
+    });
+
+    btnNext.addEventListener('click', () => {
+      if (isTransitioning) return;
+      slideTo(currentIndex + 1, true);
+    });
+
+    btnPrev.addEventListener('click', () => {
+      if (isTransitioning) return;
+      if (currentIndex === 0) {
+        // Snap silently to the duplicate end first, then animate backwards
+        slideTo(realCount, false);
+        // Force layout recalc
+        testiTrack.offsetHeight;
+        slideTo(realCount - 1, true);
+      } else {
+        slideTo(currentIndex - 1, true);
+      }
+    });
+    
+    window.addEventListener('resize', () => slideTo(currentIndex, false));
+    slideTo(0, false);
+  }
+})();
+</script>
+</body>
+</html>
