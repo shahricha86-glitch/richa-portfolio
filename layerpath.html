@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Layerpath — Richa Kandoi</title>
+  <link rel="icon" type="image/png" href="assets/favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Source+Sans+3:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/@phosphor-icons/web" defer></script>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* ── Layerpath hero ── */
+    .cs-hero {
+      background: #EBF8F1;
+      padding: calc(var(--nav-height) + 53px) 132px 53px;
+    }
+    @media (min-width: 769px) and (max-width: 1024px) {
+      .cs-hero { padding-left: 60px; padding-right: 60px; }
+    }
+    @media (max-width: 768px) {
+      .cs-hero { padding-left: var(--gutter-mobile); padding-right: var(--gutter-mobile); }
+    }
+    .cs-hero img {
+      border-radius: 12px;
+    }
+
+    /* ── Image placeholder ── */
+    .cs-img-ph {
+      background: #E8E8E4;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 200px;
+      color: #aaa;
+      font-family: var(--font-interface);
+      font-size: 13px;
+      letter-spacing: 0.04em;
+    }
+    .cs-img-ph::after {
+      content: 'Image placeholder';
+    }
+    .cs-img-ph--sm {
+      min-height: 60px;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .cs-img-ph--sm::after {
+      content: '';
+    }
+    .cs-img-ph--video {
+      min-height: 280px;
+    }
+    .cs-img-ph--video::after {
+      content: 'Video placeholder';
+    }
+  </style>
+
+</head>
+<body>
+
+<!-- ── Cursor ───────────────────────────────── -->
+<div id="cursor">
+  <span class="cursor__text">View Case Study <i class="ph ph-arrow-up-right cursor__icon"></i></span>
+</div>
+
+<!-- ── Page container (matches homepage) ────── -->
+<div class="page">
+
+<!-- ── Edge lines ────────────────────────────── -->
+<div class="edge edge--left"></div>
+<div class="edge edge--right"></div>
+
+<!-- ── Nav — identical to homepage ──────────── -->
+<nav class="nav-global">
+  <div class="nav__inner">
+    <a href="index.html" class="nav__brand">Richa Kandoi</a>
+    <ul class="nav__links">
+      <li><a href="index.html#work">Work</a></li>
+      <li><a href="index.html#about">About</a></li>
+    </ul>
+    <a href="mailto:richashah.kandoi@gmail.com" class="nav__cta">Let's Talk</a>
+  </div>
+</nav>
+
+<!-- ── Hero image (within gutters, bg #EBF8F1) ─ -->
+<div class="cs-hero-wrap">
+  <div class="cs-hero">
+    <img src="assets/layerpath.png" alt="Layerpath Hero">
+  </div>
+</div>
+
+<!-- ── Page heading (page bg, left-aligned) ──── -->
+<div class="cs-heading-wrap" id="cs-page-heading">
+  <h1 class="cs-page-title">
+    Layerpath Website &amp; Web-app Redesign
+  </h1>
+</div>
+
+<!-- ── TL;DR ──────────────────────────────────────── -->
+<div id="tldr" class="cs-tldr-section scroll-reveal">
+  <div class="cs-tldr-grid">
+    <!-- Role & Focus spans across the top two rows of the right column -->
+    <div class="cs-tldr__item" data-tldr="role" style="grid-column: 1; grid-row: 1 / span 2;">
+      <span class="cs-tldr__label">Role &amp; Focus</span>
+      <div class="cs-tldr__value">
+        <ul>
+          <li>Project Lead, Team of 4 Designers</li>
+          <li>Client Alignment</li>
+          <li>Research Strategy</li>
+          <li>User Interviews</li>
+          <li>Usability Testing</li>
+          <li>Ideation Workshops</li>
+          <li>Feature Prioritization</li>
+          <li>Final Delivery</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Problem column 2, row 1 -->
+    <div class="cs-tldr__item" data-tldr="problem" style="grid-column: 2; grid-row: 1;">
+      <span class="cs-tldr__label">Problem</span>
+      <div class="cs-tldr__value">
+        <ul>
+          <li>Half of users dropped off between signup and extension download. The goal was to find the cause and improve the journey to drive activation.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Solution column 2, row 2 -->
+    <div class="cs-tldr__item" data-tldr="solution" style="grid-column: 2; grid-row: 2;">
+      <span class="cs-tldr__label">Solution &amp; Impact</span>
+      <div class="cs-tldr__value">
+        <ul>
+          <li>Improved activation by redesigning the user journey around transparency and trust, early extension access, clear privacy messaging, and streamlined onboarding.</li>
+          <li>Achieved +50% Weekly Active Users in 3 weeks (110 → 165).</li>
+          <li>High-fidelity prototype scored 4.8/5 on ease of use and was implemented on the live product within 2 weeks.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Timeline column 1, row 3 -->
+    <div class="cs-tldr__item" data-tldr="timeline" style="grid-column: 1; grid-row: 3;">
+      <span class="cs-tldr__label">Timeline</span>
+      <span class="cs-tldr__value">3 weeks</span>
+    </div>
+
+    <!-- Tools column 2, row 3 -->
+    <div class="cs-tldr__item" data-tldr="tools" style="grid-column: 2; grid-row: 3;">
+      <div class="cs-tldr-row" style="display: flex; gap: 80px;">
+        <div class="cs-tldr__item">
+          <span class="cs-tldr__label">Tools</span>
+          <span class="cs-tldr__value">Figma · Figjam · Optimal Workshop · Maze · Slack · Google Suite</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── Dashed divider (full-bleed) ────────────────── -->
+<div class="cs-divider-section">
+  <div class="cs-divider"></div>
+</div>
+
+<!-- ── Body: sidebar + content ──────────────────── -->
+<div class="cs-layout">
+
+  <aside class="cs-layout__sidebar">
+    <nav aria-label="Case study sections">
+      <a href="#tldr"              class="cs-sidebar__link"><span>- TL;DR</span></a>
+      <a href="#context"           class="cs-sidebar__link"><span>- Context</span></a>
+      <a href="#platform-arch"     class="cs-sidebar__link"><span>- Research</span></a>
+      <a href="#opportunity"        class="cs-sidebar__link"><span>- Opportunity</span></a>
+      <a href="#what-i-designed"   class="cs-sidebar__link"><span>- What We Designed</span></a>
+      <a href="#outcome"           class="cs-sidebar__link"><span>- Impact &amp; Implementation</span></a>
+    </nav>
+  </aside>
+
+  <main class="cs-layout__content">
+
+
+      <!-- ════ 01 — Context ════════════════════════ -->
+      <section id="context" class="cs-section scroll-reveal">
+        <span class="cs-section-label">Context</span>
+
+        <!-- Static Item 1 -->
+        <div style="margin-bottom: var(--space-block);">
+          <h2 class="cs-heading-static">What's Layerpath?</h2>
+          <p class="cs-body">Layerpath is an AI-powered platform designed to empower B2B product, sales, and marketing teams to create impactful, shareable demos in minutes. Record your screen, explain the steps, and Layerpath automatically transforms it into a polished step-by-step guide or video, seamlessly integrated with a Chrome extension.</p>
+        </div>
+
+        <!-- Static Item 2 -->
+        <div class="cs-flex-row" style="display: flex; gap: 48px; align-items: center; margin-bottom: var(--space-block);">
+          <div style="flex: 1; min-width: 0; align-self: flex-end;">
+            <h2 class="cs-heading-static">The Problem</h2>
+            <p class="cs-body">Layerpath faced a compound drop-off problem:</p>
+            <div class="cs-tldr__value">
+              <ul>
+                <li>50% of users who signed up never downloaded the Chrome extension, which is required to use the product.</li>
+                <li>Limited engagement on the dashboard: of those who did download, another significant portion never created their first project.</li>
+                <li>Few users publish or share their created projects.</li>
+              </ul>
+            </div>
+          </div>
+          <div style="flex: 0 0 auto; width: 45%; align-self: flex-end;">
+            <img src="assets/layerpath/context-lp-1.png" alt="Layerpath drop-off problem" style="width: 95%; height: auto; display: block; margin: 0 auto; border-radius: 8px;">
+          </div>
+        </div>
+
+        <div class="cs-callout">
+          <p class="cs-callout__text">A Chrome extension is required to use Layerpath, but nearly half of users dropped off before installing it. Without understanding WHY users were abandoning the flow, Layerpath couldn't effectively support its product-led growth strategy.</p>
+        </div>
+      </section>
+
+      <!-- ════ 02 — Defining Platform Architecture ═ -->
+      <section id="platform-arch" class="cs-section scroll-reveal">
+        <span class="cs-section-label">Research</span>
+
+        <p class="cs-body">In collaboration with the founder, we set success metrics to identify pain points causing the gap between sign-ups and downloads, develop a MVP to address these issues, and iterate designs based on user feedback.</p>
+
+        <div class="cs-accordion">
+          <button class="cs-accordion__trigger" aria-expanded="false">
+            Finding the users
+            <i class="ph ph-caret-down cs-accordion__chevron"></i>
+          </button>
+          <div class="cs-accordion__body-wrap">
+            <div class="cs-accordion__body">
+              <div class="cs-accordion__inner">
+                <p class="cs-body">While the team worked on competitive analysis, I led heuristic evaluations and user outreach. The founder provided a user list for recruitment. I reached out and got zero responses.</p>
+                <p class="cs-body">I expanded to our personal networks and recruited 6 product managers from small to mid-sized companies, Layerpath's target users, for usability testing. A teammate led the creation of the usability test script, while I conducted 5 of the 6 interviews.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cs-accordion">
+          <button class="cs-accordion__trigger" aria-expanded="false">
+            What users told us
+            <i class="ph ph-caret-down cs-accordion__chevron"></i>
+          </button>
+          <div class="cs-accordion__body-wrap">
+            <div class="cs-accordion__body">
+              <div class="cs-accordion__inner">
+                <img src="assets/layerpath/user-insights-1.png" alt="User insights" style="width: 80%; height: auto; display: block; margin: 0 auto var(--space-block);">
+                <p class="cs-body" style="margin-bottom: var(--space-block);">Usability tests with 4 users showed key drop-offs from signup to sharing. 2/4 struggled to download the extension, and most found recording and editing difficult. <strong>Why?</strong></p>
+                <div style="margin-bottom: 16px;">
+                  <img src="assets/layerpath/user-insights-2.png" alt="User insights 2" style="width: 80%; height: auto; display: block; margin: 0 auto;">
+                  <span class="cs-caption">Homepage</span>
+                </div>
+                <div style="margin-bottom: 16px;">
+                  <img src="assets/layerpath/user-insights-3.png" alt="User insights 3" style="width: 80%; height: auto; display: block; margin: 0 auto;">
+                  <span class="cs-caption">Onboarding after sign-up</span>
+                </div>
+                <div style="margin-bottom: 16px;">
+                  <img src="assets/layerpath/user-insights-4.png" alt="User insights 4" style="width: 80%; height: auto; display: block; margin: 0 auto;">
+                  <span class="cs-caption">During the Recording</span>
+                </div>
+                <div>
+                  <img src="assets/layerpath/user-insights-5.png" alt="User insights 5" style="width: 80%; height: auto; display: block; margin: 0 auto;">
+                  <span class="cs-caption" style="margin-bottom: 0;">Editing post recording</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cs-accordion">
+          <button class="cs-accordion__trigger" aria-expanded="false">
+            What competitors were doing
+            <i class="ph ph-caret-down cs-accordion__chevron"></i>
+          </button>
+          <div class="cs-accordion__body-wrap">
+            <div class="cs-accordion__body">
+              <div class="cs-accordion__inner">
+                <p class="cs-body">We conducted task analyses of three competing demo tools to pinpoint areas where users might drop off.</p>
+
+                <!-- Row 1 -->
+                <div class="cs-flex-row" style="display: flex; justify-content: space-between; align-items: flex-start; margin-top: var(--space-block);">
+                  <div style="width: min-content; flex-shrink: 0;">
+                    <img src="assets/layerpath/competitor-1.png" alt="Competitor 1" style="height: 300px; width: auto; display: block;">
+                    <span class="cs-caption" style="display: block; text-align: left;"><strong style="font-weight: 600; font-style: normal;">Privacy &amp; Trust:</strong> All, except Layerpath, address privacy via a footer link.</span>
+                  </div>
+                  <div style="width: min-content; flex-shrink: 0;">
+                    <img src="assets/layerpath/competitor-2.png" alt="Competitor 2" style="height: 300px; width: auto; display: block;">
+                    <span class="cs-caption" style="display: block; text-align: left;"><strong style="font-weight: 600; font-style: normal;">Recording Experience:</strong> Supademo is the only platform with a post-recording tool to redact and crop sensitive data.</span>
+                  </div>
+                </div>
+                <!-- Row 2 -->
+                <div class="cs-flex-row" style="display: flex; justify-content: space-between; align-items: flex-start; margin-top: 24px;">
+                  <div style="width: min-content; flex-shrink: 0;">
+                    <img src="assets/layerpath/competitor-4.png" alt="Competitor 4" style="height: 285px; width: auto; display: block;">
+                    <span class="cs-caption" style="display: block; text-align: left; margin-bottom: 0;"><strong style="font-weight: 600; font-style: normal;">Recording Experience:</strong> Arcade offers clear recording controls (start / pause / stop) and recording area indication.</span>
+                  </div>
+                  <div style="width: min-content; flex-shrink: 0;">
+                    <img src="assets/layerpath/competitor-3.png" alt="Competitor 3" style="height: 285px; width: auto; display: block;">
+                    <span class="cs-caption" style="display: block; text-align: left; margin-bottom: 0;"><strong style="font-weight: 600; font-style: normal;">Sharing Controls:</strong> Most offer public and restricted sharing options for demos.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cs-callout">
+          <p class="cs-callout__text">Privacy and data security concerns create trust barriers in the browser extension space. Most users hesitated to install without clear, visible information on data access and permissions.</p>
+        </div>
+
+      </section>
+
+      <!-- ════ 03 — Opportunity ══════════════════════ -->
+      <section id="opportunity" class="cs-section scroll-reveal">
+        <span class="cs-section-label">Opportunity</span>
+
+        <div style="background: var(--color-surface-cool); padding: var(--space-block);">
+          <p class="cs-subhead" style="margin-bottom: 0; font-size: 24px;">How might we build trust and confidence during the extension download step?</p>
+        </div>
+
+        <div style="margin-top: var(--space-block);"></div>
+
+        <div class="cs-accordion">
+          <button class="cs-accordion__trigger" aria-expanded="false">
+            Feature prioritization
+            <i class="ph ph-caret-down cs-accordion__chevron"></i>
+          </button>
+          <div class="cs-accordion__body-wrap">
+            <div class="cs-accordion__body">
+              <div class="cs-accordion__inner">
+                <p class="cs-body">I facilitated a design thinking workshop with the team to translate research findings into design decisions. We used an impact-effort matrix to define an MVP for the remaining 2 weeks.</p>
+                <img src="assets/layerpath/feature-prior-1.png" alt="Feature prioritization matrix" style="width: 100%; height: auto; display: block; margin: var(--space-block) 0;">
+                <p class="cs-subhead">Based on impact vs. effort and the goal of reducing drop-off, we prioritized five key solutions:</p>
+                <ol class="cs-list" style="margin-top: 0;">
+                  <li><strong>Chrome Extension Awareness on Homepage:</strong> Make the extension requirement visible upfront and eliminate trust-breaking surprise after sign-up.</li>
+                  <li><strong>Enable Pre-signup Extension Download:</strong> Let users download the extension first, verify it's legitimate, inspect permissions, then decide whether to commit personal information.</li>
+                  <li><strong>Privacy &amp; Compliance:</strong> Visible privacy policy link addressing data handling and extension permissions tackles concerns about browser data access.</li>
+                  <li><strong>Streamlined Onboarding:</strong> Short videos on the homepage and dashboard replacing the lengthy post-signup process.</li>
+                  <li><strong>Improved Recording Experience:</strong> Ability to control the screen scope before recording and a redaction tool for editing sensitive information.</li>
+                </ol>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cs-accordion">
+          <button class="cs-accordion__trigger" aria-expanded="false">
+            New user flow
+            <i class="ph ph-caret-down cs-accordion__chevron"></i>
+          </button>
+          <div class="cs-accordion__body-wrap">
+            <div class="cs-accordion__body">
+              <div class="cs-accordion__inner">
+                <p class="cs-body">Enabling pre-signup extension download required a completely new user flow.</p>
+                <img src="assets/layerpath/user-flow-1.png" alt="New user flow" style="width: 100%; height: auto; display: block; margin: var(--space-block) 0;">
+                <p class="cs-subhead">Key changes from existing flow:</p>
+                <ul class="cs-list" style="margin-top: 0;">
+                  <li>Users can download extension from homepage without signing up.</li>
+                  <li>Decision point: Install extension OR sign up first (user's choice).</li>
+                  <li>Dashboard checks for extension; prompts download if not installed.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cs-callout">
+          <p class="cs-callout__text">Insights from user research shifted our focus to building trust earlier in the journey, shaping feature priorities and introducing a more flexible onboarding flow.</p>
+        </div>
+
+      </section>
+
+      <!-- ════ 04 — What I Designed ════════════════ -->
+      <section id="what-i-designed" class="cs-section scroll-reveal">
+        <span class="cs-section-label">What We Designed</span>
+
+        <div class="cs-accordion">
+          <button class="cs-accordion__trigger" aria-expanded="false">
+            Usability testing the redesign
+            <i class="ph ph-caret-down cs-accordion__chevron"></i>
+          </button>
+          <div class="cs-accordion__body-wrap">
+            <div class="cs-accordion__body">
+              <div class="cs-accordion__inner">
+                <p class="cs-body">We ran moderated usability tests via Maze at low, mid, and high fidelity. Users appreciated the extension transparency immediately.</p>
+                <div style="margin-top: var(--space-block);">
+                  <img src="assets/layerpath/UT-redesign-1.png" alt="Usability testing redesign" style="width: 100%; height: auto; display: block;">
+                  <span class="cs-caption" style="display: block; text-align: left; margin-bottom: 0;">Users were unsure if recording had started due to a lack of clear feedback. Adding a highlighted border and a click counter provided real-time confirmation and improved confidence during recording.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cs-accordion">
+          <button class="cs-accordion__trigger" aria-expanded="false">
+            Homepage
+            <i class="ph ph-caret-down cs-accordion__chevron"></i>
+          </button>
+          <div class="cs-accordion__body-wrap">
+            <div class="cs-accordion__body">
+              <div class="cs-accordion__inner">
+                <div style="margin-bottom: var(--space-block);">
+                  <img src="assets/layerpath/homepage-before-1.png" alt="Homepage before" style="width: 100%; height: auto; display: block;">
+                  <span class="cs-caption" style="display: block; text-align: left; margin-bottom: 0;"><strong style="font-weight: 600; font-style: normal;">Before:</strong> Homepage lacked Chrome extension info and a pre-signup download option.</span>
+                </div>
+                <div style="margin-bottom: var(--space-block);">
+                  <img src="assets/layerpath/homepage-after-1.png" alt="Homepage after" style="width: 100%; height: auto; display: block;">
+                  <span class="cs-caption" style="display: block; text-align: left; margin-bottom: 0;"><strong style="font-weight: 600; font-style: normal;">After:</strong> New homepage includes a clear CTA for Chrome extension awareness and enables pre-signup download.</span>
+                </div>
+                <div>
+                  <video src="assets/layerpath/video-1.mov" controls muted playsinline style="width: 100%; display: block; border-radius: 8px; aspect-ratio: 16/9;"></video>
+                  <div class="cs-caption" style="text-align: left; margin-bottom: 0;">
+                    <strong style="font-weight: 600; font-style: normal;">Homepage:</strong>
+                    <ul style="padding-left: 16px; margin: 4px 0 0; list-style: disc;">
+                      <li style="margin-bottom: 0;">Pre-signup download enabled and clear CTA raises Chrome extension awareness.</li>
+                      <li style="margin-bottom: 0;">Prominent privacy policy link addresses data security concerns (also to be incorporated in the new header's Resources tab).</li>
+                      <li style="margin-bottom: 0;">Streamlined onboarding: Informative videos on homepage &amp; dashboard replace lengthy post-signup process.</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cs-accordion">
+          <button class="cs-accordion__trigger" aria-expanded="false">
+            Downloading extension
+            <i class="ph ph-caret-down cs-accordion__chevron"></i>
+          </button>
+          <div class="cs-accordion__body-wrap">
+            <div class="cs-accordion__body">
+              <div class="cs-accordion__inner">
+                <div style="margin-bottom: var(--space-block);">
+                  <video src="assets/layerpath/video-2.mov" controls muted playsinline style="width: 100%; display: block; border-radius: 8px; aspect-ratio: 16/9;"></video>
+                  <div class="cs-caption" style="text-align: left; margin-bottom: 0;">
+                    <strong style="font-weight: 600; font-style: normal;">Downloading Extension:</strong>
+                    <ul style="padding-left: 16px; margin: 4px 0 0; list-style: disc;">
+                      <li style="margin-bottom: 0;">Previously, users couldn't download the Chrome extension until signup, creating a signup and extension download hurdle.</li>
+                      <li style="margin-bottom: 0;">Now, they can download first, reducing friction and building trust before signup.</li>
+                    </ul>
+                  </div>
+                </div>
+                <div>
+                  <img src="assets/layerpath/downloading-extension-2.png" alt="Dashboard extension download prompt" style="width: 100%; height: auto; display: block;">
+                  <span class="cs-caption" style="display: block; text-align: left; margin-bottom: 0;">If a user signs up without the Chrome extension, the dashboard detects this and prompts them to download it.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cs-accordion">
+          <button class="cs-accordion__trigger" aria-expanded="false">
+            Creating a project
+            <i class="ph ph-caret-down cs-accordion__chevron"></i>
+          </button>
+          <div class="cs-accordion__body-wrap">
+            <div class="cs-accordion__body">
+              <div class="cs-accordion__inner">
+                <div>
+                  <video src="assets/layerpath/video-3.mov" controls muted playsinline style="width: 100%; display: block; border-radius: 8px; aspect-ratio: 16/9;"></video>
+                  <div class="cs-caption" style="text-align: left; margin-bottom: 0;">
+                    <strong style="font-weight: 600; font-style: normal;">Creating a Project:</strong>
+                    <ul style="padding-left: 16px; margin: 4px 0 0; list-style: disc;">
+                      <li style="margin-bottom: 0;">Clicking "Create a Project" reveals a clear "Start Recording" button.</li>
+                      <li style="margin-bottom: 0;">Three clear and concise instructions appear upon initiating recording, ensuring users understand the process.</li>
+                      <li style="margin-bottom: 0;">A red border highlights the screen area being recorded for user confirmation.</li>
+                      <li style="margin-bottom: 0;">During recording, a real-time step counter next to the Layerpath icon displays the captured steps. The Layerpath extension icon serves as a central hub for pausing or stopping recording through a user-friendly dropdown menu.</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cs-callout">
+          <p class="cs-callout__text">Usability and trust improved significantly post-redesign, with 4.8/5 ease-of-use and 4.6/5 likelihood-to-use ratings. Transparency around extension requirements and visible privacy policies reduced key adoption barriers.</p>
+        </div>
+
+      </section>
+
+      <!-- ════ 05 — Outcome ════════════════════════ -->
+      <section id="outcome" class="cs-section scroll-reveal">
+        <span class="cs-section-label">Impact &amp; Implementation</span>
+
+        <p class="cs-body">Strong usability test results led to the redesign being implemented on the client's live website. Since launch, the experience has continued to evolve through ongoing iterations informed by business priorities and user data.</p>
+
+        <h2 class="cs-heading-static" style="margin-top: var(--space-block);">What our redesign achieved:</h2>
+
+        <div class="feature-card-grid" style="gap: 24px;">
+
+          <div class="feature-card">
+            <i class="ph ph-trend-up" style="font-size: 42px; flex-shrink: 0;"></i>
+            <p class="feature-card__heading">50% WAU increase</p>
+            <p class="feature-card__body">Post-implementation analytics showed weekly active users grew from ~110 to 165 within 3 weeks of launch.</p>
+          </div>
+
+          <div class="feature-card">
+            <i class="ph ph-star" style="font-size: 42px; flex-shrink: 0;"></i>
+            <p class="feature-card__heading">4.8/5 ease of use</p>
+            <p class="feature-card__body">Prototype testing showed high usability and strong likelihood of use (4.6/5 intent-to-use).</p>
+          </div>
+
+          <div class="feature-card">
+            <i class="ph ph-rocket-launch" style="font-size: 42px; flex-shrink: 0;"></i>
+            <p class="feature-card__heading">Shipped in 2 weeks</p>
+            <p class="feature-card__body">The redesign was implemented on the live website within 2 weeks of delivery.</p>
+          </div>
+
+        </div>
+
+        <h2 class="cs-heading-static" style="margin-top: var(--space-block);">What the founder said:</h2>
+
+        <p class="cs-body" style="font-style: italic;">"Richa worked with me to improve Layerpath's UX/UI. She jumped right in, understood the challenges and the audience, and her user research was top-notch. Her leadership and teamwork kept us all motivated and focused. She's got a knack for asking the right questions, which helped us refine the user experience and spot potential issues early on."</p>
+
+        <h2 class="cs-heading-static" style="margin-top: var(--space-block);">Learnings and Reflections:</h2>
+
+        <ul class="cs-list">
+          <li>User research surfaced privacy concerns as a key barrier to extension adoption. I presented direct user quotes to the founder, which shifted priorities and led to privacy transparency being included in the MVP scope.</li>
+          <li>Leading a team under tight deadlines required making decisions with incomplete information. Working closely with the founder, Vinay, I prioritized key insights and moved quickly from research into decision-making and iteration, leading the project end-to-end across strategy, research, ideation, and final delivery.</li>
+          <li>It was tempting to redesign the entire experience upfront. However, user research pointed to a simpler solution: allowing users to understand and access the Chrome extension before committing. We implemented this through a clear call to action and a pre-signup download option in the flow.</li>
+        </ul>
+      </section>
+
+  </main><!-- /cs-layout__content -->
+</div><!-- /cs-layout -->
+
+<!-- ── Footer — identical to homepage ────────── -->
+<footer class="scroll-reveal">
+  <div class="footer__left">
+    <h2 class="footer__heading">
+      <span class="sans">Made with </span><span class="serif">care.</span>
+    </h2>
+    <div class="footer__socials">
+      <a href="#" target="_blank">R&eacute;sum&eacute;</a>
+      <span class="footer__sep">&middot;</span>
+      <a href="https://www.linkedin.com/in/richa-kandoi/" target="_blank">LinkedIn</a>
+      <span class="footer__sep">&middot;</span>
+      <a href="javascript:void(0)" id="copyEmailLink">Email</a>
+    </div>
+    <p class="footer__copy">Website &copy; 2026 Richa Kandoi</p>
+  </div>
+
+  <div class="footer__right">
+    <ul class="footer__nav">
+      <li class="footer__col">
+        <a href="index.html#work" class="footer__link--main">Work</a>
+        <a href="index.html#work" class="footer__link--sub icon-link"><span>Admin Portal Design</span></a>
+        <a href="index.html#work" class="footer__link--sub">Layerpath Website &amp; Web-app Redesign</a>
+        <a href="index.html#work" class="footer__link--sub icon-link"><span>Web-app Navigation Redesign</span></a>
+        <a href="index.html#about" class="footer__link--main" style="margin-top: 24px;">About</a>
+      </li>
+    </ul>
+  </div>
+</footer>
+
+</div><!-- /page -->
+
+<script src="main.js"></script>
+<script>
+/* ─── SCROLL POSITION PRESERVATION (refresh only) ── */
+(function () {
+  if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'manual';
+  }
+  var key = 'layerpath-scroll';
+  var navType = (performance.getEntriesByType('navigation')[0] || {}).type;
+  /* Only restore position on page refresh — not on navigation from another page */
+  if (navType === 'reload') {
+    var saved = sessionStorage.getItem(key);
+    if (saved !== null) {
+      window.scrollTo(0, parseInt(saved, 10));
+    }
+  }
+  sessionStorage.removeItem(key);
+  window.addEventListener('beforeunload', function () {
+    sessionStorage.setItem(key, String(window.scrollY));
+  });
+})();
+
+/* ─── ACCORDION ─────────────────────────────────── */
+(function () {
+  document.addEventListener('click', function (e) {
+    var accordion = e.target.closest('.cs-accordion');
+    if (!accordion) return;
+    var isOpen = accordion.classList.contains('is-open');
+    accordion.classList.toggle('is-open');
+    var btn = accordion.querySelector('.cs-accordion__trigger');
+    if (btn) btn.setAttribute('aria-expanded', String(!isOpen));
+
+    accordion.classList.add('is-marching');
+    var bodyWrap = accordion.querySelector('.cs-accordion__body-wrap');
+
+    if (isOpen) {
+      /* Closing: only scroll if the accordion trigger has been scrolled above
+         the nav (user is viewing content inside the accordion body). If the
+         trigger is already visible in the viewport, close in place — no scroll. */
+      var navEl     = document.querySelector('.nav-global');
+      var navH      = navEl ? navEl.offsetHeight : 64;
+      var triggerTop = accordion.getBoundingClientRect().top;
+      if (triggerTop < navH) {
+        var accordionDocTop = triggerTop + window.scrollY;
+        window.scrollTo(0, Math.max(0, accordionDocTop - navH - 24));
+      }
+    }
+
+    bodyWrap.addEventListener('transitionend', function stop() {
+      accordion.classList.remove('is-marching');
+      bodyWrap.removeEventListener('transitionend', stop);
+    });
+  });
+})();
+
+/* ─── TL;DR LINK — scroll heading to mid-viewport ── */
+(function () {
+  var tldrLink = document.querySelector('.cs-sidebar__link[href="#tldr"]');
+  var heading  = document.getElementById('cs-page-heading');
+  if (!tldrLink || !heading) return;
+  tldrLink.addEventListener('click', function (e) {
+    e.preventDefault();
+    heading.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  });
+})();
+
+/* ─── SIDEBAR ACTIVE STATE ──────────────────────── */
+(function () {
+  var links = Array.from(document.querySelectorAll('.cs-sidebar__link'));
+  // Find exactly the sections that the links point to
+  var sections = links.map(function(link) {
+    return document.querySelector(link.getAttribute('href'));
+  }).filter(Boolean);
+
+  if (!links.length || !sections.length) return;
+
+  function onScroll() {
+    var scrollPos = window.scrollY + (window.innerHeight * 0.4); // Detect at 40% from top
+    var currentId = '';
+
+    sections.forEach(function (sec) {
+      if (scrollPos >= sec.offsetTop) {
+        currentId = sec.getAttribute('id');
+      }
+    });
+
+    if (currentId) {
+      links.forEach(function (link) {
+        if (link.getAttribute('href') === '#' + currentId) {
+          link.classList.add('is-active');
+        } else {
+          link.classList.remove('is-active');
+        }
+      });
+    }
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll, { passive: true });
+  onScroll(); // Fire on load
+})();
+
+</script>
+
+</body>
+</html>

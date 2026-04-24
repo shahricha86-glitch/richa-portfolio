@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Component Library — Abulé Case Study</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;1,400&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Source Sans 3', system-ui, sans-serif;
+      background: #F7F7F4;
+      color: #15113A;
+      padding: 64px 48px;
+    }
+
+    /* ── Page sections ──────────────────────────── */
+    .section {
+      margin-bottom: 80px;
+    }
+    .section-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #999;
+      margin-bottom: 32px;
+    }
+
+    /* ═══════════════════════════════════════════
+       COMPONENT 1 — role-hierarchy
+    ═══════════════════════════════════════════ */
+    .role-hierarchy {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow-x: auto;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      width: 100%;
+      padding: 8px 0;
+    }
+    .role-hierarchy::-webkit-scrollbar { display: none; }
+
+    .role-hierarchy__track {
+      display: flex;
+      align-items: center;
+      flex-wrap: nowrap;
+      padding: 0 4px;
+    }
+
+    .role-hierarchy__item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex-shrink: 0;
+    }
+
+    .role-hierarchy__circle {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: #E8E6F5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .role-hierarchy__icon {
+      width: 28px;
+      height: 28px;
+      object-fit: contain;
+      display: block;
+      filter: brightness(0) saturate(100%) invert(13%) sepia(40%)
+              saturate(900%) hue-rotate(210deg) brightness(80%);
+    }
+
+    /* Modifier: shown when no PNG is supplied */
+    .role-hierarchy__icon--placeholder {
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      background: #C5C0E8;
+    }
+
+    .role-hierarchy__label {
+      margin-top: 10px;
+      font-size: 13px;
+      line-height: 1.35;
+      color: #15113A;
+      text-align: center;
+      font-weight: 400;
+      max-width: 72px;
+      word-break: break-word;
+    }
+
+    .role-hierarchy__arrow {
+      flex-shrink: 0;
+      margin-left: 16px;
+      margin-right: 16px;
+      margin-bottom: 34px;
+      font-size: 18px;
+      color: #B3B3B3;
+      line-height: 1;
+      user-select: none;
+    }
+
+    /* ═══════════════════════════════════════════
+       COMPONENT 2 — feature-card
+    ═══════════════════════════════════════════ */
+    .feature-card {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      max-width: 360px;
+    }
+
+    .feature-card__circle {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: #E8E6F5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .feature-card__icon {
+      width: 20px;
+      height: 20px;
+      object-fit: contain;
+      display: block;
+      filter: brightness(0) saturate(100%) invert(13%) sepia(40%)
+              saturate(900%) hue-rotate(210deg) brightness(80%);
+    }
+
+    /* Modifier: shown when no PNG is supplied */
+    .feature-card__icon--placeholder {
+      width: 20px;
+      height: 20px;
+      border-radius: 4px;
+      background: #C5C0E8;
+    }
+
+    .feature-card__heading {
+      margin-top: 24px;
+      font-size: 17px;
+      font-weight: 600;
+      line-height: 1.3;
+      color: #15113A;
+    }
+
+    .feature-card__body {
+      margin-top: 12px;
+      font-size: 15px;
+      font-weight: 400;
+      line-height: 1.6;
+      color: #555555;
+    }
+
+    .feature-card-grid {
+      display: flex;
+      gap: 48px;
+      flex-wrap: wrap;
+    }
+
+    /* ═══════════════════════════════════════════
+       COMPONENT 3 — accordion
+       Border: 2px dashed (7px dash / 6px gap) via gradient
+       Heading: Merriweather 18px / 400
+       Trigger padding: 36px top/bottom, 20px left/right
+       Body padding: 0 top, 20px sides, 36px bottom
+       Open/close: grid-template-rows 0fr → 1fr
+       Chevron: rotates 180° on --open modifier
+       Marching ants: loops on .accordion--marching during transition
+    ═══════════════════════════════════════════ */
+    .accordion-demo {
+      max-width: 640px;
+    }
+
+    .accordion {
+      /* 2px dashed border on all 4 sides — matches --rule-h / --rule-v */
+      background-image:
+        repeating-linear-gradient(90deg,  #E6E6E6 0, #E6E6E6 7px, transparent 7px, transparent 13px),
+        repeating-linear-gradient(90deg,  #E6E6E6 0, #E6E6E6 7px, transparent 7px, transparent 13px),
+        repeating-linear-gradient(180deg, #E6E6E6 0, #E6E6E6 7px, transparent 7px, transparent 13px),
+        repeating-linear-gradient(180deg, #E6E6E6 0, #E6E6E6 7px, transparent 7px, transparent 13px);
+      background-size:     100% 2px, 100% 2px, 2px 100%, 2px 100%;
+      background-position: 0 0,      0 100%,   0 0,       100% 0;
+      background-repeat:   repeat-x,  repeat-x, repeat-y,  repeat-y;
+      margin-bottom: 20px;
+    }
+    .accordion:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Marching ants — loops while .accordion--marching is present */
+    @keyframes accordion-march {
+      from { background-position: 0 0,      0 100%,    0 0,       100% 0; }
+      to   { background-position: 13px 0,  -13px 100%, 0 -13px,   100% 13px; }
+    }
+    .accordion--marching {
+      animation: accordion-march 0.4s linear infinite;
+    }
+
+    .accordion__trigger {
+      width: 100%;
+      background: none;
+      border: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      padding: 36px 20px;
+      font-family: 'Merriweather', Georgia, serif;
+      font-size: 18px;
+      font-weight: 400;
+      line-height: 1.3;
+      color: #15113A;
+      text-align: left;
+      cursor: pointer;
+    }
+
+    .accordion__chevron {
+      font-size: 20px;
+      color: #6B6B6B;
+      flex-shrink: 0;
+      transition: transform 300ms cubic-bezier(.25, 1, .5, 1);
+    }
+    .accordion--open .accordion__chevron {
+      transform: rotate(180deg);
+    }
+
+    /* Smooth open/close via grid-template-rows */
+    .accordion__body-wrap {
+      display: grid;
+      grid-template-rows: 0fr;
+      transition: grid-template-rows 0.38s cubic-bezier(.25, 1, .5, 1);
+    }
+    .accordion--open .accordion__body-wrap {
+      grid-template-rows: 1fr;
+    }
+    .accordion__body {
+      overflow: hidden;
+      min-height: 0;
+    }
+    .accordion__inner {
+      padding: 0 20px 36px;
+      font-family: 'Source Sans 3', system-ui, sans-serif;
+      font-size: 15px;
+      font-weight: 400;
+      line-height: 1.7;
+      color: #7e7e7e;
+    }
+    .accordion__inner > *:last-child { margin-bottom: 0; }
+
+    /* ═══════════════════════════════════════════
+       COMPONENT 4 — callout box
+       Borders: top/bottom/right 2px #EEEDE6 solid
+                left 3px #F7D102 solid (yellow accent)
+       Padding: 30px all sides
+       Text: Source Sans italic 22px / navy
+       Modifiers:
+         .callout--accent-4  → left border 4px
+    ═══════════════════════════════════════════ */
+    .callout {
+      background: #F7F7F4;
+      border-top:    2px solid #EEEDE6;
+      border-bottom: 2px solid #EEEDE6;
+      border-right:  2px solid #EEEDE6;
+      border-left:   3px solid #F7D102;
+      padding: 30px;
+    }
+    .callout--accent-4 { border-left-width: 4px; }
+
+    .callout__text {
+      font-family: 'Source Sans 3', system-ui, sans-serif;
+      font-style: italic;
+      font-size: 22px;
+      font-weight: 400;
+      line-height: 1.65;
+      color: #15113A;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════
+       Component 1 — role-hierarchy
+  ═══════════════════════════════════════════ -->
+  <div class="section">
+    <p class="section-label">Component 1 — role-hierarchy</p>
+
+    <div class="role-hierarchy">
+      <div class="role-hierarchy__track" id="role-track">
+        <!-- Rendered by JS below -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       Component 2 — feature-card (3-up grid)
+  ═══════════════════════════════════════════ -->
+  <div class="section">
+    <p class="section-label">Component 2 — feature-card</p>
+
+    <div class="feature-card-grid" id="feature-grid">
+      <!-- Rendered by JS below -->
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       Component 3 — accordion
+  ═══════════════════════════════════════════ -->
+  <div class="section">
+    <p class="section-label">Component 3 — accordion</p>
+
+    <div class="accordion-demo">
+
+      <!-- Item 1 — open by default -->
+      <div class="accordion accordion--open">
+        <button class="accordion__trigger" aria-expanded="true">
+          What's Abulé?
+          <i class="ph ph-caret-down accordion__chevron"></i>
+        </button>
+        <div class="accordion__body-wrap">
+          <div class="accordion__body">
+            <div class="accordion__inner">
+              Body placeholder — replace with real copy.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Item 2 — closed -->
+      <div class="accordion">
+        <button class="accordion__trigger" aria-expanded="false">
+          Key Constraints
+          <i class="ph ph-caret-down accordion__chevron"></i>
+        </button>
+        <div class="accordion__body-wrap">
+          <div class="accordion__body">
+            <div class="accordion__inner">
+              Body placeholder — replace with real copy.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Item 3 — closed -->
+      <div class="accordion">
+        <button class="accordion__trigger" aria-expanded="false">
+          Phased Roll-out Strategy
+          <i class="ph ph-caret-down accordion__chevron"></i>
+        </button>
+        <div class="accordion__body-wrap">
+          <div class="accordion__body">
+            <div class="accordion__inner">
+              Body placeholder — replace with real copy.
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       Component 4 — callout box
+  ═══════════════════════════════════════════ -->
+  <div class="section">
+    <p class="section-label">Component 4 — callout box</p>
+
+    <div style="max-width: 640px; display: flex; flex-direction: column; gap: 24px;">
+
+      <!-- Default: 3px yellow left accent -->
+      <div class="callout">
+        <p class="callout__text">Callout text goes here. This is the default variant with a 3px yellow left accent and muted borders on the other three sides.</p>
+      </div>
+
+      <!-- Modifier: 4px yellow left accent -->
+      <div class="callout callout--accent-4">
+        <p class="callout__text">This variant uses a 4px yellow left accent — add <code>.callout--accent-4</code> to the root element.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/@phosphor-icons/web" defer></script>
+  <script>
+    /* ─── role-hierarchy ─────────────────────────
+       roles: array of { label, iconPng? }
+    ─────────────────────────────────────────── */
+    function renderRoleHierarchy(containerId, roles) {
+      var track = document.getElementById(containerId);
+      if (!track) return;
+
+      roles.forEach(function (role, i) {
+        if (i > 0) {
+          var arrow = document.createElement('span');
+          arrow.className = 'role-hierarchy__arrow';
+          arrow.setAttribute('aria-hidden', 'true');
+          arrow.textContent = '→';
+          track.appendChild(arrow);
+        }
+
+        var item = document.createElement('div');
+        item.className = 'role-hierarchy__item';
+
+        var circle = document.createElement('div');
+        circle.className = 'role-hierarchy__circle';
+
+        if (role.iconPng) {
+          var img = document.createElement('img');
+          img.className = 'role-hierarchy__icon';
+          img.src = role.iconPng;
+          img.alt = role.label;
+          circle.appendChild(img);
+        } else {
+          var ph = document.createElement('div');
+          ph.className = 'role-hierarchy__icon--placeholder';
+          circle.appendChild(ph);
+        }
+
+        var label = document.createElement('span');
+        label.className = 'role-hierarchy__label';
+        label.textContent = role.label;
+
+        item.appendChild(circle);
+        item.appendChild(label);
+        track.appendChild(item);
+      });
+    }
+
+    /* ─── feature-card ───────────────────────────
+       card: { iconPng?, heading, body }
+    ─────────────────────────────────────────── */
+    function renderFeatureCard(containerId, cards) {
+      var grid = document.getElementById(containerId);
+      if (!grid) return;
+
+      cards.forEach(function (card) {
+        var root = document.createElement('div');
+        root.className = 'feature-card';
+
+        var circle = document.createElement('div');
+        circle.className = 'feature-card__circle';
+
+        if (card.iconPng) {
+          var img = document.createElement('img');
+          img.className = 'feature-card__icon';
+          img.src = card.iconPng;
+          img.alt = '';
+          img.setAttribute('aria-hidden', 'true');
+          circle.appendChild(img);
+        } else {
+          var ph = document.createElement('div');
+          ph.className = 'feature-card__icon--placeholder';
+          circle.appendChild(ph);
+        }
+
+        var heading = document.createElement('p');
+        heading.className = 'feature-card__heading';
+        heading.textContent = card.heading;
+
+        var body = document.createElement('p');
+        body.className = 'feature-card__body';
+        body.textContent = card.body;
+
+        root.appendChild(circle);
+        root.appendChild(heading);
+        root.appendChild(body);
+        grid.appendChild(root);
+      });
+    }
+
+    /* ─── Data ───────────────────────────────── */
+    renderRoleHierarchy('role-track', [
+      { label: 'Owner' },
+      { label: 'Super Admin' },
+      { label: 'Admin' },
+      { label: 'Community Mod.' },
+      { label: 'Group Admin' },
+      { label: 'Group Mod.' },
+    ]);
+
+    renderFeatureCard('feature-grid', [
+      {
+        heading: 'Self-service setup',
+        body: 'Community creators can handle billing and manage admins independently, eliminating support bottlenecks as the platform scales.',
+      },
+      {
+        heading: '25–30% dev time saved',
+        body: 'Placing the Core Team in the Community Portal and reusing web-app patterns gave engineering 3–4 weeks to focus on member-facing features.',
+      },
+      {
+        heading: 'Scalable design',
+        body: 'A six-level role system supports everything from solo owners to large admin teams without complex structural changes.',
+      },
+    ]);
+
+    /* ─── accordion ──────────────────────────────
+       Click anywhere on .accordion to toggle.
+       Marching ants (.accordion--marching) run for
+       the exact duration of the transition, then stop.
+    ─────────────────────────────────────────── */
+    document.addEventListener('click', function (e) {
+      var accordion = e.target.closest('.accordion');
+      if (!accordion) return;
+      var isOpen  = accordion.classList.contains('accordion--open');
+      accordion.classList.toggle('accordion--open');
+      var trigger = accordion.querySelector('.accordion__trigger');
+      if (trigger) trigger.setAttribute('aria-expanded', String(!isOpen));
+
+      /* Marching ants — start on click, stop on transitionend */
+      accordion.classList.add('accordion--marching');
+      var bodyWrap = accordion.querySelector('.accordion__body-wrap');
+      bodyWrap.addEventListener('transitionend', function stop() {
+        accordion.classList.remove('accordion--marching');
+        bodyWrap.removeEventListener('transitionend', stop);
+      });
+    });
+  </script>
+
+</body>
+</html>

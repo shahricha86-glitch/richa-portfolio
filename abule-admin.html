@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Abulé Admin Portal — Richa Kandoi</title>
+  <link rel="icon" type="image/png" href="assets/favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Source+Sans+3:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/@phosphor-icons/web" defer></script>
+  <link rel="stylesheet" href="styles.css" />
+
+</head>
+<body>
+
+<!-- ── Cursor ───────────────────────────────── -->
+<div id="cursor">
+  <span class="cursor__text">View Case Study <i class="ph ph-arrow-up-right cursor__icon"></i></span>
+</div>
+
+<!-- ── Page container (matches homepage) ────── -->
+<div class="page">
+
+<!-- ── Edge lines ────────────────────────────── -->
+<div class="edge edge--left"></div>
+<div class="edge edge--right"></div>
+
+<!-- ── Nav — identical to homepage ──────────── -->
+<nav class="nav-global">
+  <div class="nav__inner">
+    <a href="index.html" class="nav__brand">Richa Kandoi</a>
+    <ul class="nav__links">
+      <li><a href="index.html#work">Work</a></li>
+      <li><a href="index.html#about">About</a></li>
+    </ul>
+    <a href="mailto:richashah.kandoi@gmail.com" class="nav__cta">Let's Talk</a>
+  </div>
+</nav>
+
+<!-- ── Hero image (within gutters, bg #EEEDE6) ─ -->
+<div class="cs-hero-wrap">
+  <div class="cs-hero">
+    <img src="assets/abule-admin/hero-section-1.png" alt="Abulé Admin Portal Hero">
+  </div>
+</div>
+
+<!-- ── Page heading (page bg, left-aligned) ──── -->
+<div class="cs-heading-wrap" id="cs-page-heading">
+  <h1 class="cs-page-title">
+    Role-based Admin Portal Design for <em class="cs-page-title__accent">Abulé</em>
+  </h1>
+</div>
+
+<!-- ── TL;DR ──────────────────────────────────────── -->
+<div id="tldr" class="cs-tldr-section scroll-reveal">
+  <div class="cs-tldr-grid">
+    <!-- Role & Focus spans across the top two rows of the right column -->
+    <div class="cs-tldr__item" data-tldr="role" style="grid-column: 1; grid-row: 1 / span 2;">
+      <span class="cs-tldr__label">Role &amp; Focus</span>
+      <div class="cs-tldr__value">
+        <ul>
+          <li>0-to-1 Product Strategy &amp; Design</li>
+          <li>Platform Architecture</li>
+          <li>Information Architecture</li>
+          <li>Design System Expansion</li>
+          <li>MVP Roadmap &amp; Delivery</li>
+          <li>Phased Roll-out Strategy</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Problem column 2, row 1 -->
+    <div class="cs-tldr__item" data-tldr="problem" style="grid-column: 2; grid-row: 1;">
+      <span class="cs-tldr__label">Problem</span>
+      <div class="cs-tldr__value">
+        <ul>
+          <li>Abulé's web app was ready for launch but operational control and oversight was missing across three user groups.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Solution column 2, row 2 -->
+    <div class="cs-tldr__item" data-tldr="solution" style="grid-column: 2; grid-row: 2;">
+      <span class="cs-tldr__label">Solution &amp; Impact</span>
+      <div class="cs-tldr__value">
+        <ul>
+          <li>I architected Abulé's dual-portal admin ecosystem and designed the Community Admin Portal, a role-based system that enables community creators to manage billing, permissions, and operations independently.</li>
+          <li>Architectural decision saved ~25% engineering effort by avoiding duplicate systems.</li>
+          <li>Delivered a 6-level role system with 65+ screens, that supports everyone from solo owners to large admin teams without complex structural changes.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Timeline column 1, row 3 -->
+    <div class="cs-tldr__item" data-tldr="timeline" style="grid-column: 1; grid-row: 3;">
+      <span class="cs-tldr__label">Timeline</span>
+      <span class="cs-tldr__value">2 months, Launch-ready</span>
+    </div>
+
+    <!-- Tools column 2, row 3 -->
+    <div class="cs-tldr__item" data-tldr="tools" style="grid-column: 2; grid-row: 3;">
+      <div class="cs-tldr-row" style="display: flex; gap: 80px;">
+        <div class="cs-tldr__item">
+          <span class="cs-tldr__label">Tools</span>
+          <span class="cs-tldr__value">Figma · Figjam · Linear · Notion · MS Teams</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── Dashed divider (full-bleed) ────────────────── -->
+<div class="cs-divider-section">
+  <div class="cs-divider"></div>
+</div>
+
+<!-- ── Body: sidebar + content ──────────────────── -->
+<div class="cs-layout">
+
+  <aside class="cs-layout__sidebar">
+    <nav aria-label="Case study sections">
+      <a href="#tldr"              class="cs-sidebar__link"><span>- TL;DR</span></a>
+      <a href="#context"           class="cs-sidebar__link"><span>- Context</span></a>
+      <a href="#platform-arch"     class="cs-sidebar__link"><span>- Defining Platform Architecture</span></a>
+      <a href="#building-ia"       class="cs-sidebar__link"><span>- Building The IA</span></a>
+      <a href="#what-i-designed"   class="cs-sidebar__link"><span>- What I Designed</span></a>
+      <a href="#outcome"           class="cs-sidebar__link"><span>- Outcome</span></a>
+    </nav>
+  </aside>
+
+  <main class="cs-layout__content">
+
+
+      <!-- ════ 01 — Context ════════════════════════ -->
+      <section id="context" class="cs-section scroll-reveal">
+        <span class="cs-section-label">Context</span>
+
+        <!-- Static Item 1 -->
+        <div style="margin-bottom: var(--space-block);">
+          <h2 class="cs-heading-static">What's Abulé?</h2>
+          <p class="cs-body">Abulé is a seed-stage platform that helps people find, manage, and provide care within communities. Schools, companies, or nonprofits can use it to create communities where members can organize and manage support.</p>
+        </div>
+
+        <!-- Static Item 2 -->
+        <div style="margin-bottom: var(--space-block);">
+          <h2 class="cs-heading-static">Key Constraints</h2>
+          <div class="cs-tldr__value" style="margin-bottom: var(--space-block);">
+            <ul>
+              <li>2-month timeline to deliver a functional foundation</li>
+              <li>Limited engineering bandwidth due to existing web-app delays</li>
+              <li>Pre-launch product with no direct user access</li>
+            </ul>
+          </div>
+          <img src="assets/abule-admin/context-1.png" alt="Contextual Research/Process" style="width: 85%; max-width: 85%; height: auto; display: block; margin: 88px auto;">
+        </div>
+
+        <div class="cs-callout">
+          <p class="cs-callout__text">Three user groups with overlapping tasks. Without an admin portal, communities would be unmanageable, billing would be manual. Internal teams would have no visibility. Fragmented workflows would block revenue & scale. We needed two things to launch: Settings (plans, billing, configuration) and Admin Management.</p>
+        </div>
+      </section>
+
+      <!-- ════ 02 — Defining Platform Architecture ═ -->
+      <section id="platform-arch" class="cs-section scroll-reveal">
+        <span class="cs-section-label">Defining Platform Architecture</span>
+
+        <p class="cs-body">The PRD established that we needed two separate admin environments: <span style="color: #315EEA; font-weight: 500;">Community Portal</span> for community organizers to manage their own communities. <span style="color: #F4753F; font-weight: 500;">Company Portal</span> for Abulé's internal teams to manage platform-wide operations.</p>
+
+        <div class="cs-accordion">
+          <button class="cs-accordion__trigger" aria-expanded="false">
+            But the question was — Where does the Core Community Team fit?
+            <i class="ph ph-caret-down cs-accordion__chevron"></i>
+          </button>
+          <div class="cs-accordion__body-wrap">
+            <div class="cs-accordion__body">
+              <div class="cs-accordion__inner">
+                <p class="cs-body">The founder and lead engineer thought the Core Community Team should be in the Company Portal since they're Abulé employees. But when I mapped their daily tasks, it was clear they worked like community managers, creating events, moderating members, and managing groups. I built a side-by-side comparison of both options and brought it to the team.</p>
+                <div style="background: #EEEDE6; display: flex; justify-content: center; align-items: center; margin: var(--space-block) 0; padding: var(--space-block) 0;">
+                  <img src="assets/abule-admin/options-comparison-table.png" alt="Options comparison table" style="width: 90%; height: auto; display: block;">
+                </div>
+                <p class="cs-body">The engineering lead's only concern was that future internal tools might make Community Portal's codebase complex. But the only real difference we found was hiding the billing tab for Abulé's own community, which was easy to handle. So we moved ahead with the Community Portal.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cs-callout">
+          <p class="cs-callout__text">Seeing the side-by-side comparison helped the engineering lead realize that by changing where the Core Community Team logged in, we could avoid duplicate auth, role management, and data access work, saving ~25–30% of engineering effort (about 3–4 weeks).</p>
+        </div>
+      </section>
+
+      <!-- ════ 03 — Building The IA ════════════════ -->
+      <section id="building-ia" class="cs-section scroll-reveal">
+        <span class="cs-section-label">Building The IA</span>
+
+        <!-- Roles accordion — contains the six roles row -->
+        <div class="cs-accordion">
+          <button class="cs-accordion__trigger" aria-expanded="false">
+            Defining The Roles
+            <i class="ph ph-caret-down cs-accordion__chevron"></i>
+          </button>
+          <div class="cs-accordion__body-wrap">
+            <div class="cs-accordion__body">
+              <div class="cs-accordion__inner">
+                <p class="cs-body">With the architecture settled, I needed to define who could do what inside the <span style="color: #315EEA; font-weight: 500;">Community Portal</span>. Through the founder's sales conversations with potential community organizers, a clear picture emerged of the access levels needed.</p>
+                <!-- Six roles row -->
+                <div class="cs-roles-row">
+                  <div class="cs-roles-row__item">
+                    <img src="assets/abule-admin/roles-row-owner.png" alt="Owner" class="cs-roles-row__img">
+                    <span class="cs-roles-row__name">Owner</span>
+                  </div>
+                  <span class="cs-roles-row__connector" aria-hidden="true"></span>
+                  <div class="cs-roles-row__item">
+                    <img src="assets/abule-admin/roles-row-superadmin.png" alt="Super Admin" class="cs-roles-row__img">
+                    <span class="cs-roles-row__name">Super Admin</span>
+                  </div>
+                  <span class="cs-roles-row__connector" aria-hidden="true"></span>
+                  <div class="cs-roles-row__item">
+                    <img src="assets/abule-admin/roles-row-admin.png" alt="Admin" class="cs-roles-row__img">
+                    <span class="cs-roles-row__name">Admin</span>
+                  </div>
+                  <span class="cs-roles-row__connector" aria-hidden="true"></span>
+                  <div class="cs-roles-row__item">
+                    <img src="assets/abule-admin/roles-row-comm-mod.png" alt="Community Mod." class="cs-roles-row__img">
+                    <span class="cs-roles-row__name">Community Mod.</span>
+                  </div>
+                  <span class="cs-roles-row__connector" aria-hidden="true"></span>
+                  <div class="cs-roles-row__item">
+                    <img src="assets/abule-admin/roles-row-group-admin.png" alt="Group Admin" class="cs-roles-row__img">
+                    <span class="cs-roles-row__name">Group Admin</span>
+                  </div>
+                  <span class="cs-roles-row__connector" aria-hidden="true"></span>
+                  <div class="cs-roles-row__item">
+                    <img src="assets/abule-admin/roles-row-group-mod.png" alt="Group Mod." class="cs-roles-row__img">
+                    <span class="cs-roles-row__name">Group Mod.</span>
+                  </div>
+                </div>
+                <p class="cs-subhead" style="margin-top: var(--space-block);">Three governance principles:</p>
+                <p class="cs-body"><strong>Inheritance:</strong> higher roles automatically include all lower role permissions</p>
+                <p class="cs-body"><strong>Scope-based access:</strong> community-wide vs. group-specific permissions are distinct</p>
+                <p class="cs-body"><strong>At or below level:</strong> admins can only manage roles beneath their own</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cs-accordion">
+          <button class="cs-accordion__trigger" aria-expanded="false">
+            Structuring The IA
+            <i class="ph ph-caret-down cs-accordion__chevron"></i>
+          </button>
+          <div class="cs-accordion__body-wrap">
+            <div class="cs-accordion__body">
+              <div class="cs-accordion__inner">
+                <p class="cs-body">Early research showed admins spent most of their time on active community management, with settings and backend tasks accessed occasionally. I structured the portal in two primary areas in the IA — management tasks and backend tasks. These 2 areas divided in 10 sections with role-based access built in from day one.</p>
+                <img src="assets/abule-admin/structuring-ia-1.png" alt="Structuring the IA" style="width: 80%; height: auto; display: block; margin: var(--space-block) auto;">
+                <div style="background: #EEEDE6; display: flex; justify-content: center; align-items: center; margin: var(--space-block) 0 0; padding: var(--space-block) 0;">
+                  <img src="assets/abule-admin/structuring-ia-2.png" alt="Structuring the IA" style="width: 80%; height: auto; display: block;">
+                </div>
+                <span class="cs-caption">All dashed items were next-launch features. Manage Admins and Settings (solid outline) were Phase-1 priorities.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cs-accordion">
+          <button class="cs-accordion__trigger" aria-expanded="false">
+            Phased Roll-out Strategy
+            <i class="ph ph-caret-down cs-accordion__chevron"></i>
+          </button>
+          <div class="cs-accordion__body-wrap">
+            <div class="cs-accordion__body">
+              <div class="cs-accordion__inner">
+                <p class="cs-body">I aligned the founder and the engineering lead on this structure. Their reaction was immediate:</p>
+                <p class="cs-subhead" style="margin-top: 24px;">"We can't build all of this in &lt;2 months!"</p>
+                <img src="assets/abule-admin/phased-roll-out-1.png" alt="Phased roll-out strategy" style="width: 100%; height: auto; display: block; margin: var(--space-block) 0;">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cs-callout">
+          <p class="cs-callout__text">Designing all 10 sections with 6 role levels was the ideal solution but building it end-to-end would have taken far longer than our timeline allowed. So, we agreed to design the full structure upfront but ship it in phases.</p>
+        </div>
+      </section>
+
+      <!-- ════ 04 — What I Designed ════════════════ -->
+      <section id="what-i-designed" class="cs-section scroll-reveal">
+        <span class="cs-section-label">What I Designed</span>
+
+        <div class="cs-accordion">
+          <button class="cs-accordion__trigger" aria-expanded="false">
+            Role-Based Access
+            <i class="ph ph-caret-down cs-accordion__chevron"></i>
+          </button>
+          <div class="cs-accordion__body-wrap">
+            <div class="cs-accordion__body">
+              <div class="cs-accordion__inner">
+                <p class="cs-body">Different admins needed different levels of control in Settings; Owners needed full access, while Admins should not see or touch billing or sensitive setup.</p>
+                <img src="assets/abule-admin/role-based-access-1.png" alt="Role-based access" style="width: 100%; height: auto; display: block; margin: var(--space-block) 0;">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cs-accordion">
+          <button class="cs-accordion__trigger" aria-expanded="false">
+            Community Portal: Settings
+            <i class="ph ph-caret-down cs-accordion__chevron"></i>
+          </button>
+          <div class="cs-accordion__body-wrap">
+            <div class="cs-accordion__body">
+              <div class="cs-accordion__inner">
+                <p class="cs-body">I reused the same drawer pattern from the web-app, so the experience felt familiar and was quicker for engineering to build. Navigation in phase-1 with just Manage Admins and Settings. To support scalability and role-based access from day one, I structured Settings into three tabs:</p>
+                <img src="assets/abule-admin/settings-1.png" alt="Settings — three tabs" style="width: 100%; height: auto; display: block; margin: var(--space-block) 0 10px;">
+                <span class="cs-caption">Owners and Super Admins see all tabs</span>
+                <img src="assets/abule-admin/settings-2.png" alt="Settings — two tabs" style="width: 100%; height: auto; display: block; margin: var(--space-block) 0 10px;">
+                <span class="cs-caption">Admins and below only see two tabs: General and Privacy &amp; Security</span>
+                <div style="border-radius: 8px; overflow: hidden; margin: var(--space-block) 0 10px;">
+                  <video src="assets/abule-admin/settings-prototype.mov" controls muted playsinline style="width: 100%; display: block;"></video>
+                </div>
+                <span class="cs-caption">Prototype shows how an Owner uses the Phase 1 admin portal. Under Settings → General: update community info and Settings → Plans &amp; Billing: edit payment methods and upgrade plans.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cs-accordion">
+          <button class="cs-accordion__trigger" aria-expanded="false">
+            Community Portal: Admin Management
+            <i class="ph ph-caret-down cs-accordion__chevron"></i>
+          </button>
+          <div class="cs-accordion__body-wrap">
+            <div class="cs-accordion__body">
+              <div class="cs-accordion__inner">
+                <p class="cs-body" style="margin-bottom: 0;">Admins needed to understand roles without accidentally changing permissions while learning. Key design decisions:</p>
+                <ul class="cs-body" style="margin: 0; padding-left: 24px; list-style-type: disc;">
+                  <li style="margin: 0;">Allowed admins to have multiple roles so one person can manage the community broadly while owning specific groups, without duplicating accounts.</li>
+                  <li style="margin: 0;">To reduce mental load and prevent mistakes, I split Manage Admins into two tabs:
+                    <ol class="cs-body" style="margin: 0; padding-left: 20px; list-style-type: decimal;">
+                      <li style="margin: 0;"><strong>Admins:</strong> view all admins in the community, their roles and activity, take quick or bulk actions and add new admins.</li>
+                      <li style="margin: 0;"><strong>Roles &amp; Access:</strong> understand what each role can do and create custom roles (in paid tiers).</li>
+                    </ol>
+                  </li>
+                </ul>
+
+                <img src="assets/abule-admin/manage-admins-1.png" alt="Admin Management" style="width: 100%; height: auto; display: block; margin: var(--space-block) 0;">
+                <img src="assets/abule-admin/manage-admins-2.png" alt="Admin Management" style="width: 100%; height: auto; display: block; margin: 0 0 var(--space-block);">
+
+                <p class="cs-subhead">Admin role management with built-in guardrails:</p>
+
+                <ul class="cs-list cs-list--tight">
+                  <li>Roles are color-coded for quick recognition</li>
+                  <li>Action menus adapt by hierarchy. Admins can only edit or remove roles below their level.</li>
+                </ul>
+                <div style="height: var(--space-block);"></div>
+                <div style="border-radius: 8px; overflow: hidden; margin: 0 0 10px;">
+                  <video src="assets/abule-admin/edit-add-admin-prototype.mov" controls muted playsinline style="width: 100%; display: block;"></video>
+                </div>
+                <span class="cs-caption">In this flow, an admin promotes a group moderator to admin, reviews the added permissions step-by-step, then adds a new admin through a guided drawer that only shows eligible roles and members.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cs-accordion">
+          <button class="cs-accordion__trigger" aria-expanded="false">
+            Company Portal: Events Dashboard
+            <i class="ph ph-caret-down cs-accordion__chevron"></i>
+          </button>
+          <div class="cs-accordion__body-wrap">
+            <div class="cs-accordion__body">
+              <div class="cs-accordion__inner">
+                <p class="cs-body">As part of the platform architecture strategy, I designed the Company Portal's Events dashboard to establish UI patterns for the most data-intensive shared area. I designed these components to work for both aggregated (Company) and localized (Community) data, ensuring consistency while reducing future design and engineering effort.</p>
+                <p class="cs-subhead">Key patterns established here:</p>
+                <ul class="cs-list cs-list--tight" style="margin-top: 0;">
+                  <li>Overview tab for analytics, Events List tab for management.</li>
+                  <li>Click charts to drill into event details.</li>
+                </ul>
+                <img src="assets/abule-admin/events-dashboard-1.png" alt="Events Dashboard" style="width: 100%; height: auto; display: block; margin: var(--space-block) 0;">
+                <img src="assets/abule-admin/events-dashboard-2.png" alt="Events Dashboard" style="width: 100%; height: auto; display: block; margin: var(--space-block) 0 10px;">
+                <ul style="padding-left: 16px; margin-bottom: var(--space-block); font-family: var(--font-interface); font-style: italic; font-size: var(--cs-caption-size); color: var(--cs-body-color); list-style: disc;">
+                  <li style="margin-bottom: 4px;">Multi-layer filtering: community, date range, event type, status.</li>
+                  <li>Scalable table design (columns, sorting, actions).</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ════ 05 — Outcome ════════════════════════ -->
+      <section id="outcome" class="cs-section scroll-reveal">
+        <span class="cs-section-label">Outcome</span>
+
+        <p class="cs-body">Delivered in 2 months: 65+ screens across both portals, and full platform architecture. For the Community Portal, I delivered the IA across 6 hierarchical roles with a phased rollout plan, extended the design system and engineering handoff documentation.</p>
+
+        <h2 class="cs-heading-static" style="margin-top: var(--space-block);">What this unlocked:</h2>
+
+        <div class="feature-card-grid">
+
+          <div class="feature-card">
+            <img src="assets/abule-admin/outcome-self-service.png" alt="" aria-hidden="true" style="width: auto; height: 42px; display: block; object-fit: contain;">
+            <p class="feature-card__heading">Self-service setup</p>
+            <p class="feature-card__body">Community creators can handle billing and manage admins independently, eliminating support bottlenecks as the platform scales.</p>
+          </div>
+
+          <div class="feature-card">
+            <img src="assets/abule-admin/outcome-time-saved.png" alt="" aria-hidden="true" style="width: auto; height: 42px; display: block; object-fit: contain;">
+            <p class="feature-card__heading">25–30% dev time saved</p>
+            <p class="feature-card__body">Placing Core Team in Community Portal &amp; reusing web-app patterns gave engineering ~3–4 weeks to focus on member-facing features.</p>
+          </div>
+
+          <div class="feature-card">
+            <img src="assets/abule-admin/outcome-scalable-design.png" alt="" aria-hidden="true" style="width: auto; height: 42px; display: block; object-fit: contain;">
+            <p class="feature-card__heading">Scalable design</p>
+            <p class="feature-card__body">A six-level role system supports everything from solo owners to large admin teams without complex structural changes.</p>
+          </div>
+
+        </div>
+
+        <h2 class="cs-heading-static" style="margin-top: var(--space-block);">Learnings and Reflections:</h2>
+
+        <p class="cs-body"><strong>In 0→1 work, getting stakeholder alignment on the problem is harder than designing the solution.</strong> I spent the first weeks mapping user groups and architecture before touching UI, which did create urgency but helped me turn ambiguity into clarity.</p>
+        <p class="cs-body"><strong>Designing for launch while keeping things scalable was the hardest part.</strong> I built only what Phase 1 needed, but defined the full structure upfront so future features could be added without reworking the whole system.</p>
+        <p class="cs-body"><strong>Bringing engineering into conversations early saved time.</strong> Asking questions about feasibility upfront helped shape better, more realistic solutions, faster.</p>
+      </section>
+
+  </main><!-- /cs-layout__content -->
+</div><!-- /cs-layout -->
+
+<!-- ── Footer — identical to homepage ────────── -->
+<footer class="scroll-reveal">
+  <div class="footer__left">
+    <h2 class="footer__heading">
+      <span class="sans">Made with </span><span class="serif">care.</span>
+    </h2>
+    <div class="footer__socials">
+      <a href="#" target="_blank">R&eacute;sum&eacute;</a>
+      <span class="footer__sep">&middot;</span>
+      <a href="https://www.linkedin.com/in/richa-kandoi/" target="_blank">LinkedIn</a>
+      <span class="footer__sep">&middot;</span>
+      <a href="javascript:void(0)" id="copyEmailLink">Email</a>
+    </div>
+    <p class="footer__copy">Website &copy; 2026 Richa Kandoi</p>
+  </div>
+
+  <div class="footer__right">
+    <ul class="footer__nav">
+      <li class="footer__col">
+        <a href="index.html#work" class="footer__link--main">Work</a>
+        <a href="index.html#work" class="footer__link--sub icon-link"><span>Admin Portal Design</span></a>
+        <a href="index.html#work" class="footer__link--sub">Layerpath Website &amp; Web-app Redesign</a>
+        <a href="index.html#work" class="footer__link--sub icon-link"><span>Web-app Navigation Redesign</span></a>
+        <a href="index.html#about" class="footer__link--main" style="margin-top: 24px;">About</a>
+      </li>
+    </ul>
+  </div>
+</footer>
+
+</div><!-- /page -->
+
+<script src="main.js"></script>
+<script>
+/* ─── SCROLL POSITION PRESERVATION (refresh only) ── */
+(function () {
+  if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'manual';
+  }
+  var key = 'abule-admin-scroll';
+  var navType = (performance.getEntriesByType('navigation')[0] || {}).type;
+  /* Only restore position on page refresh — not on navigation from another page */
+  if (navType === 'reload') {
+    var saved = sessionStorage.getItem(key);
+    if (saved !== null) {
+      window.scrollTo(0, parseInt(saved, 10));
+    }
+  }
+  sessionStorage.removeItem(key);
+  window.addEventListener('beforeunload', function () {
+    sessionStorage.setItem(key, String(window.scrollY));
+  });
+})();
+
+/* ─── ACCORDION ─────────────────────────────────── */
+(function () {
+  document.addEventListener('click', function (e) {
+    var accordion = e.target.closest('.cs-accordion');
+    if (!accordion) return;
+    var isOpen = accordion.classList.contains('is-open');
+    accordion.classList.toggle('is-open');
+    var btn = accordion.querySelector('.cs-accordion__trigger');
+    if (btn) btn.setAttribute('aria-expanded', String(!isOpen));
+
+    accordion.classList.add('is-marching');
+    var bodyWrap = accordion.querySelector('.cs-accordion__body-wrap');
+
+    if (isOpen) {
+      /* Closing: only scroll if the accordion trigger has been scrolled above
+         the nav (user is viewing content inside the accordion body). If the
+         trigger is already visible in the viewport, close in place — no scroll. */
+      var navEl     = document.querySelector('.nav-global');
+      var navH      = navEl ? navEl.offsetHeight : 64;
+      var triggerTop = accordion.getBoundingClientRect().top;
+      if (triggerTop < navH) {
+        var accordionDocTop = triggerTop + window.scrollY;
+        window.scrollTo(0, Math.max(0, accordionDocTop - navH - 24));
+      }
+    }
+
+    bodyWrap.addEventListener('transitionend', function stop() {
+      accordion.classList.remove('is-marching');
+      bodyWrap.removeEventListener('transitionend', stop);
+    });
+  });
+})();
+
+/* ─── TL;DR LINK — scroll heading to mid-viewport ── */
+(function () {
+  var tldrLink = document.querySelector('.cs-sidebar__link[href="#tldr"]');
+  var heading  = document.getElementById('cs-page-heading');
+  if (!tldrLink || !heading) return;
+  tldrLink.addEventListener('click', function (e) {
+    e.preventDefault();
+    heading.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  });
+})();
+
+/* ─── SIDEBAR ACTIVE STATE ──────────────────────── */
+(function () {
+  var links = Array.from(document.querySelectorAll('.cs-sidebar__link'));
+  // Find exactly the sections that the links point to
+  var sections = links.map(function(link) {
+    return document.querySelector(link.getAttribute('href'));
+  }).filter(Boolean);
+
+  if (!links.length || !sections.length) return;
+
+  function onScroll() {
+    var scrollPos = window.scrollY + (window.innerHeight * 0.4); // Detect at 40% from top
+    var currentId = '';
+
+    sections.forEach(function (sec) {
+      if (scrollPos >= sec.offsetTop) {
+        currentId = sec.getAttribute('id');
+      }
+    });
+
+    if (currentId) {
+      links.forEach(function (link) {
+        if (link.getAttribute('href') === '#' + currentId) {
+          link.classList.add('is-active');
+        } else {
+          link.classList.remove('is-active');
+        }
+      });
+    }
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll, { passive: true });
+  onScroll(); // Fire on load
+})();
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1041 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Design System — Richa Kandoi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,400&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/@phosphor-icons/web" defer></script>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+  /* ── Design System page styles (.ds-* namespace) ── */
+
+  .ds-page { padding: 0 var(--gutter) 120px; }
+
+  .ds-topbar {
+    display: flex; align-items: flex-end; justify-content: space-between; gap: 24px;
+    padding: 96px var(--gutter) 0; margin-bottom: 64px;
+  }
+  .ds-page-title {
+    font-family: var(--font-interface); font-weight: 500; font-size: 42px; line-height: 1.1;
+    color: var(--color-ink);
+  }
+  .ds-page-subtitle {
+    font-family: var(--font-interface); font-size: 16px; color: var(--color-ink-subtle); margin-top: 8px;
+  }
+  .ds-back {
+    font-family: var(--font-interface); font-size: 14px; font-weight: 500;
+    color: var(--color-ink-subtle); text-decoration: none; letter-spacing: .04em;
+    position: relative; padding-bottom: 3px; display: inline-block;
+    white-space: nowrap; flex-shrink: 0; margin-bottom: 6px;
+  }
+  .ds-back::after {
+    content: ''; position: absolute; left: 0; bottom: 0;
+    width: 100%; height: 2px;
+    background: var(--rule-accent); background-size: 200% 100%;
+    opacity: 0; transition: opacity var(--duration-instant);
+  }
+  .ds-back:hover::after { opacity: 1; animation: march .5s linear infinite; }
+
+  .ds-section { margin-bottom: 96px; }
+  .ds-section-header {
+    display: flex; align-items: baseline; gap: 24px;
+    padding-bottom: 24px;
+    border-bottom: 2px solid transparent;
+    border-image: var(--rule-h) 1;
+    margin-bottom: 48px;
+  }
+  .ds-section-index {
+    font-family: var(--font-expressive); font-weight: 300; font-style: italic;
+    font-size: 13px; color: var(--color-ink-subtle); min-width: 20px;
+  }
+  .ds-section-name {
+    font-family: var(--font-interface); font-size: 11px; font-weight: 600;
+    letter-spacing: .14em; text-transform: uppercase; color: var(--color-ink);
+  }
+
+  /* ── Token table ─────────────────────────────── */
+  .ds-token-table {
+    width: 100%; border-collapse: collapse;
+    font-family: var(--font-interface); font-size: 13px;
+  }
+  .ds-token-table th {
+    text-align: left; padding: 8px 16px 12px 0;
+    font-weight: 600; color: var(--color-ink);
+    border-bottom: 1px solid var(--color-divider);
+  }
+  .ds-token-table th:last-child { padding-right: 0; }
+  .ds-token-table td {
+    padding: 12px 16px 12px 0; vertical-align: top;
+    border-bottom: 1px solid var(--color-divider);
+    color: var(--color-ink-subtle);
+  }
+  .ds-token-table td:first-child { color: var(--color-ink); font-weight: 500; }
+  .ds-token-table td:last-child  { padding-right: 0; }
+  .ds-token-table tr:last-child td { border-bottom: none; }
+  .ds-token-table code {
+    font-family: 'Courier New', monospace; font-size: 11px;
+    color: var(--color-ink-subtle); background: var(--color-divider);
+    padding: 2px 6px;
+  }
+
+  /* ── Color swatches ──────────────────────────── */
+  .ds-swatches {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 16px;
+  }
+  .ds-swatch { display: flex; flex-direction: column; border: 1px solid var(--color-divider); }
+  .ds-swatch__color { height: 80px; }
+  .ds-swatch__info  {
+    padding: 14px 16px; display: flex; flex-direction: column; gap: 4px;
+    border-top: 1px solid var(--color-divider);
+  }
+  .ds-swatch__token { font-family: var(--font-interface); font-size: 12px; font-weight: 600; color: var(--color-ink); letter-spacing: .04em; }
+  .ds-swatch__hex   { font-family: var(--font-interface); font-size: 11px; color: var(--color-ink-subtle); }
+  .ds-swatch__intent{ font-family: var(--font-interface); font-size: 11px; color: var(--color-ink-subtle); font-style: italic; margin-top: 2px; }
+
+  /* ── Rule pattern swatches ───────────────────── */
+  .ds-patterns { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 16px; }
+  .ds-pattern  { border: 1px solid var(--color-divider); }
+  .ds-pattern__visual { height: 48px; }
+  .ds-pattern__info {
+    padding: 12px 16px; border-top: 1px solid var(--color-divider);
+    font-family: var(--font-interface); font-size: 12px; color: var(--color-ink-subtle);
+    display: flex; flex-direction: column; gap: 2px;
+  }
+  .ds-pattern__token { font-weight: 600; color: var(--color-ink); }
+
+  /* ── Type rows ───────────────────────────────── */
+  .ds-type-stack { display: flex; flex-direction: column; gap: 48px; }
+  .ds-type-row   {
+    display: flex; align-items: flex-start; gap: 48px;
+    padding-bottom: 40px; border-bottom: 1px solid var(--color-divider);
+  }
+  .ds-type-row:last-child { border-bottom: none; padding-bottom: 0; }
+  .ds-type-meta  { flex: 0 0 260px; display: flex; flex-direction: column; gap: 8px; }
+  .ds-type-label { font-family: var(--font-interface); font-size: 12px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--color-ink); }
+  .ds-type-class { font-family: 'Courier New', monospace; font-size: 11px; background: var(--color-divider); padding: 4px 8px; align-self: flex-start; color: var(--color-ink-subtle); margin-bottom: 8px; border-radius: 4px; }
+  .ds-type-props { display: flex; flex-direction: column; gap: 6px; border-left: 2px solid var(--color-divider); padding-left: 16px; margin-top: 4px; }
+  .ds-prop { display: flex; font-family: var(--font-interface); font-size: 12px; align-items: baseline; }
+  .ds-prop-key { width: 90px; color: var(--color-ink-subtle); flex-shrink: 0; }
+  .ds-prop-val { color: var(--color-ink); font-weight: 500; }
+  .ds-type-sample{ flex: 1; min-width: 0; }
+
+  /* ── Spacing bars ───────────────────────────── */
+  .ds-spacing-stack { display: flex; flex-direction: column; gap: 12px; }
+  .ds-spacing-row   { display: flex; align-items: center; gap: 24px; }
+  .ds-spacing-bar-wrap { width: 400px; flex-shrink: 0; }
+  .ds-spacing-bar   { height: 24px; background: var(--color-highlight); opacity: .7; }
+  .ds-spacing-info  { font-family: var(--font-interface); font-size: 13px; color: var(--color-ink-subtle); }
+  .ds-spacing-info strong { color: var(--color-ink); font-weight: 600; }
+
+  /* ── Component demo containers ───────────────── */
+  .ds-demo {
+    background: var(--color-canvas);
+    border: 1px solid var(--color-divider);
+    padding: 48px;
+    /* align-items: flex-start prevents .eyebrow etc. from stretching in flex columns */
+    display: flex; flex-direction: column; align-items: flex-start; gap: 16px;
+    width: 100%;
+  }
+  .ds-demo + .ds-demo { margin-top: 24px; }
+  .ds-demo--clip { overflow: hidden; } /* clips viewport-wide ::before/::after rules */
+
+  .ds-demo-label {
+    display: block;
+    font-family: var(--font-interface); font-size: 11px; font-weight: 600;
+    letter-spacing: .12em; text-transform: uppercase; color: var(--color-ink-subtle);
+    margin-bottom: 24px;
+  }
+
+  /* ── Nav demo strip ──────────────────────────── */
+  .ds-nav-strip {
+    background: rgba(250,250,247,0.92);
+    border: 1px solid var(--color-divider);
+    height: var(--nav-height);
+    display: flex; align-items: center;
+    padding: 0 var(--gutter-tablet);
+    width: 100%;
+  }
+  .ds-nav-strip .nav__inner { position: static; max-width: 100%; padding: 0; width: 100%; }
+
+  /* ── Inline row ──────────────────────────────── */
+  .ds-row { display: flex; align-items: flex-start; flex-wrap: wrap; gap: 16px; width: 100%; }
+
+  /* ── Testimonials static pair ───────────────── */
+  .ds-testi-pair .testi__track { flex-wrap: wrap; gap: 0; }
+  .ds-testi-pair .testi__cell  { flex: 0 0 calc(50% - 12px); }
+
+  /* ── Motion demos ────────────────────────────── */
+  .ds-motion-row { display: flex; align-items: flex-start; flex-wrap: wrap; gap: 40px; width: 100%; }
+  .ds-motion-item{ display: flex; flex-direction: column; align-items: flex-start; gap: 10px; }
+  .ds-motion-label { font-family: var(--font-interface); font-size: 11px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--color-ink-subtle); }
+  .ds-cursor-dot      { width: 18px; height: 18px; background: rgba(247,209,2,0.75); }
+  .ds-cursor-expanded {
+    width: 165px; height: 48px; background: var(--color-highlight);
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    font-family: var(--font-interface); font-size: 14px; font-weight: 500; color: var(--color-ink);
+  }
+  .ds-selection-text {
+    font-family: var(--font-expressive); font-size: 16px;
+    background: rgba(247,209,2,0.75); color: var(--color-ink);
+    padding: 4px 8px; user-select: all;
+  }
+  @keyframes ds-focus-in {
+    0%   { opacity: 0.4; filter: blur(12px); }
+    100% { opacity: 1;   filter: blur(0);    }
+  }
+  .ds-focus-sample {
+    font-family: var(--font-interface); font-size: 28px; font-weight: 500;
+    animation: ds-focus-in 2s ease-out infinite alternate;
+  }
+
+  /* ── Responsive ──────────────────────────────── */
+  @media (max-width: 768px) {
+    .ds-topbar  { padding: 64px var(--gutter-mobile) 0; flex-direction: column; align-items: flex-start; margin-bottom: 40px; }
+    .ds-page    { padding: 0 var(--gutter-mobile) 80px; }
+    .ds-type-row{ flex-direction: column; gap: 12px; }
+    .ds-type-meta { flex: none; }
+    .ds-patterns{ grid-template-columns: 1fr; }
+    .ds-spacing-bar-wrap { width: 100%; }
+    .ds-demo    { padding: var(--gutter-mobile); }
+    .ds-testi-pair .testi__cell { flex: 0 0 100%; }
+    .ds-nav-strip { padding: 0 var(--gutter-mobile); }
+    .ds-page-title { font-size: 28px; }
+  }
+  @media (min-width: 769px) and (max-width: 1024px) {
+    .ds-topbar { padding: 80px var(--gutter-tablet) 0; margin-bottom: 48px; }
+    .ds-page   { padding: 0 var(--gutter-tablet) 100px; }
+    .ds-type-meta { flex: 0 0 160px; }
+  }
+  </style>
+</head>
+<body>
+
+<div id="cursor">
+  <span class="cursor__text">View Case Study <i class="ph ph-arrow-up-right cursor__icon"></i></span>
+</div>
+
+<div class="page">
+  <div class="edge edge--left"></div>
+  <div class="edge edge--right"></div>
+
+  <div class="ds-topbar">
+    <div>
+      <h1 class="ds-page-title">Design System</h1>
+      <p class="ds-page-subtitle">Tokens, typography, and components powering richakandoi.com</p>
+    </div>
+    <a href="index.html" class="ds-back">← Back to Portfolio</a>
+  </div>
+
+  <div class="ds-page">
+
+    <!-- ══ 01 · TOKEN ARCHITECTURE ══════════════ -->
+    <div class="ds-section">
+      <div class="ds-section-header">
+        <span class="ds-section-index">01</span>
+        <span class="ds-section-name">Token Architecture</span>
+      </div>
+
+      <p style="font-family:var(--font-interface);font-size:15px;color:var(--color-ink-subtle);line-height:1.7;max-width:680px;margin-bottom:32px;">
+        Tokens follow a two-layer system. <strong style="color:var(--color-ink);">Primitives</strong> (<code style="font-family:monospace;font-size:12px;background:var(--color-divider);padding:2px 5px;">--_*</code>) hold raw values and are never used directly in components. <strong style="color:var(--color-ink);">Semantic tokens</strong> reference primitives and describe what a design decision <em>does</em>, not just what it is. Change a primitive once — every semantic token that references it updates automatically.
+      </p>
+
+      <table class="ds-token-table">
+        <thead><tr>
+          <th style="width:220px;">Semantic Token</th>
+          <th style="width:160px;">Resolves To</th>
+          <th>Design Intent</th>
+        </tr></thead>
+        <tbody>
+          <tr><td>--color-canvas</td>       <td><code>--_cream · #FAFAF7</code></td><td>The page itself — what everything sits on</td></tr>
+          <tr><td>--color-surface-warm</td> <td><code>--_stone · #EEEDE6</code></td><td>Warm, raised card surface (.card--warm)</td></tr>
+          <tr><td>--color-surface-cool</td> <td><code>--_mint  · #EBF8F1</code></td><td>Cool, alternate card surface (.card--cool)</td></tr>
+          <tr><td>--color-ink</td>          <td><code>--_ink   · #15113A</code></td><td>Primary text and brand identity</td></tr>
+          <tr><td>--color-ink-subtle</td>   <td><code>--_grey  · #6B6B6B</code></td><td>Secondary text, metadata, muted labels</td></tr>
+          <tr><td>--color-divider</td>      <td><code>--_rule  · #E6E6E6</code></td><td>Separates regions — borders and rules</td></tr>
+          <tr><td>--color-highlight</td>    <td><code>--_gold  · #F7D102</code></td><td>Signals hover, focus, and selection</td></tr>
+          <tr><td>--color-online</td>       <td><code>--_green · #22C55E</code></td><td>Live / availability status indicator</td></tr>
+          <tr><td>--font-interface</td>     <td><code>Source Sans 3</code></td>      <td>Navigation, labels, body — the working font</td></tr>
+          <tr><td>--font-expressive</td>    <td><code>Merriweather</code></td>       <td>Quotes, headlines, editorial moments</td></tr>
+          <tr><td>--rule-h / --rule-v</td>  <td><code>repeating-gradient</code></td><td>Dashed rules that divide layout regions</td></tr>
+          <tr><td>--rule-accent</td>        <td><code>--color-highlight</code></td>  <td>Animated underline on hover — attention signal</td></tr>
+          <tr><td>--gutter</td>             <td><code>96px</code></td>              <td>Desktop horizontal breathing room for content</td></tr>
+          <tr><td>--gutter-tablet</td>      <td><code>48px</code></td>              <td>Tablet horizontal breathing room</td></tr>
+          <tr><td>--gutter-mobile</td>      <td><code>26px</code></td>              <td>Mobile horizontal breathing room</td></tr>
+          <tr><td>--nav-height</td>         <td><code>70px</code></td>              <td>Fixed nav bar — offsets hero and sticky tops</td></tr>
+          <tr><td>--ease-enter</td>         <td><code>cubic-bezier(.22,1,.36,1)</code></td><td>How content arrives — confident, unhurried</td></tr>
+          <tr><td>--ease-spring</td>        <td><code>cubic-bezier(.25,1,.5,1)</code></td> <td>Interactive feedback — slight overshoot</td></tr>
+          <tr><td>--ease-pointer</td>       <td><code>cubic-bezier(.2,.8,.2,1)</code></td> <td>Cursor morphing — follows the hand</td></tr>
+          <tr><td>--duration-instant</td>   <td><code>150ms</code></td>             <td>Micro-interactions barely felt (underline fade)</td></tr>
+          <tr><td>--duration-transition</td><td><code>300ms</code></td>             <td>State changes you notice (cursor expand)</td></tr>
+          <tr><td>--duration-reveal</td>    <td><code>700ms · 0.7s</code></td>      <td>Scroll entrances — scale+translate, no blur · cubic-bezier(0.16,1,0.3,1)</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ══ 02 · COLOR ═══════════════════════════ -->
+    <div class="ds-section">
+      <div class="ds-section-header">
+        <span class="ds-section-index">02</span>
+        <span class="ds-section-name">Color</span>
+      </div>
+
+      <p class="ds-section-name" style="margin-bottom:16px;">Canvas &amp; Surfaces</p>
+      <div class="ds-swatches">
+        <div class="ds-swatch">
+          <div class="ds-swatch__color" style="background:var(--color-canvas);border-bottom:1px solid var(--color-divider);"></div>
+          <div class="ds-swatch__info">
+            <span class="ds-swatch__token">--color-canvas</span>
+            <span class="ds-swatch__hex">← --_cream · #FAFAF7</span>
+            <span class="ds-swatch__intent">The page itself</span>
+          </div>
+        </div>
+        <div class="ds-swatch">
+          <div class="ds-swatch__color" style="background:var(--color-surface-warm);border-bottom:1px solid var(--color-divider);"></div>
+          <div class="ds-swatch__info">
+            <span class="ds-swatch__token">--color-surface-warm</span>
+            <span class="ds-swatch__hex">← --_stone · #EEEDE6</span>
+            <span class="ds-swatch__intent">Warm raised card (.card--warm)</span>
+          </div>
+        </div>
+        <div class="ds-swatch">
+          <div class="ds-swatch__color" style="background:var(--color-surface-cool);border-bottom:1px solid var(--color-divider);"></div>
+          <div class="ds-swatch__info">
+            <span class="ds-swatch__token">--color-surface-cool</span>
+            <span class="ds-swatch__hex">← --_mint · #EBF8F1</span>
+            <span class="ds-swatch__intent">Cool alternate card (.card--cool)</span>
+          </div>
+        </div>
+      </div>
+
+      <p class="ds-section-name" style="margin-top:32px;margin-bottom:16px;">Text &amp; Strokes</p>
+      <div class="ds-swatches">
+        <div class="ds-swatch">
+          <div class="ds-swatch__color" style="background:var(--color-ink);"></div>
+          <div class="ds-swatch__info">
+            <span class="ds-swatch__token">--color-ink</span>
+            <span class="ds-swatch__hex">← --_ink · #15113A</span>
+            <span class="ds-swatch__intent">Primary text, brand identity</span>
+          </div>
+        </div>
+        <div class="ds-swatch">
+          <div class="ds-swatch__color" style="background:var(--color-ink-subtle);"></div>
+          <div class="ds-swatch__info">
+            <span class="ds-swatch__token">--color-ink-subtle</span>
+            <span class="ds-swatch__hex">← --_grey · #6B6B6B</span>
+            <span class="ds-swatch__intent">Secondary text, metadata</span>
+          </div>
+        </div>
+        <div class="ds-swatch">
+          <div class="ds-swatch__color" style="background:var(--color-divider);border-bottom:1px solid var(--color-divider);"></div>
+          <div class="ds-swatch__info">
+            <span class="ds-swatch__token">--color-divider</span>
+            <span class="ds-swatch__hex">← --_rule · #E6E6E6</span>
+            <span class="ds-swatch__intent">Separates regions</span>
+          </div>
+        </div>
+      </div>
+
+      <p class="ds-section-name" style="margin-top:32px;margin-bottom:16px;">Interaction &amp; Status</p>
+      <div class="ds-swatches">
+        <div class="ds-swatch">
+          <div class="ds-swatch__color" style="background:var(--color-highlight);"></div>
+          <div class="ds-swatch__info">
+            <span class="ds-swatch__token">--color-highlight</span>
+            <span class="ds-swatch__hex">← --_gold · #F7D102</span>
+            <span class="ds-swatch__intent">Hover underlines, cursor, selection</span>
+          </div>
+        </div>
+        <div class="ds-swatch">
+          <div class="ds-swatch__color" style="background:var(--color-online);"></div>
+          <div class="ds-swatch__info">
+            <span class="ds-swatch__token">--color-online</span>
+            <span class="ds-swatch__hex">← --_green · #22C55E</span>
+            <span class="ds-swatch__intent">Live / availability signal</span>
+          </div>
+        </div>
+      </div>
+
+      <p class="ds-section-name" style="margin-top:32px;margin-bottom:16px;">Dashed Rules</p>
+      <div class="ds-patterns">
+        <div class="ds-pattern">
+          <div class="ds-pattern__visual" style="background:var(--rule-h);background-size:13px 2px;background-repeat:repeat-x;background-position:center;"></div>
+          <div class="ds-pattern__info">
+            <span class="ds-pattern__token">--rule-h</span>
+            <span>Horizontal · divides layout regions</span>
+            <span>Stats row, footer, testimonials top</span>
+          </div>
+        </div>
+        <div class="ds-pattern">
+          <div class="ds-pattern__visual" style="background:var(--rule-v);background-size:2px 13px;background-repeat:repeat-y;background-position:center;"></div>
+          <div class="ds-pattern__info">
+            <span class="ds-pattern__token">--rule-v</span>
+            <span>Vertical · divides columns</span>
+            <span>Edge lines, stat cell separators</span>
+          </div>
+        </div>
+        <div class="ds-pattern">
+          <div class="ds-pattern__visual" style="background:var(--rule-accent);background-size:13px 2px;background-repeat:repeat-x;background-position:center;"></div>
+          <div class="ds-pattern__info">
+            <span class="ds-pattern__token">--rule-accent</span>
+            <span>Yellow · signals interaction</span>
+            <span>Hover underline (animated march)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ 03 · TYPOGRAPHY ══════════════════════ -->
+    <div class="ds-section">
+      <div class="ds-section-header">
+        <span class="ds-section-index">03</span>
+        <span class="ds-section-name">Typography</span>
+      </div>
+
+      <div class="ds-type-stack">
+
+        <!-- 54px: Hero Display -->
+        <div class="ds-type-row">
+          <div class="ds-type-meta">
+            <span class="ds-type-label">Hero Display</span>
+            <code class="ds-type-class">.hero__headline</code>
+            <div class="ds-type-props">
+              <div class="ds-prop"><span class="ds-prop-key">Font</span> <span class="ds-prop-val">Source Sans 3</span></div>
+              <div class="ds-prop"><span class="ds-prop-key">Token</span> <span class="ds-prop-val">--font-interface</span></div>
+              <div class="ds-prop"><span class="ds-prop-key">Weight</span> <span class="ds-prop-val">500 (Medium)</span></div>
+              <div class="ds-prop"><span class="ds-prop-key">Size</span> <span class="ds-prop-val">54px</span></div>
+              <div class="ds-prop"><span class="ds-prop-key">Line-Height</span> <span class="ds-prop-val">1.1</span></div>
+            </div>
+          </div>
+          <div class="ds-type-sample">
+            <span style="font-family:var(--font-interface);font-weight:500;font-size:54px;line-height:1.1;color:var(--color-ink);">Product Designer.</span>
+          </div>
+        </div>
+
+        <!-- 46px: Section Heading Sans -->
+        <div class="ds-type-row">
+          <div class="ds-type-meta">
+            <span class="ds-type-label">Section Heading</span>
+            <code class="ds-type-class">.section__heading .sans</code>
+            <div class="ds-type-props">
+              <div class="ds-prop"><span class="ds-prop-key">Font</span> <span class="ds-prop-val">Source Sans 3</span></div>
+              <div class="ds-prop"><span class="ds-prop-key">Token</span> <span class="ds-prop-val">--font-interface</span></div>
+              <div class="ds-prop"><span class="ds-prop-key">Weight</span> <span class="ds-prop-val">500 (Medium)</span></div>
+              <div class="ds-prop"><span class="ds-prop-key">Size</span> <span class="ds-prop-val">46px</span></div>
+              <div class="ds-prop"><span class="ds-prop-key">Line-Height</span> <span class="ds-prop-val">1.18</span></div>
+            </div>
+          </div>
+          <div class="ds-type-sample">
+            <span style="font-family:var(--font-interface);font-weight:500;font-size:46px;line-height:1.18;color:var(--color-ink);">Highlights from my most recent</span>
+          </div>
+        </div>
+
+        <!-- 40px: Section Heading Serif -->
+        <div class="ds-type-row">
+          <div class="ds-type-meta">
+            <span class="ds-type-label">Section Heading Italic</span>
+            <code class="ds-type-class">.section__heading .serif</code>
+            <div class="ds-type-props">
+              <div class="ds-prop"><span class="ds-prop-key">Font</span> <span class="ds-prop-val">Merriweather</span></div>
+              <div class="ds-prop"><span class="ds-prop-key">Token</span> <span class="ds-prop-val">--font-expressive</span></div>
+              <div class="ds-prop"><span class="ds-prop-key">Weight</span> <span class="ds-prop-val">100 (Light Italic)</span></div>
+              <div class="ds-prop"><span class="ds-prop-key">Size</span> <span class="ds-prop-val">40px</span></div>
+              <div class="ds-prop"><span class="ds-prop-key">Line-Height</span> <span class="ds-prop-val">1.18</span></div>
+            </div>
+          </div>
+          <div class="ds-type-sample">
+            <span style="font-family:var(--font-expressive);font-weight:100;font-style:italic;font-size:40px;line-height:1.18;color:var(--color-ink);">work.</span>
+          </div>
+        </div>
+
+        <!-- 38px: CS Page Title -->
+        <div class="ds-type-row">
+          <div class="ds-type-meta">
+            <span class="ds-type-label">CS Page Title</span>
+            <code class="ds-type-class">.cs-page-title</code>
+            <div class="ds-type-props">
+              <div class="ds-prop"><span class="ds-prop-key">Font</span> <span class="ds-prop-val">Source Sans 3</span></div>
+              <div class="ds-prop"><span class="ds-prop-key">Token</span> <span class="ds-prop-val">--font-interface</span></div>
+              <div class="ds-prop"><span class="ds-prop-key">Weight</span> <span class="ds-prop-val">500 (Medium)</span></div>
+              <div class="ds-prop"><span class="ds-prop-key">Size</span> <span class="ds-prop-val">38px</span></div>
+              <div class="ds-prop"><span class="ds-prop-key">Line-Height</span> <span class="ds-prop-val">1.2</span></div>
+            </div>
+          </div>
+          <div class="ds-type-sample">
+            <span style="font-family:var(--font-interface);font-weight:500;font-size:38px;line-height:1.2;color:var(--color-ink);">Role-based Admin Portal Design</span>
+          </div>
+        </div>
+
+        <!-- 26px: Stat Number -->
+        <div class="ds-type-row">
+          <div class="ds-type-meta">
+            <span class="ds-type-label">Stat Number</span>
+            <code class="ds-type-class">.stats__number</code>
+            <div class="ds-type-props">
+              <div class="ds-prop"><span class="ds-prop-key">Font</span> <span class="ds-prop-val">Merriweather</span></div>
+              <div class="ds-prop"><span class="ds-prop-key">Token</span> <span class="ds-prop-val">--font-expressive</span></div>
+              <div class="ds-prop"><span class="ds-prop-key">Weight</span> <span class="ds-prop-val">700 (Bold)</span></div>
+              <div class="ds-prop"><span class="ds-prop-key">Size</span> <span class="ds-prop-val">26px</span></div>
+            </div>
+          </div>
+          <div class="ds-type-sample">
+            <span style="font-family:var(--font-expressive);font-weight:700;font-size:26px;color:var(--color-ink);">10+</span>
+          </div>
+        </div>
+
+        <!-- 24px: Card Headline -->
+        <div class="ds-type-row">
+          <div class="ds-type-meta">
+            <span class="ds-type-label">Card Headline</span>
+            <code class="ds-type-class">.card__headline</code>
+            <div class="ds-type-props">
+              <div class="ds-prop"><span class="ds-prop-key">Font</span> <span class="ds-prop-val">Merriweather</span></div>
+              <div class="ds-prop"><span class="ds-prop-key">Token</span> <span class="ds-prop-val">--font-expressive</span></div>
+              <div class="ds-prop"><span class="ds-prop-key">Weight</span> <span class="ds-prop-val">500 (Medium)</span></div>
+              <div class="ds-prop"><span class="ds-prop-key">Size</span> <span class="ds-prop-val">24px</span></div>
+              <div class="ds-prop"><span class="ds-prop-key">Line-Height</span> <span class="ds-prop-val">1.3</span></div>
+            </div>
+          </div>
+          <div class="ds-type-sample">
+            <h3 class="card__headline">Designed a 6-level role system with 65+ screens in 2 months.</h3>
+          </div>
+        </div>
+
+        <!-- 22px: Greeting -->
+        <div class="ds-type-row">
+          <div class="ds-type-meta">
+            <span class="ds-type-label">Greeting / Serif Light</span>
+            <code class="ds-type-class">.hero__greeting</code>
+            <div class="ds-type-props">
+              <div class="ds-prop"><span class="ds-prop-key">Font</span> <span class="ds-prop-val">Merriweather</span></div>
+              <div class="ds-prop"><span class="ds-prop-key">Token</span> <span class="ds-prop-val">--font-expressive</span></div>
+              <div class="ds-prop"><span class="ds-prop-key">Weight</span> <span class="ds-prop-val">300 (Light)</span></div>
+              <div class="ds-prop"><span class="ds-prop-key">Size</span> <span class="ds-prop-val">22px</span></div>
+            </div>
+          </div>
+          <div class="ds-type-sample">
+            <span style="font-family:var(--font-expressive);font-weight:300;font-size:22px;color:var(--color-ink);">Hi! I'm Richa.</span>
+          </div>
+        </div>
+
+        <!-- 22px: CS Callout -->
+        <div class="ds-type-row">
+          <div class="ds-type-meta">
+            <span class="ds-type-label">CS Callout</span>
+            <code class="ds-type-class">.cs-callout__text</code>
+            <div class="ds-type-props">
+              <div class="ds-prop"><span class="ds-prop-key">Font</span> <span class="ds-prop-val">Source Sans 3</span></div>
+              <div class="ds-prop"><span class="ds-prop-key">Token</span> <span class="ds-prop-val">--font-interface</span></div>
+              <div class="ds-prop"><span class="ds-prop-key">Weight</span> <span class="ds-prop-val">400 (Italic)</span></div>
+              <div class="ds-prop"><span class="ds-prop-key">Size</span> <span class="ds-prop-val">22px</span></div>
+              <div class="ds-prop"><span class="ds-prop-key">Line-Height</span> <span class="ds-prop-val">1.65</span></div>
+            </div>
+          </div>
+          <div class="ds-type-sample">
+            <span style="font-family:var(--font-interface);font-style:italic;font-size:22px;line-height:1.65;color:var(--color-ink);">“An architecture that avoids duplicate backends...”</span>
+          </div>
+        </div>
+
+        <!-- 20px: Nav / Label -->
+        <div class="ds-type-row">
+          <div class="ds-type-meta">
+            <span class="ds-type-label">Nav / Label</span>
+            <code class="ds-type-class">.nav__brand, .card__label</code>
+            <div class="ds-type-props">
+              <div class="ds-prop"><span class="ds-prop-key">Font</span> <span class="ds-prop-val">Source Sans 3</span></div>
+              <div class="ds-prop"><span class="ds-prop-key">Token</span> <span class="ds-prop-val">--font-interface</span></div>
+              <div class="ds-prop"><span class="ds-prop-key">Weight</span> <span class="ds-prop-val">400 (Regular)</span></div>
+              <div class="ds-prop"><span class="ds-prop-key">Size</span> <span class="ds-prop-val">20px</span></div>
+              <div class="ds-prop"><span class="ds-prop-key">Line-Height</span> <span class="ds-prop-val">1</span></div>
+            </div>
+          </div>
+          <div class="ds-type-sample">
+            <span style="font-family:var(--font-interface);font-size:20px;font-weight:400;color:var(--color-ink);">Work · About · Let's Talk</span>
+          </div>
+        </div>
+
+        <!-- 18px: CS Subhead -->
+        <div class="ds-type-row">
+          <div class="ds-type-meta">
+            <span class="ds-type-label">CS Subhead</span>
+            <code class="ds-type-class">.cs-subhead</code>
+            <div class="ds-type-props">
+              <div class="ds-prop"><span class="ds-prop-key">Font</span> <span class="ds-prop-val">Source Sans 3</span></div>
+              <div class="ds-prop"><span class="ds-prop-key">Token</span> <span class="ds-prop-val">--font-interface</span></div>
+              <div class="ds-prop"><span class="ds-prop-key">Weight</span> <span class="ds-prop-val">400 (Regular)</span></div>
+              <div class="ds-prop"><span class="ds-prop-key">Size</span> <span class="ds-prop-val">18px</span></div>
+              <div class="ds-prop"><span class="ds-prop-key">Line-Height</span> <span class="ds-prop-val">1.3</span></div>
+            </div>
+          </div>
+          <div class="ds-type-sample">
+            <span style="font-family:var(--font-interface);font-size:18px;font-weight:400;line-height:1.3;color:var(--color-ink);">Feature Highlights</span>
+          </div>
+        </div>
+
+        <!-- 18px: CS Heading Static / TLDR Label -->
+        <div class="ds-type-row">
+          <div class="ds-type-meta">
+            <span class="ds-type-label">CS Heading / Accordion</span>
+            <code class="ds-type-class">.cs-heading-static, .cs-tldr__label</code>
+            <div class="ds-type-props">
+              <div class="ds-prop"><span class="ds-prop-key">Font</span> <span class="ds-prop-val">Merriweather</span></div>
+              <div class="ds-prop"><span class="ds-prop-key">Token</span> <span class="ds-prop-val">--font-expressive</span></div>
+              <div class="ds-prop"><span class="ds-prop-key">Weight</span> <span class="ds-prop-val">400 (Regular)</span></div>
+              <div class="ds-prop"><span class="ds-prop-key">Size</span> <span class="ds-prop-val">18px</span></div>
+              <div class="ds-prop"><span class="ds-prop-key">Line-Height</span> <span class="ds-prop-val">1.3</span></div>
+            </div>
+          </div>
+          <div class="ds-type-sample">
+            <span style="font-family:var(--font-expressive);font-size:18px;font-weight:400;line-height:1.3;color:var(--color-ink);">Defining Platform Architecture</span>
+          </div>
+        </div>
+
+        <!-- 17px: Testimonial Quote -->
+        <div class="ds-type-row">
+          <div class="ds-type-meta">
+            <span class="ds-type-label">Testimonial Quote</span>
+            <code class="ds-type-class">.testi__quote</code>
+            <div class="ds-type-props">
+              <div class="ds-prop"><span class="ds-prop-key">Font</span> <span class="ds-prop-val">Merriweather</span></div>
+              <div class="ds-prop"><span class="ds-prop-key">Token</span> <span class="ds-prop-val">--font-expressive</span></div>
+              <div class="ds-prop"><span class="ds-prop-key">Weight</span> <span class="ds-prop-val">300 (Light)</span></div>
+              <div class="ds-prop"><span class="ds-prop-key">Size</span> <span class="ds-prop-val">17px</span></div>
+              <div class="ds-prop"><span class="ds-prop-key">Line-Height</span> <span class="ds-prop-val">1.75</span></div>
+            </div>
+          </div>
+          <div class="ds-type-sample">
+            <span style="font-family:var(--font-expressive);font-weight:300;font-size:17px;line-height:1.75;color:var(--color-ink);">"Her leadership and teamwork kept us all motivated and focused."</span>
+          </div>
+        </div>
+
+        <!-- 16px: CS Body -->
+        <div class="ds-type-row">
+          <div class="ds-type-meta">
+            <span class="ds-type-label">CS Body</span>
+            <code class="ds-type-class">.cs-body, .cs-tldr__value</code>
+            <div class="ds-type-props">
+              <div class="ds-prop"><span class="ds-prop-key">Font</span> <span class="ds-prop-val">Source Sans 3</span></div>
+              <div class="ds-prop"><span class="ds-prop-key">Token</span> <span class="ds-prop-val">--font-interface</span></div>
+              <div class="ds-prop"><span class="ds-prop-key">Weight</span> <span class="ds-prop-val">400 (Regular)</span></div>
+              <div class="ds-prop"><span class="ds-prop-key">Size</span> <span class="ds-prop-val">16px</span></div>
+              <div class="ds-prop"><span class="ds-prop-key">Line-Height</span> <span class="ds-prop-val">1.7</span></div>
+              <div class="ds-prop"><span class="ds-prop-key">Color</span> <span class="ds-prop-val">#7E7E7E</span></div>
+            </div>
+          </div>
+          <div class="ds-type-sample">
+            <span style="font-family:var(--font-interface);font-size:16px;font-weight:400;line-height:1.7;color:#7e7e7e;">Detailed paragraph explaining the methodology and process behind the design decisions.</span>
+          </div>
+        </div>
+
+        <!-- 16px: CS Caption -->
+        <div class="ds-type-row">
+          <div class="ds-type-meta">
+            <span class="ds-type-label">CS Caption</span>
+            <code class="ds-type-class">.cs-caption</code>
+            <div class="ds-type-props">
+              <div class="ds-prop"><span class="ds-prop-key">Font</span> <span class="ds-prop-val">Source Sans 3</span></div>
+              <div class="ds-prop"><span class="ds-prop-key">Token</span> <span class="ds-prop-val">--font-interface</span></div>
+              <div class="ds-prop"><span class="ds-prop-key">Weight</span> <span class="ds-prop-val">400 (Italic)</span></div>
+              <div class="ds-prop"><span class="ds-prop-key">Size</span> <span class="ds-prop-val">16px</span></div>
+            </div>
+          </div>
+          <div class="ds-type-sample">
+            <span style="font-family:var(--font-interface);font-size:16px;font-weight:400;font-style:italic;color:var(--color-ink);">An early wireframe exploring navigation structure.</span>
+          </div>
+        </div>
+
+        <!-- 14px: Card Tag -->
+        <div class="ds-type-row">
+          <div class="ds-type-meta">
+            <span class="ds-type-label">Card Tag</span>
+            <code class="ds-type-class">.card__tag</code>
+            <div class="ds-type-props">
+              <div class="ds-prop"><span class="ds-prop-key">Font</span> <span class="ds-prop-val">Source Sans 3</span></div>
+              <div class="ds-prop"><span class="ds-prop-key">Token</span> <span class="ds-prop-val">--font-interface</span></div>
+              <div class="ds-prop"><span class="ds-prop-key">Weight</span> <span class="ds-prop-val">400 (Regular)</span></div>
+              <div class="ds-prop"><span class="ds-prop-key">Size</span> <span class="ds-prop-val">14px</span></div>
+              <div class="ds-prop"><span class="ds-prop-key">Line-Height</span> <span class="ds-prop-val">18px</span></div>
+            </div>
+          </div>
+          <div class="ds-type-sample">
+            <span class="card__tag">Platform Architecture</span>
+          </div>
+        </div>
+
+        <!-- 14px: CS Section Label -->
+        <div class="ds-type-row">
+          <div class="ds-type-meta">
+            <span class="ds-type-label">CS Section Label</span>
+            <code class="ds-type-class">.cs-section-label</code>
+            <div class="ds-type-props">
+              <div class="ds-prop"><span class="ds-prop-key">Font</span> <span class="ds-prop-val">Source Sans 3</span></div>
+              <div class="ds-prop"><span class="ds-prop-key">Token</span> <span class="ds-prop-val">--font-interface</span></div>
+              <div class="ds-prop"><span class="ds-prop-key">Weight</span> <span class="ds-prop-val">500 (Medium)</span></div>
+              <div class="ds-prop"><span class="ds-prop-key">Size</span> <span class="ds-prop-val">14px</span></div>
+              <div class="ds-prop"><span class="ds-prop-key">Spacing</span> <span class="ds-prop-val">0.1em</span></div>
+              <div class="ds-prop"><span class="ds-prop-key">Color</span> <span class="ds-prop-val">#7E7E7E</span></div>
+            </div>
+          </div>
+          <div class="ds-type-sample">
+            <span style="font-family:var(--font-interface);font-size:14px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:#7e7e7e;">CONTEXT</span>
+          </div>
+        </div>
+
+        <!-- 11px: Eyebrow -->
+        <div class="ds-type-row">
+          <div class="ds-type-meta">
+            <span class="ds-type-label">Eyebrow</span>
+            <code class="ds-type-class">.eyebrow</code>
+            <div class="ds-type-props">
+              <div class="ds-prop"><span class="ds-prop-key">Font</span> <span class="ds-prop-val">Source Sans 3</span></div>
+              <div class="ds-prop"><span class="ds-prop-key">Token</span> <span class="ds-prop-val">--font-interface</span></div>
+              <div class="ds-prop"><span class="ds-prop-key">Weight</span> <span class="ds-prop-val">600 (Semi-Bold)</span></div>
+              <div class="ds-prop"><span class="ds-prop-key">Size</span> <span class="ds-prop-val">11px</span></div>
+              <div class="ds-prop"><span class="ds-prop-key">Spacing</span> <span class="ds-prop-val">0.12em</span></div>
+            </div>
+          </div>
+          <div class="ds-type-sample">
+            <div class="eyebrow" style="margin-bottom:0;">Work</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ══ 04 · LAYOUT & MOTION TOKENS ══════════ -->
+    <div class="ds-section">
+      <div class="ds-section-header">
+        <span class="ds-section-index">04</span>
+        <span class="ds-section-name">Layout &amp; Motion Tokens</span>
+      </div>
+
+      <p class="ds-section-name" style="margin-bottom:16px;">Gutters</p>
+      <div class="ds-spacing-stack">
+        <div class="ds-spacing-row"><div class="ds-spacing-bar-wrap"><div class="ds-spacing-bar" style="width:26px;"></div></div><div class="ds-spacing-info"><strong>--gutter-mobile · 26px</strong> — mobile horizontal breathing room</div></div>
+        <div class="ds-spacing-row"><div class="ds-spacing-bar-wrap"><div class="ds-spacing-bar" style="width:48px;"></div></div><div class="ds-spacing-info"><strong>--gutter-tablet · 48px</strong> — tablet horizontal breathing room</div></div>
+        <div class="ds-spacing-row"><div class="ds-spacing-bar-wrap"><div class="ds-spacing-bar" style="width:70px;"></div></div><div class="ds-spacing-info"><strong>--nav-height · 70px</strong> — fixed nav height, offsets hero and sticky tops</div></div>
+        <div class="ds-spacing-row"><div class="ds-spacing-bar-wrap"><div class="ds-spacing-bar" style="width:96px;"></div></div><div class="ds-spacing-info"><strong>--gutter · 96px</strong> — desktop horizontal breathing room</div></div>
+        <div class="ds-spacing-row"><div class="ds-spacing-bar-wrap"><div class="ds-spacing-bar" style="width:200px;"></div></div><div class="ds-spacing-info"><strong>--content-max-width · 1280px</strong> — maximum layout width</div></div>
+      </div>
+
+      <p class="ds-section-name" style="margin-top:48px;margin-bottom:16px;">Motion</p>
+      <table class="ds-token-table">
+        <thead><tr><th>Token</th><th>Value</th><th>Intent</th></tr></thead>
+        <tbody>
+          <tr><td>--ease-enter</td>         <td><code>cubic-bezier(.22,1,.36,1)</code></td>  <td>Content arriving — confident, unhurried</td></tr>
+          <tr><td>--ease-spring</td>        <td><code>cubic-bezier(.25,1,.5,1)</code></td>   <td>Interactive feedback — slight overshoot</td></tr>
+          <tr><td>--ease-pointer</td>       <td><code>cubic-bezier(.2,.8,.2,1)</code></td>   <td>Cursor morphing — follows the hand</td></tr>
+          <tr><td>--duration-instant</td>   <td><code>150ms</code></td>                      <td>Micro-interactions barely felt</td></tr>
+          <tr><td>--duration-transition</td><td><code>300ms</code></td>                      <td>State changes you notice</td></tr>
+          <tr><td>--duration-reveal</td>    <td><code>700ms</code></td>                      <td>Scroll entrances — deliberate, present</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ══ 05 · NAVIGATION ══════════════════════ -->
+    <div class="ds-section">
+      <div class="ds-section-header">
+        <span class="ds-section-index">05</span>
+        <span class="ds-section-name">Navigation</span>
+      </div>
+
+      <!-- Global Nav -->
+      <span class="ds-demo-label">Global Nav — Class: <code>.nav-global</code> (Fixed Top Bar)</span>
+      <div class="ds-nav-strip">
+        <div class="nav__inner">
+          <a href="#" class="nav__brand">Richa Kandoi</a>
+          <ul class="nav__links">
+            <li><a href="#">Work</a></li>
+            <li><a href="#">About</a></li>
+          </ul>
+          <a href="#" class="nav__cta">Let's Talk</a>
+        </div>
+      </div>
+
+      <!-- Case Study Sidebar -->
+      <span class="ds-demo-label" style="margin-top:40px;">Case Study Sidebar — Class: <code>.cs-layout__sidebar</code> (Sticky)</span>
+      <div style="border:1px solid var(--color-divider); padding: 40px; background: #fff; margin-top:12px;">
+        <div style="display:grid; grid-template-columns: 192px 1fr; column-gap: 112px;">
+          <aside class="cs-layout__sidebar" style="position:static; border-right:1px dashed var(--color-divider); padding-right: 20px;">
+            <nav style="display:flex; flex-direction:column; gap:12px;">
+              <a href="#" class="cs-sidebar__link is-active" style="font-size:18px;">TL;DR</a>
+              <a href="#" class="cs-sidebar__link" style="font-size:18px;">Context</a>
+              <a href="#" class="cs-sidebar__link" style="font-size:18px;">Process</a>
+              <a href="#" class="cs-sidebar__link" style="font-size:18px;">Outcome</a>
+            </nav>
+          </aside>
+          <div style="color:var(--color-ink-subtle); font-family:var(--font-interface); font-size:18px; line-height:1.7;">
+            <p>Main content starts here after a 112px gap.</p>
+            <p style="margin-top:12px; font-size:14px; color:#888;">Layout: 192px Sidebar | 112px Gap | 1fr Content</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ 06 · HERO ELEMENTS ═══════════════════ -->
+    <div class="ds-section">
+      <div class="ds-section-header">
+        <span class="ds-section-index">06</span>
+        <span class="ds-section-name">Hero Elements</span>
+      </div>
+
+      <span class="ds-demo-label">Status Pills</span>
+      <div class="ds-demo">
+        <div class="hero__pills" style="margin-bottom:0;opacity:1;animation:none;">
+          <span class="pill">B2B | B2C | 0-to-1</span>
+          <span class="pill">
+            <svg width="13" height="16" viewBox="0 0 13 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M6.5 0C4.01 0 2 2.01 2 4.5c0 3.38 4.5 9 4.5 9s4.5-5.62 4.5-9C11 2.01 8.99 0 6.5 0Zm0 6.5a2 2 0 1 1 0-4 2 2 0 0 1 0 4Z" fill="#15113A"/>
+            </svg>
+            Based in NYC-area
+          </span>
+          <span class="pill"><span class="pulse"></span>Open to Product Design Opportunities</span>
+        </div>
+      </div>
+
+      <span class="ds-demo-label" style="margin-top:24px;">Stats Row</span>
+      <div style="border:1px solid var(--color-divider);overflow:hidden;width:100%;">
+        <div class="stats" style="opacity:1;animation:none;margin:0;width:100%;">
+          <div class="stats__cell"><span class="stats__number">10+</span><span class="stats__label">Years in design</span></div>
+          <div class="stats__cell"><span class="stats__number">7</span><span class="stats__label">Cities lived in</span></div>
+          <div class="stats__cell"><span class="stats__number">5</span><span class="stats__label">Languages spoken</span></div>
+          <div class="stats__cell"><span class="stats__number">30+</span><span class="stats__label">Professional projects</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ 07 · SECTION LABELS ══════════════════ -->
+    <div class="ds-section">
+      <div class="ds-section-header">
+        <span class="ds-section-index">07</span>
+        <span class="ds-section-name">Section Labels &amp; Headings</span>
+      </div>
+      <div class="ds-demo">
+        <div class="eyebrow">Work</div>
+        <h2 class="section__heading" style="margin-bottom:0;">
+          <span class="sans">Highlights from my most recent </span><span class="serif">work.</span>
+        </h2>
+      </div>
+      <div class="ds-demo">
+        <div class="eyebrow">Testimonials</div>
+        <h2 class="section__heading" style="margin-bottom:0;">
+          <span class="sans">What others </span><span class="serif">say.</span>
+        </h2>
+      </div>
+    </div>
+
+    <!-- ══ 08 · PROJECT CARD ════════════════════ -->
+    <div class="ds-section">
+      <div class="ds-section-header">
+        <span class="ds-section-index">08</span>
+        <span class="ds-section-name">Project Card</span>
+      </div>
+
+      <span class="ds-demo-label">.card.card--warm — hover to see cursor expand</span>
+      <div class="card card--warm">
+        <div class="card__content">
+          <p class="card__label"><i class="ph ph-lock-key"></i> Role-based Admin Portal Design · 2025</p>
+          <div class="card__body">
+            <h3 class="card__headline">Designed a 6-level role system with 65+ screens in 2 months. Reduced engineering effort by ~25%.</h3>
+          </div>
+          <div class="card__footer">
+            <div class="card__tags">
+              <span class="card__tag">0 TO 1</span>
+              <span class="card__tag">PHASED ROLL-OUT</span>
+              <span class="card__tag">PLATFORM ARCHITECTURE</span>
+            </div>
+          </div>
+        </div>
+        <div class="card__media-wrap">
+          <div class="card__media"><img src="assets/abule-admin.png" alt="Abulé Admin Portal" /></div>
+        </div>
+      </div>
+
+      <span class="ds-demo-label" style="margin-top:24px;">.card.card--cool</span>
+      <div class="card card--cool" style="min-height:120px;">
+        <div class="card__content">
+          <p class="card__label">Surface uses --color-surface-cool</p>
+          <div class="card__body"><h3 class="card__headline">Layerpath card background.</h3></div>
+          <div class="card__footer"><div class="card__tags"><span class="card__tag">B2B</span><span class="card__tag">USER RESEARCH</span></div></div>
+        </div>
+        <div class="card__media-wrap"><div class="card__media"></div></div>
+      </div>
+
+      <span class="ds-demo-label" style="margin-top:24px;">Card Tags — all variants</span>
+      <div class="ds-demo">
+        <div class="ds-row">
+          <span class="card__tag">0 TO 1</span>
+          <span class="card__tag">PHASED ROLL-OUT</span>
+          <span class="card__tag">PLATFORM ARCHITECTURE</span>
+          <span class="card__tag">B2B</span>
+          <span class="card__tag">USER RESEARCH</span>
+          <span class="card__tag">IA</span>
+          <span class="card__tag">RESPONSIVE DESIGN</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ 09 · TESTIMONIALS ════════════════════ -->
+    <div class="ds-section">
+      <div class="ds-section-header">
+        <span class="ds-section-index">09</span>
+        <span class="ds-section-name">Testimonials</span>
+      </div>
+
+      <span class="ds-demo-label">Testimonial cells — static display</span>
+      <div class="ds-testi-pair" style="width:100%;">
+        <div class="testi__track" style="flex-wrap:wrap;gap:0;">
+          <div class="testi__cell">
+            <p class="testi__quote">Her leadership and teamwork kept us all motivated and focused. She's got a knack for asking the right questions.</p>
+            <p class="testi__author">Vinay C.</p>
+            <p class="testi__role">Founder, Layerpath</p>
+          </div>
+          <div class="testi__cell">
+            <p class="testi__quote">Richa demonstrates strong work ethics and problem-solving skills. She tackles both simple and complex challenges.</p>
+            <p class="testi__author">Farah A.</p>
+            <p class="testi__role">Co-founder, The Way We Build</p>
+          </div>
+        </div>
+      </div>
+
+      <span class="ds-demo-label" style="margin-top:24px;">Dot indicator — click to toggle</span>
+      <div class="ds-demo" style="flex-direction:row;align-items:center;gap:1px;">
+        <span class="testi__dot testi__dot--active" id="dsDot0"></span>
+        <span class="testi__dot" id="dsDot1"></span>
+        <span class="testi__dot" id="dsDot2"></span>
+      </div>
+    </div>
+
+    <!-- ══ 10 · INTERACTIONS & MOTION ═══════════ -->
+    <div class="ds-section">
+      <div class="ds-section-header">
+        <span class="ds-section-index">10</span>
+        <span class="ds-section-name">Interactions &amp; Motion</span>
+      </div>
+
+      <div class="ds-demo">
+        <div class="ds-motion-row">
+          <div class="ds-motion-item">
+            <span class="ds-motion-label">Cursor at rest</span>
+            <div class="ds-cursor-dot"></div>
+            <span style="font-size:12px;color:var(--color-ink-subtle);">18×18px · --color-highlight 75%</span>
+          </div>
+          <div class="ds-motion-item">
+            <span class="ds-motion-label">Cursor on card</span>
+            <div class="ds-cursor-expanded">View Case Study <i class="ph ph-arrow-up-right" style="font-size:16px;"></i></div>
+            <span style="font-size:12px;color:var(--color-ink-subtle);">165×48px · --duration-transition · --ease-pointer</span>
+          </div>
+          <div class="ds-motion-item">
+            <span class="ds-motion-label">Selection</span>
+            <span class="ds-selection-text">Select this text</span>
+            <span style="font-size:12px;color:var(--color-ink-subtle);">--color-highlight 75% bg</span>
+          </div>
+          <div class="ds-motion-item">
+            <span class="ds-motion-label">Focus-In entrance</span>
+            <span class="ds-focus-sample">Product Designer.</span>
+            <span style="font-size:12px;color:var(--color-ink-subtle);">blur(12px)→0 · 1.2s --ease-enter</span>
+          </div>
+        </div>
+      </div>
+
+      <span class="ds-demo-label" style="margin-top:24px;">Scroll Reveal — .scroll-reveal (scroll past to trigger)</span>
+      <!-- .scroll-reveal is the container; its direct children animate with stagger -->
+      <div class="scroll-reveal" style="width:100%;">
+        <div class="ds-demo" style="text-align:center;align-items:center;">
+          <span style="font-family:var(--font-expressive);font-size:18px;font-weight:300;font-style:italic;">
+            scale(0.97) translateY(20px) → scale(1) translateY(0) · 0.7s · no blur
+          </span>
+        </div>
+      </div>
+
+      <span class="ds-demo-label" style="margin-top:24px;">--rule-accent march — hover any link</span>
+      <div class="ds-demo" style="flex-direction:row;gap:32px;align-items:center;">
+        <a href="#" class="nav__brand">Brand</a>
+        <a href="#" class="nav__links" style="font-family:var(--font-interface);font-size:20px;font-weight:400;color:var(--color-ink);text-decoration:none;position:relative;padding-bottom:3px;display:inline-block;">Nav Link</a>
+        <a href="#" class="nav__cta">CTA</a>
+      </div>
+    </div>
+
+    <!-- ══ 11 · FOOTER ══════════════════════════ -->
+    <div class="ds-section">
+      <div class="ds-section-header">
+        <span class="ds-section-index">11</span>
+        <span class="ds-section-name">Footer</span>
+      </div>
+      <span class="ds-demo-label">Static demo — hover links for --rule-accent</span>
+      <div style="border:1px solid var(--color-divider);overflow:hidden;width:100%;">
+        <footer style="position:static;opacity:1;transform:none;filter:none;">
+          <div class="footer__left">
+            <h2 class="footer__heading"><span class="sans">Made with </span><span class="serif">care.</span></h2>
+            <div class="footer__socials">
+              <a href="#">R&eacute;sum&eacute;</a><span class="footer__sep">&middot;</span>
+              <a href="#">LinkedIn</a><span class="footer__sep">&middot;</span>
+              <a href="#">Email</a>
+            </div>
+            <p class="footer__copy">Website &copy; 2026 Richa Kandoi</p>
+          </div>
+          <div class="footer__right">
+            <ul class="footer__nav">
+              <li class="footer__col">
+                <a href="#" class="footer__link--main">Work</a>
+                <a href="#" class="footer__link--sub icon-link"><i class="ph ph-lock-key" style="margin-right:6px; font-size:1.1em; vertical-align:-2px;"></i><span>Admin Portal Design</span></a>
+                <a href="#" class="footer__link--sub">Layerpath Website &amp; Web-app Redesign</a>
+                <a href="#" class="footer__link--sub icon-link"><i class="ph ph-lock-key" style="margin-right:6px; font-size:1.1em; vertical-align:-2px;"></i><span>Web-app Navigation Redesign</span></a>
+                <a href="#" class="footer__link--main" style="margin-top:24px;">About</a>
+              </li>
+            </ul>
+          </div>
+        </footer>
+      </div>
+    </div>
+
+    <!-- ══ 12 · CASE STUDY TEMPLATE COMPONENTS ═════════════════════════ -->
+    <div class="ds-section">
+      <div class="ds-section-header">
+        <span class="ds-section-index">12</span>
+        <span class="ds-section-name">Case Study Template</span>
+      </div>
+      
+      <div class="ds-row">
+        <div class="ds-col" style="flex:1;">
+           <h3 class="ds-heading" style="margin-bottom:24px;">Molecules</h3>
+           
+           <div class="ds-demo">
+             <span class="ds-demo-label">Sidebar Link (.cs-sidebar__link) — hover me</span>
+             <div style="display:flex; flex-direction:column; align-items:flex-start;">
+               <a href="#" class="cs-sidebar__link is-active" style="margin-bottom: 8px;"><span>- Active Link</span></a>
+               <a href="#" class="cs-sidebar__link"><span>- What I Designed</span></a>
+             </div>
+           </div>
+
+           <div class="ds-demo" style="margin-top:24px;">
+             <span class="ds-demo-label">Accordion (.cs-accordion)</span>
+             <div class="cs-accordion" style="width:100%;">
+              <button class="cs-accordion__trigger" aria-expanded="false" style="padding: 16px;">
+                <span class="cs-accordion__title">View early concepts</span>
+              </button>
+             </div>
+           </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /ds-page -->
+</div><!-- /page -->
+
+<script src="main.js"></script>
+<script>
+(function () {
+  const dots = ['dsDot0','dsDot1','dsDot2'].map(id => document.getElementById(id)).filter(Boolean);
+  dots.forEach(dot => {
+    dot.addEventListener('click', () => {
+      dots.forEach(d => d.classList.remove('testi__dot--active'));
+      dot.classList.add('testi__dot--active');
+    });
+  });
+})();
+</script>
+</body>
+</html>

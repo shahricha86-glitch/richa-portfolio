@@ -1,0 +1,1144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Abulé Admin Portal — Richa Kandoi</title>
+  <link rel="icon" type="image/png" href="assets/favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Source+Sans+3:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/@phosphor-icons/web" defer></script>
+  <link rel="stylesheet" href="styles.css" />
+
+  <style>
+  /* ═══════════════════════════════════════════════
+     CASE STUDY — TYPE TOKENS
+     ═══════════════════════════════════════════════ */
+  :root {
+    --cs-hero-size:            38px;
+    --cs-hero-weight:          500;
+
+    --cs-section-label-size:   14px;
+    --cs-section-label-weight: 500;
+    --cs-section-label-border: #EEEDE6;
+
+    --cs-accordion-size:       18px;
+    --cs-accordion-weight:     400;
+
+    --cs-body-size:            16px;
+    --cs-body-weight:          400;
+    --cs-body-lh:              1.7;
+    --cs-body-color:           #7e7e7e;
+
+    --cs-callout-size:         22px;
+
+    --cs-caption-size:         16px;
+
+    --cs-nav-color:            #555555;
+    --cs-nav-active-color:     #15113A;
+
+    --cs-sidebar-width:        192px;
+    --cs-col-gap:              112px;
+  }
+
+  /* ═══════════════════════════════════════════════
+     HERO SECTION
+     Background #EEEDE6 confined within page gutters.
+     The page background (#FAFAF7) shows in the margins.
+     ═══════════════════════════════════════════════ */
+  .cs-hero-wrap {
+    padding-left:  var(--gutter);
+    padding-right: var(--gutter);
+  }
+  .cs-hero {
+    background: #EEEDE6;
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: calc(var(--nav-height) + 48px) 120px 48px;
+  }
+  .cs-hero img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  /* ═══════════════════════════════════════════════
+     PAGE HEADING
+     No background — sits on #FAFAF7. Left-aligned
+     within the same gutters as everything else.
+     ═══════════════════════════════════════════════ */
+  .cs-heading-wrap {
+    padding: 48px var(--gutter) 0;
+  }
+  .cs-page-title {
+    font-family: var(--font-interface);
+    font-size: var(--cs-hero-size);
+    font-weight: var(--cs-hero-weight);
+    line-height: 1.2;
+    color: var(--color-ink);
+  }
+  .cs-page-title__accent {
+    font-family: var(--font-expressive);
+    font-style: italic;
+    font-weight: 400;
+    font-size: var(--cs-hero-size);
+  }
+
+  /* ═══════════════════════════════════════════════
+     THREE INDEPENDENT SECTIONS
+     Each has its own gutter padding and its own grid.
+     Separating them means .cs-sidebar's position:sticky
+     only activates within .cs-two-col — never over the
+     hero or the TL;DR above it.
+     ═══════════════════════════════════════════════ */
+
+  /* ── TL;DR section (its own block, above the divider) ── */
+  .cs-tldr-section {
+    padding: 48px var(--gutter) 44px;
+  }
+  .cs-tldr-grid {
+    display: grid;
+    grid-template-columns: var(--cs-sidebar-width) 1fr;
+    column-gap: var(--cs-col-gap);
+    row-gap: 28px; /* Standardize vertical rhythm between grid items */
+  }
+  .cs-tldr-left {
+    padding: 48px 0 44px;
+  }
+  .cs-tldr-right {
+    padding: 48px 0 44px;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+  .cs-tldr__item {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .cs-tldr__label {
+    font-family: var(--font-expressive);
+    font-size: var(--cs-accordion-size);
+    font-weight: var(--cs-accordion-weight);
+    line-height: 1.3;
+    color: var(--color-ink);
+  }
+  .cs-tldr__value {
+    font-family: var(--font-interface);
+    font-size: var(--cs-body-size);
+    font-weight: var(--cs-body-weight);
+    line-height: var(--cs-body-lh);
+    color: var(--cs-body-color);
+  }
+  .cs-tldr__value ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .cs-tldr__value li {
+    position: relative;
+    padding-left: 20px;
+    margin-bottom: 8px;
+  }
+  .cs-tldr__value li::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: var(--cs-body-color); /* Matches text color */
+  }
+  .cs-tldr__value li:last-child {
+    margin-bottom: 0;
+  }
+
+  /* ── Dashed divider (full-bleed) ── */
+  .cs-divider-section {
+    padding: 0;
+    width: 100%;
+    overflow: visible;
+  }
+  .cs-divider {
+    height: 2px;
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    background: var(--rule-h);
+  }
+
+  /* ── Body grid: sidebar + content, starts after divider ── */
+  .cs-layout {
+    display: grid;
+    grid-template-columns: var(--cs-sidebar-width) 1fr;
+    column-gap: var(--cs-col-gap);
+    align-items: start;
+    padding: 0 var(--gutter);
+  }
+
+  /* ── Sidebar nav: sticky inside its grid column ── */
+  .cs-layout__sidebar {
+    position: sticky;
+    top: calc(var(--nav-height) + 32px);
+    align-self: start;
+    padding-top: 48px; /* Alignment with content eyebrow */
+  }
+  .cs-layout__sidebar nav {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .cs-sidebar__link {
+    font-family: var(--font-interface);
+    font-size: var(--cs-body-size);
+    font-weight: var(--cs-body-weight);
+    line-height: 1.4;
+    color: var(--cs-nav-color);
+    text-decoration: none;
+    display: block;
+    padding: 8px 0;
+    transition: color var(--duration-instant) ease;
+  }
+  .cs-sidebar__link span {
+    display: inline;
+    position: relative;
+    background-image: var(--rule-accent);
+    background-repeat: repeat-x;
+    background-position: 0 1.25em; /* Increased offset to move line further down */
+    background-clip: padding-box;
+    background-size: 0px 2px;
+    line-height: 1.2;
+    transition: background-size var(--duration-instant);
+  }
+  .cs-sidebar__link:hover span {
+    background-size: 13px 2px;
+    animation: cs-march .5s linear infinite;
+  }
+  @keyframes cs-march {
+    from { background-position: 0 1.25em; }
+    to   { background-position: 13px 1.25em; }
+  }
+  .cs-sidebar__link.is-active { color: var(--cs-nav-active-color); font-weight: 600; }
+
+  /* ── Case study content (right column) ── */
+  .cs-layout__content {
+    padding-top: 48px;
+    padding-bottom: 120px;
+  }
+
+
+  /* ── Section ─────────────────────────────────── */
+  .cs-section {
+    padding-bottom: 60px;
+    margin-bottom: 60px;
+    border-bottom: 1px solid #EEEDE6;
+    scroll-margin-top: calc(var(--nav-height) + 32px);
+  }
+  .cs-section:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+  }
+
+  /* ── Section label — plain uppercase text ──────── */
+  .cs-section-label {
+    display: block;
+    font-family: var(--font-interface);
+    font-size: var(--cs-section-label-size);
+    font-weight: var(--cs-section-label-weight);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--cs-body-color);
+    margin-bottom: 32px;
+  }
+
+  /* ── Static Heading (standard for intro sections) ── */
+  .cs-heading-static {
+    font-family: var(--font-expressive);
+    font-size: var(--cs-accordion-size);
+    font-weight: var(--cs-accordion-weight);
+    line-height: 1.3;
+    color: var(--color-ink);
+    margin-bottom: 24px;
+    display: block;
+  }
+
+  /* ── Subhead: inline label within accordion content ── */
+  /* BEM: .cs-subhead — use for named lists, pull-quotes,
+     and any mid-content label that's heavier than body
+     but lighter than an accordion heading.             */
+  .cs-subhead {
+    font-family: var(--font-interface);
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 1.3;
+    color: var(--color-ink);
+    margin-bottom: 16px;
+    display: block;
+  }
+
+  /* ── Feature card grid (3-up outcome row) ──────── */
+  .feature-card-grid {
+    display: flex;
+    gap: 48px;
+    flex-wrap: wrap;
+  }
+  .feature-card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    flex: 1;
+    min-width: 180px;
+  }
+  .feature-card__heading {
+    margin-top: 24px;
+    font-family: var(--font-interface);
+    font-size: 17px;
+    font-weight: 600;
+    line-height: 1.3;
+    color: var(--color-ink);
+  }
+  .feature-card__body {
+    margin-top: 12px;
+    font-family: var(--font-interface);
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.6;
+    color: var(--cs-body-color);
+  }
+
+  /* ── List — numbered or bulleted within content ─ */
+  /* BEM: .cs-list — use for any ol/ul inside accordion
+     or static content. Bold the label before the colon
+     with <strong> on the li text.                    */
+  .cs-list {
+    padding-left: 20px;
+    margin: 24px 0;
+  }
+  .cs-list li {
+    font-family: var(--font-interface);
+    font-size: var(--cs-body-size);
+    font-weight: var(--cs-body-weight);
+    line-height: var(--cs-body-lh);
+    color: var(--cs-body-color);
+    margin-bottom: 16px;
+  }
+  .cs-list li:last-child { margin-bottom: 0; }
+  /* Modifier: reduced gap between list items */
+  .cs-list--tight li { margin-bottom: 8px; }
+
+  /* ── Body text ───────────────────────────────── */
+  .cs-body {
+    font-family: var(--font-interface);
+    font-size: var(--cs-body-size);
+    font-weight: var(--cs-body-weight);
+    line-height: var(--cs-body-lh);
+    color: var(--cs-body-color);
+    margin-bottom: 16px;
+  }
+  .cs-body:last-child { margin-bottom: 0; }
+
+  /* ── Caption ─────────────────────────────────── */
+  .cs-caption {
+    display: block;
+    font-family: var(--font-interface);
+    font-size: var(--cs-caption-size);
+    font-weight: 400;
+    font-style: italic;
+    color: var(--color-ink);
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: var(--space-block);
+  }
+
+  /* ═══════════════════════════════════════════════
+     ACCORDION
+     Open/close via grid-template-rows: 0fr → 1fr.
+     Zero layout jump. Merriweather 700 heading.
+     ═══════════════════════════════════════════════ */
+  .cs-accordion {
+    /* Dashed border — matches --rule-h / --rule-v pattern (7px dash / 6px gap) */
+    /* To revert to solid: replace background-image block with border: 1px solid var(--cs-section-label-border); */
+    background-image:
+      repeating-linear-gradient(90deg,  var(--color-divider) 0, var(--color-divider) 7px, transparent 7px, transparent 13px),
+      repeating-linear-gradient(90deg,  var(--color-divider) 0, var(--color-divider) 7px, transparent 7px, transparent 13px),
+      repeating-linear-gradient(180deg, var(--color-divider) 0, var(--color-divider) 7px, transparent 7px, transparent 13px),
+      repeating-linear-gradient(180deg, var(--color-divider) 0, var(--color-divider) 7px, transparent 7px, transparent 13px);
+    background-size:     100% 2px, 100% 2px, 2px 100%, 2px 100%;
+    background-position: 0 0,       0 100%,  0 0,       100% 0;
+    background-repeat:   repeat-x,  repeat-x, repeat-y, repeat-y;
+    margin-bottom: 20px;
+  }
+  .cs-accordion:last-child {
+    margin-bottom: 0;
+  }
+  .cs-accordion__trigger {
+    width: 100%;
+    background: none;
+    border: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    padding: 36px 20px;
+    font-family: var(--font-expressive);
+    font-size: var(--cs-accordion-size);
+    font-weight: var(--cs-accordion-weight);
+    line-height: 1.3;
+    color: var(--color-ink);
+    text-align: left;
+    cursor: none;
+    transition: color var(--duration-instant) ease;
+  }
+  .cs-accordion__trigger:hover { color: rgba(21,17,58,0.65); }
+  .cs-accordion.is-open .cs-accordion__trigger { color: var(--color-ink); }
+
+  .cs-accordion__chevron {
+    font-size: 20px;
+    color: var(--color-ink-subtle);
+    flex-shrink: 0;
+    transition: transform var(--duration-transition) var(--ease-spring);
+  }
+  .cs-accordion.is-open .cs-accordion__chevron { transform: rotate(180deg); }
+
+  /* grid-rows trick: smooth, no layout jump */
+  .cs-accordion__body-wrap {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.38s var(--ease-spring);
+  }
+  .cs-accordion.is-open .cs-accordion__body-wrap { grid-template-rows: 1fr; }
+
+  /* Marching ants — loops while is-marching class is present (duration of transition) */
+  @keyframes cs-accordion-march {
+    from { background-position: 0 0,      0 100%,    0 0,       100% 0; }
+    to   { background-position: 13px 0,  -13px 100%, 0 -13px,   100% 13px; }
+  }
+  .cs-accordion.is-marching {
+    animation: cs-accordion-march 0.4s linear infinite;
+  }
+  .cs-accordion__body   { overflow: hidden; min-height: 0; }
+  .cs-accordion__inner  { padding: 0 20px 36px; }
+  .cs-accordion__inner > *:last-child { margin-bottom: 0 !important; }
+
+  /* ═══════════════════════════════════════════════
+     CALLOUT BOX
+     Solid borders: top/bottom/right 2px #EEEDE6,
+     left 2px #F7D102 (yellow accent).
+     Padding 44px. Source Sans italic 24px.
+     ═══════════════════════════════════════════════ */
+  .cs-callout {
+    background: var(--color-canvas);
+    border-top:    2px solid #EEEDE6;
+    border-bottom: 2px solid #EEEDE6;
+    border-right:  2px solid #EEEDE6;
+    border-left:   3px solid #F7D102;
+    padding: 30px;
+    margin: var(--space-block) 0;
+  }
+  /* Modifiers: thicker yellow left accent */
+  .cs-callout--accent-3 { border-left-width: 3px; }
+  .cs-callout--accent-4 { border-left-width: 4px; }
+  /* When callout is last in a section, collapse its bottom margin so the
+     gap above and below the section divider line stays equal (padding-bottom only) */
+  .cs-section > .cs-callout:last-child { margin-bottom: 0; }
+
+  .cs-callout__text {
+    font-family: var(--font-interface);
+    font-style: italic;
+    font-size: var(--cs-callout-size);
+    font-weight: 400;
+    line-height: 1.65;
+    color: var(--color-ink);
+  }
+
+  /* ═══════════════════════════════════════════════
+     IMAGE PLACEHOLDER
+     No border. Grey box with filename label.
+     ═══════════════════════════════════════════════ */
+  .cs-img-ph {
+    width: 100%;
+    min-height: 240px;
+    background: #DDDBD4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-interface);
+    font-size: 13px;
+    color: #888;
+    margin: var(--space-block) 0;
+  }
+  .cs-img-ph--tall  { min-height: 360px; }
+  .cs-img-ph--short { min-height: 160px; }
+
+  /* ═══════════════════════════════════════════════
+     SIX ROLES ROW
+     Connectors sit between items as flex children.
+     margin-top: 30px aligns each to the circle
+     midpoint (half of 60px). Arrow via ::after triangle.
+     ═══════════════════════════════════════════════ */
+  .cs-roles-row {
+    display: flex;
+    align-items: flex-start;
+    margin: var(--space-block) 0;
+  }
+  .cs-roles-row__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+  }
+  .cs-roles-row__connector {
+    flex: 1;
+    height: 1px;
+    background: #7e7e7e;
+    align-self: flex-start;
+    margin-top: 30px; /* aligns to circle midpoint */
+    position: relative;
+  }
+  .cs-roles-row__connector::after {
+    content: '';
+    position: absolute;
+    right: 2px;
+    top: -5px;
+    width: 10px;
+    height: 10px;
+    border-right: 1.5px solid #7e7e7e;
+    border-top: 1.5px solid #7e7e7e;
+    transform: rotate(45deg);
+    background: transparent;
+  }
+  .cs-roles-row__img {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    display: block;
+  }
+  .cs-roles-row__name {
+    font-family: var(--font-interface);
+    font-size: 12px; font-weight: 400;
+    color: var(--color-ink);
+    text-align: center;
+    max-width: 72px;
+    line-height: 1.3;
+  }
+
+  /* ═══════════════════════════════════════════════
+     RESPONSIVE — TABLET (769–1024px)
+     ═══════════════════════════════════════════════ */
+  @media (min-width: 769px) and (max-width: 1024px) {
+    .cs-tldr-section,
+    .cs-divider-section,
+    .cs-layout,
+    .cs-hero-wrap,
+    .cs-heading-wrap {
+      padding-left:  var(--gutter-tablet);
+      padding-right: var(--gutter-tablet);
+    }
+    :root {
+      --cs-sidebar-width:  160px;
+      --cs-col-gap:        36px;
+      --cs-hero-size:      30px;
+      --cs-accordion-size: 17px;
+      --cs-body-size:      16px;
+      --cs-callout-size:   18px;
+    }
+  }
+
+
+  /* ═══════════════════════════════════════════════
+     RESPONSIVE — MOBILE (≤ 768px)
+     ═══════════════════════════════════════════════ */
+  @media (max-width: 768px) {
+    .cs-tldr-section,
+    .cs-divider-section,
+    .cs-layout,
+    .cs-hero-wrap,
+    .cs-heading-wrap {
+      padding-left:  var(--gutter-mobile);
+      padding-right: var(--gutter-mobile);
+    }
+    :root {
+      --cs-hero-size:      24px;
+      --cs-accordion-size: 16px;
+      --cs-body-size:      15px;
+      --cs-callout-size:   16px;
+    }
+
+    .cs-hero__img-ph { min-height: 240px; }
+
+    /* TL;DR: stack left/right columns vertically */
+    .cs-tldr-grid {
+      grid-template-columns: 1fr;
+    }
+    .cs-tldr-left  { padding-bottom: 0; }
+    .cs-tldr-right { padding-top: 24px; }
+
+    /* Body layout: single column */
+    .cs-layout {
+      grid-template-columns: 1fr;
+    }
+
+    /* Sidebar: static, horizontal scrollable strip */
+    .cs-layout__sidebar {
+      position: static;
+      padding-top: 24px;
+      padding-bottom: 8px;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .cs-layout__sidebar::-webkit-scrollbar { display: none; }
+    .cs-layout__sidebar nav {
+      flex-direction: row;
+      flex-wrap: nowrap;
+      gap: 0;
+    }
+    .cs-sidebar__link {
+      padding: 8px 16px 8px 0;
+      white-space: nowrap;
+      font-size: 14px;
+    }
+    .cs-sidebar__link.is-active {
+      color: var(--cs-nav-active-color);
+      font-weight: 600;
+    }
+
+    .cs-callout { padding: 28px 24px; }
+    .cs-roles-row { overflow-x: auto; gap: 12px; }
+    .cs-roles-row::before { display: none; }
+    .cs-tldr-row { flex-direction: column; gap: 28px !important; }
+  }
+  </style>
+</head>
+<body>
+
+<!-- ── Cursor ───────────────────────────────── -->
+<div id="cursor">
+  <span class="cursor__text">View Case Study <i class="ph ph-arrow-up-right cursor__icon"></i></span>
+</div>
+
+<!-- ── Page container (matches homepage) ────── -->
+<div class="page">
+
+<!-- ── Edge lines ────────────────────────────── -->
+<div class="edge edge--left"></div>
+<div class="edge edge--right"></div>
+
+<!-- ── Nav — identical to homepage ──────────── -->
+<nav class="nav-global">
+  <div class="nav__inner">
+    <a href="index.html" class="nav__brand">Richa Kandoi</a>
+    <ul class="nav__links">
+      <li><a href="index.html#work">Work</a></li>
+      <li><a href="index.html#about">About</a></li>
+    </ul>
+    <a href="mailto:richashah.kandoi@gmail.com" class="nav__cta">Let's Talk</a>
+  </div>
+</nav>
+
+<!-- ── Hero image (within gutters, bg #EEEDE6) ─ -->
+<div class="cs-hero-wrap">
+  <div class="cs-hero">
+    <img src="assets/abule-admin/hero-section-1.png" alt="Abulé Admin Portal Hero">
+  </div>
+</div>
+
+<!-- ── Page heading (page bg, left-aligned) ──── -->
+<div class="cs-heading-wrap" id="cs-page-heading">
+  <h1 class="cs-page-title">
+    Role-based Admin Portal Design for <em class="cs-page-title__accent">Abulé</em>
+  </h1>
+</div>
+
+<!-- ── TL;DR ──────────────────────────────────────── -->
+<div id="tldr" class="cs-tldr-section">
+  <div class="cs-tldr-grid">
+    <!-- Role & Focus spans across the top two rows of the right column -->
+    <div class="cs-tldr__item" style="grid-column: 1; grid-row: 1 / span 2;">
+      <span class="cs-tldr__label">Role &amp; Focus</span>
+      <div class="cs-tldr__value">
+        <ul>
+          <li>0-to-1 Product Strategy &amp; Design</li>
+          <li>Platform Architecture</li>
+          <li>Information Architecture</li>
+          <li>Design System Expansion</li>
+          <li>MVP Roadmap &amp; Delivery</li>
+          <li>Phased Roll-out Strategy</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Problem column 2, row 1 -->
+    <div class="cs-tldr__item" style="grid-column: 2; grid-row: 1;">
+      <span class="cs-tldr__label">Problem</span>
+      <div class="cs-tldr__value">
+        <ul>
+          <li>Abulé's web app was ready for launch but operational control and oversight was missing across three user groups.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Solution column 2, row 2 -->
+    <div class="cs-tldr__item" style="grid-column: 2; grid-row: 2;">
+      <span class="cs-tldr__label">Solution &amp; Impact</span>
+      <div class="cs-tldr__value">
+        <ul>
+          <li>I architected Abulé's dual-portal admin ecosystem and designed the Community Admin Portal, a role-based system that enables community creators to manage billing, permissions, and operations independently.</li>
+          <li>Architectural decision saved ~25% engineering effort by avoiding duplicate systems.</li>
+          <li>Delivered a 6-level role system with 65+ screens, that supports everyone from solo owners to large admin teams without complex structural changes.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Timeline column 1, row 3 -->
+    <div class="cs-tldr__item" style="grid-column: 1; grid-row: 3;">
+      <span class="cs-tldr__label">Timeline</span>
+      <span class="cs-tldr__value">2 months, Launch-ready</span>
+    </div>
+
+    <!-- Tools column 2, row 3 -->
+    <div class="cs-tldr__item" style="grid-column: 2; grid-row: 3;">
+      <div class="cs-tldr-row" style="display: flex; gap: 80px;">
+        <div class="cs-tldr__item">
+          <span class="cs-tldr__label">Tools</span>
+          <span class="cs-tldr__value">Figma · Figjam · Linear · Notion · MS Teams</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── Dashed divider (full-bleed) ────────────────── -->
+<div class="cs-divider-section">
+  <div class="cs-divider"></div>
+</div>
+
+<!-- ── Body: sidebar + content ──────────────────── -->
+<div class="cs-layout">
+
+  <aside class="cs-layout__sidebar">
+    <nav aria-label="Case study sections">
+      <a href="#tldr"              class="cs-sidebar__link"><span>TL;DR</span></a>
+      <a href="#context"           class="cs-sidebar__link"><span>Context</span></a>
+      <a href="#platform-arch"     class="cs-sidebar__link"><span>Defining Platform Architecture</span></a>
+      <a href="#building-ia"       class="cs-sidebar__link"><span>Building The IA</span></a>
+      <a href="#what-i-designed"   class="cs-sidebar__link"><span>What I Designed</span></a>
+      <a href="#outcome"           class="cs-sidebar__link"><span>Outcome</span></a>
+    </nav>
+  </aside>
+
+  <main class="cs-layout__content">
+
+
+      <!-- ════ 01 — Context ════════════════════════ -->
+      <section id="context" class="cs-section">
+        <span class="cs-section-label">Context</span>
+
+        <!-- Static Item 1 -->
+        <div style="margin-bottom: var(--space-block);">
+          <h2 class="cs-heading-static">What's Abulé?</h2>
+          <p class="cs-body">Abulé is a seed-stage platform that helps people find, manage, and provide care within communities. Schools, companies, or nonprofits can use it to create communities where members can organize and manage support.</p>
+        </div>
+
+        <!-- Static Item 2 -->
+        <div style="margin-bottom: var(--space-block);">
+          <h2 class="cs-heading-static">Key Constraints</h2>
+          <div class="cs-tldr__value" style="margin-bottom: var(--space-block);">
+            <ul>
+              <li>2-month timeline to deliver a functional foundation</li>
+              <li>Limited engineering bandwidth due to existing web-app delays</li>
+              <li>Pre-launch product with no direct user access</li>
+            </ul>
+          </div>
+          <img src="assets/abule-admin/context-1.png" alt="Contextual Research/Process" style="width: 85%; max-width: 85%; height: auto; display: block; margin: 88px auto;">
+        </div>
+
+        <div class="cs-callout">
+          <p class="cs-callout__text">Three user groups with overlapping tasks. Without an admin portal, communities would be unmanageable, billing would be manual. Internal teams would have no visibility. Fragmented workflows would block revenue & scale. We needed two things to launch: Settings (plans, billing, configuration) and Admin Management.</p>
+        </div>
+      </section>
+
+      <!-- ════ 02 — Defining Platform Architecture ═ -->
+      <section id="platform-arch" class="cs-section">
+        <span class="cs-section-label">Defining Platform Architecture</span>
+
+        <p class="cs-body">The PRD established that we needed two separate admin environments: <span style="color: #315EEA; font-weight: 500;">Community Portal</span> for community organizers to manage their own communities. <span style="color: #F4753F; font-weight: 500;">Company Portal</span> for Abulé's internal teams to manage platform-wide operations.</p>
+
+        <div class="cs-accordion is-open">
+          <button class="cs-accordion__trigger" aria-expanded="true">
+            But the question was — Where does the Core Community Team fit?
+            <i class="ph ph-caret-down cs-accordion__chevron"></i>
+          </button>
+          <div class="cs-accordion__body-wrap">
+            <div class="cs-accordion__body">
+              <div class="cs-accordion__inner">
+                <p class="cs-body">The founder and lead engineer thought the Core Community Team should be in the Company Portal since they're Abulé employees. But when I mapped their daily tasks, it was clear they worked like community managers, creating events, moderating members, and managing groups. I built a side-by-side comparison of both options and brought it to the team.</p>
+                <div style="background: #EEEDE6; display: flex; justify-content: center; align-items: center; margin: var(--space-block) 0; padding: var(--space-block) 0;">
+                  <img src="assets/abule-admin/options-comparison-table.png" alt="Options comparison table" style="width: 90%; height: auto; display: block;">
+                </div>
+                <p class="cs-body">The engineering lead's only concern was that future internal tools might make Community Portal's codebase complex. But the only real difference we found was hiding the billing tab for Abulé's own community, which was easy to handle. So we moved ahead with the Community Portal.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cs-callout">
+          <p class="cs-callout__text">Seeing the side-by-side comparison helped the engineering lead realize that by changing where the Core Community Team logged in, we could avoid duplicate auth, role management, and data access work, saving ~25–30% of engineering effort (about 3–4 weeks).</p>
+        </div>
+      </section>
+
+      <!-- ════ 03 — Building The IA ════════════════ -->
+      <section id="building-ia" class="cs-section">
+        <span class="cs-section-label">Building The IA</span>
+
+        <!-- Roles accordion — contains the six roles row -->
+        <div class="cs-accordion is-open">
+          <button class="cs-accordion__trigger" aria-expanded="true">
+            Defining The Roles
+            <i class="ph ph-caret-down cs-accordion__chevron"></i>
+          </button>
+          <div class="cs-accordion__body-wrap">
+            <div class="cs-accordion__body">
+              <div class="cs-accordion__inner">
+                <p class="cs-body">With the architecture settled, I needed to define who could do what inside the <span style="color: #315EEA; font-weight: 500;">Community Portal</span>. Through the founder's sales conversations with potential community organizers, a clear picture emerged of the access levels needed.</p>
+                <!-- Six roles row -->
+                <div class="cs-roles-row">
+                  <div class="cs-roles-row__item">
+                    <img src="assets/abule-admin/roles-row-owner.png" alt="Owner" class="cs-roles-row__img">
+                    <span class="cs-roles-row__name">Owner</span>
+                  </div>
+                  <span class="cs-roles-row__connector" aria-hidden="true"></span>
+                  <div class="cs-roles-row__item">
+                    <img src="assets/abule-admin/roles-row-superadmin.png" alt="Super Admin" class="cs-roles-row__img">
+                    <span class="cs-roles-row__name">Super Admin</span>
+                  </div>
+                  <span class="cs-roles-row__connector" aria-hidden="true"></span>
+                  <div class="cs-roles-row__item">
+                    <img src="assets/abule-admin/roles-row-admin.png" alt="Admin" class="cs-roles-row__img">
+                    <span class="cs-roles-row__name">Admin</span>
+                  </div>
+                  <span class="cs-roles-row__connector" aria-hidden="true"></span>
+                  <div class="cs-roles-row__item">
+                    <img src="assets/abule-admin/roles-row-comm-mod.png" alt="Community Mod." class="cs-roles-row__img">
+                    <span class="cs-roles-row__name">Community Mod.</span>
+                  </div>
+                  <span class="cs-roles-row__connector" aria-hidden="true"></span>
+                  <div class="cs-roles-row__item">
+                    <img src="assets/abule-admin/roles-row-group-admin.png" alt="Group Admin" class="cs-roles-row__img">
+                    <span class="cs-roles-row__name">Group Admin</span>
+                  </div>
+                  <span class="cs-roles-row__connector" aria-hidden="true"></span>
+                  <div class="cs-roles-row__item">
+                    <img src="assets/abule-admin/roles-row-group-mod.png" alt="Group Mod." class="cs-roles-row__img">
+                    <span class="cs-roles-row__name">Group Mod.</span>
+                  </div>
+                </div>
+                <p class="cs-subhead" style="margin-top: var(--space-block);">Three governance principles:</p>
+                <p class="cs-body"><strong>Inheritance:</strong> higher roles automatically include all lower role permissions</p>
+                <p class="cs-body"><strong>Scope-based access:</strong> community-wide vs. group-specific permissions are distinct</p>
+                <p class="cs-body"><strong>At or below level:</strong> admins can only manage roles beneath their own</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cs-accordion">
+          <button class="cs-accordion__trigger" aria-expanded="false">
+            Structuring The IA
+            <i class="ph ph-caret-down cs-accordion__chevron"></i>
+          </button>
+          <div class="cs-accordion__body-wrap">
+            <div class="cs-accordion__body">
+              <div class="cs-accordion__inner">
+                <p class="cs-body">Early research showed admins spent most of their time on active community management, with settings and backend tasks accessed occasionally. I structured the portal in two primary areas in the IA — management tasks and backend tasks. These 2 areas divided in 10 sections with role-based access built in from day one.</p>
+                <img src="assets/abule-admin/structuring-ia-1.png" alt="Structuring the IA" style="width: 80%; height: auto; display: block; margin: var(--space-block) auto;">
+                <div style="background: #EEEDE6; display: flex; justify-content: center; align-items: center; margin: var(--space-block) 0 0; padding: var(--space-block) 0;">
+                  <img src="assets/abule-admin/structuring-ia-2.png" alt="Structuring the IA" style="width: 80%; height: auto; display: block;">
+                </div>
+                <span class="cs-caption">All dashed items were next-launch features. Manage Admins and Settings (solid outline) were Phase-1 priorities.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cs-accordion">
+          <button class="cs-accordion__trigger" aria-expanded="false">
+            Phased Roll-out Strategy
+            <i class="ph ph-caret-down cs-accordion__chevron"></i>
+          </button>
+          <div class="cs-accordion__body-wrap">
+            <div class="cs-accordion__body">
+              <div class="cs-accordion__inner">
+                <p class="cs-body">I aligned the founder and the engineering lead on this structure. Their reaction was immediate:</p>
+                <p class="cs-subhead" style="margin-top: 24px;">"We can't build all of this in &lt;2 months!"</p>
+                <img src="assets/abule-admin/phased-roll-out-1.png" alt="Phased roll-out strategy" style="width: 100%; height: auto; display: block; margin: var(--space-block) 0;">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cs-callout">
+          <p class="cs-callout__text">Designing all 10 sections with 6 role levels was the ideal solution but building it end-to-end would have taken far longer than our timeline allowed. So, we agreed to design the full structure upfront but ship it in phases.</p>
+        </div>
+      </section>
+
+      <!-- ════ 04 — What I Designed ════════════════ -->
+      <section id="what-i-designed" class="cs-section">
+        <span class="cs-section-label">What I Designed</span>
+
+        <div class="cs-accordion is-open">
+          <button class="cs-accordion__trigger" aria-expanded="true">
+            Role-Based Access
+            <i class="ph ph-caret-down cs-accordion__chevron"></i>
+          </button>
+          <div class="cs-accordion__body-wrap">
+            <div class="cs-accordion__body">
+              <div class="cs-accordion__inner">
+                <p class="cs-body">Different admins needed different levels of control in Settings; Owners needed full access, while Admins should not see or touch billing or sensitive setup.</p>
+                <img src="assets/abule-admin/role-based-access-1.png" alt="Role-based access" style="width: 100%; height: auto; display: block; margin: var(--space-block) 0;">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cs-accordion">
+          <button class="cs-accordion__trigger" aria-expanded="false">
+            Community Portal: Settings
+            <i class="ph ph-caret-down cs-accordion__chevron"></i>
+          </button>
+          <div class="cs-accordion__body-wrap">
+            <div class="cs-accordion__body">
+              <div class="cs-accordion__inner">
+                <p class="cs-body">I reused the web app design system to speed up navigation design. It reduced effort and made the transition to the portal feel familiar. To support scalability and role-based access from day one, I structured Settings into three tabs:</p>
+                <img src="assets/abule-admin/settings-1.png" alt="Settings — three tabs" style="width: 100%; height: auto; display: block; margin: var(--space-block) 0 10px;">
+                <span class="cs-caption">Owners and Super Admins see all tabs</span>
+                <img src="assets/abule-admin/settings-2.png" alt="Settings — two tabs" style="width: 100%; height: auto; display: block; margin: var(--space-block) 0 10px;">
+                <span class="cs-caption">Admins and below only see two tabs: General and Privacy &amp; Security</span>
+                <div style="border-radius: 8px; overflow: hidden; margin: var(--space-block) 0;">
+                  <video src="assets/abule-admin/settings-prototype.mov" controls muted playsinline style="width: 100%; display: block;"></video>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cs-accordion">
+          <button class="cs-accordion__trigger" aria-expanded="false">
+            Community Portal: Admin Management
+            <i class="ph ph-caret-down cs-accordion__chevron"></i>
+          </button>
+          <div class="cs-accordion__body-wrap">
+            <div class="cs-accordion__body">
+              <div class="cs-accordion__inner">
+                <p class="cs-body">The highest-risk section. A misclick could accidentally change someone's permissions or remove someone's access entirely. I split it into two tabs to reduce that risk:</p>
+
+                <ol class="cs-list">
+                  <li><strong>Admins tab:</strong> view all admins, their roles and activity, take quick or bulk actions, add new admins.</li>
+                  <li><strong>Roles and Access tab:</strong> understand what each role can do, create custom roles in paid tiers.</li>
+                </ol>
+
+                <p class="cs-subhead">Three guardrails built into every interaction:</p>
+
+                <ul class="cs-list cs-list--tight">
+                  <li>Action menus adapt by hierarchy, so you physically cannot edit or remove someone above your level.</li>
+                  <li>Role changes trigger a step-by-step confirmation showing exactly what permissions are being added or removed.</li>
+                  <li>Roles are colour-coded for quick recognition so admins can scan without reading every label.</li>
+                </ul>
+                <img src="assets/abule-admin/manage-admins-1.png" alt="Admin Management" style="width: 100%; height: auto; display: block; margin: var(--space-block) 0;">
+                <img src="assets/abule-admin/manage-admins-2.png" alt="Admin Management" style="width: 100%; height: auto; display: block; margin: 0 0 var(--space-block);">
+                <div style="border-radius: 8px; overflow: hidden; margin: 0 0 var(--space-block);">
+                  <video src="assets/abule-admin/edit-add-admin-prototype.mov" controls muted playsinline style="width: 100%; display: block;"></video>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cs-accordion">
+          <button class="cs-accordion__trigger" aria-expanded="false">
+            Company Portal: Events Dashboard
+            <i class="ph ph-caret-down cs-accordion__chevron"></i>
+          </button>
+          <div class="cs-accordion__body-wrap">
+            <div class="cs-accordion__body">
+              <div class="cs-accordion__inner">
+                <p class="cs-body">As part of the platform architecture strategy, I designed the Company Portal's Events dashboard to establish UI patterns for the most data-intensive shared area. I designed these components to work for both aggregated (Company) and localized (Community) data, ensuring consistency while reducing future design and engineering effort.</p>
+                <p class="cs-subhead">Key patterns established here:</p>
+                <ul class="cs-list cs-list--tight">
+                  <li>Overview tab for analytics, Events List tab for management.</li>
+                  <li>Click charts to drill into event details.</li>
+                </ul>
+                <img src="assets/abule-admin/events-dashboard-1.png" alt="Events Dashboard" style="width: 100%; height: auto; display: block; margin: var(--space-block) 0;">
+                <img src="assets/abule-admin/events-dashboard-2.png" alt="Events Dashboard" style="width: 100%; height: auto; display: block; margin: var(--space-block) 0 10px;">
+                <ul style="padding-left: 16px; margin-bottom: var(--space-block); font-family: var(--font-interface); font-style: italic; font-size: var(--cs-caption-size); color: var(--cs-body-color); list-style: disc;">
+                  <li style="margin-bottom: 4px;">Multi-layer filtering: community, date range, event type, status.</li>
+                  <li>Scalable table design (columns, sorting, actions).</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ════ 05 — Outcome ════════════════════════ -->
+      <section id="outcome" class="cs-section">
+        <span class="cs-section-label">Outcome</span>
+
+        <p class="cs-body">Delivered in 2 months: 65+ screens across both portals, and full platform architecture. For the Community Portal, I delivered the IA across 6 hierarchical roles with a phased rollout plan, extended the design system and engineering handoff documentation.</p>
+
+        <h2 class="cs-heading-static" style="margin-top: var(--space-block);">What this unlocked:</h2>
+
+        <div class="feature-card-grid">
+
+          <div class="feature-card">
+            <img src="assets/abule-admin/outcome-self-service.png" alt="" aria-hidden="true" style="width: auto; height: 42px; display: block; object-fit: contain;">
+            <p class="feature-card__heading">Self-service setup</p>
+            <p class="feature-card__body">Community creators can handle billing and manage admins independently, eliminating support bottlenecks as the platform scales.</p>
+          </div>
+
+          <div class="feature-card">
+            <img src="assets/abule-admin/outcome-time-saved.png" alt="" aria-hidden="true" style="width: auto; height: 42px; display: block; object-fit: contain;">
+            <p class="feature-card__heading">25–30% dev time saved</p>
+            <p class="feature-card__body">Placing Core Team in Community Portal &amp; reusing web-app patterns gave engineering ~3–4 weeks to focus on member-facing features.</p>
+          </div>
+
+          <div class="feature-card">
+            <img src="assets/abule-admin/outcome-scalable-design.png" alt="" aria-hidden="true" style="width: auto; height: 42px; display: block; object-fit: contain;">
+            <p class="feature-card__heading">Scalable design</p>
+            <p class="feature-card__body">A six-level role system supports everything from solo owners to large admin teams without complex structural changes.</p>
+          </div>
+
+        </div>
+
+        <h2 class="cs-heading-static" style="margin-top: var(--space-block);">Learnings and Reflections:</h2>
+
+        <p class="cs-body"><strong>In 0→1 work, getting stakeholder alignment on the problem is harder than designing the solution.</strong> I spent the first weeks mapping user groups and architecture before touching UI, which did create urgency but helped me turn ambiguity into clarity.</p>
+        <p class="cs-body"><strong>Designing for launch while keeping things scalable was the hardest part.</strong> I built only what Phase 1 needed, but defined the full structure upfront so future features could be added without reworking the whole system.</p>
+        <p class="cs-body"><strong>Bringing engineering into conversations early saved time.</strong> Asking questions about feasibility upfront helped shape better, more realistic solutions, faster.</p>
+      </section>
+
+  </main><!-- /cs-layout__content -->
+</div><!-- /cs-layout -->
+
+<!-- ── Footer — identical to homepage ────────── -->
+<footer class="scroll-reveal">
+  <div class="footer__left">
+    <h2 class="footer__heading">
+      <span class="sans">Made with </span><span class="serif">care.</span>
+    </h2>
+    <div class="footer__socials">
+      <a href="#" target="_blank">R&eacute;sum&eacute;</a>
+      <span class="footer__sep">&middot;</span>
+      <a href="https://www.linkedin.com/in/richa-kandoi/" target="_blank">LinkedIn</a>
+      <span class="footer__sep">&middot;</span>
+      <a href="javascript:void(0)" id="copyEmailLink">Email</a>
+    </div>
+    <p class="footer__copy">Website &copy; 2026 Richa Kandoi</p>
+  </div>
+
+  <div class="footer__right">
+    <ul class="footer__nav">
+      <li class="footer__col">
+        <a href="index.html#work" class="footer__link--main">Work</a>
+        <a href="index.html#work" class="footer__link--sub icon-link"><i class="ph ph-lock-key" style="margin-right:6px; font-size:1.1em; vertical-align:-2px;"></i><span>Admin Portal Design</span></a>
+        <a href="index.html#work" class="footer__link--sub">Layerpath Website &amp; Web-app Redesign</a>
+        <a href="index.html#work" class="footer__link--sub icon-link"><i class="ph ph-lock-key" style="margin-right:6px; font-size:1.1em; vertical-align:-2px;"></i><span>Web-app Navigation Redesign</span></a>
+        <a href="index.html#about" class="footer__link--main" style="margin-top: 24px;">About</a>
+      </li>
+    </ul>
+  </div>
+</footer>
+
+</div><!-- /page -->
+
+<script src="main.js"></script>
+<script>
+/* ─── SCROLL POSITION PRESERVATION (refresh only) ── */
+(function () {
+  if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'manual';
+  }
+  var key = 'abule-admin-scroll';
+  var navType = (performance.getEntriesByType('navigation')[0] || {}).type;
+  /* Only restore position on page refresh — not on navigation from another page */
+  if (navType === 'reload') {
+    var saved = sessionStorage.getItem(key);
+    if (saved !== null) {
+      window.scrollTo(0, parseInt(saved, 10));
+    }
+  }
+  sessionStorage.removeItem(key);
+  window.addEventListener('beforeunload', function () {
+    sessionStorage.setItem(key, String(window.scrollY));
+  });
+})();
+
+/* ─── ACCORDION ─────────────────────────────────── */
+(function () {
+  document.querySelectorAll('.cs-accordion__trigger').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var accordion = btn.closest('.cs-accordion');
+      var isOpen    = accordion.classList.contains('is-open');
+      accordion.classList.toggle('is-open');
+      btn.setAttribute('aria-expanded', String(!isOpen));
+
+      /* Marching ants: run for the duration of the expand/collapse transition */
+      accordion.classList.add('is-marching');
+      var bodyWrap = accordion.querySelector('.cs-accordion__body-wrap');
+      bodyWrap.addEventListener('transitionend', function stop() {
+        accordion.classList.remove('is-marching');
+        bodyWrap.removeEventListener('transitionend', stop);
+      });
+    });
+  });
+})();
+
+/* ─── TL;DR LINK — scroll heading to mid-viewport ── */
+(function () {
+  var tldrLink = document.querySelector('.cs-sidebar__link[href="#tldr"]');
+  var heading  = document.getElementById('cs-page-heading');
+  if (!tldrLink || !heading) return;
+  tldrLink.addEventListener('click', function (e) {
+    e.preventDefault();
+    heading.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  });
+})();
+
+/* ─── SIDEBAR ACTIVE STATE ──────────────────────── */
+(function () {
+  var links    = Array.from(document.querySelectorAll('.cs-sidebar__link'));
+  var sections = Array.from(document.querySelectorAll('.cs-section[id]'));
+  if (!links.length || !sections.length) return;
+
+  var navH = parseFloat(
+    getComputedStyle(document.documentElement).getPropertyValue('--nav-height')
+  ) || 70;
+
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        links.forEach(function (l) { l.classList.remove('is-active'); });
+        var active = document.querySelector(
+          '.cs-sidebar__link[href="#' + entry.target.id + '"]'
+        );
+        if (active) active.classList.add('is-active');
+      }
+    });
+  }, {
+    rootMargin: '-' + navH + 'px 0px -55% 0px',
+    threshold:  0
+  });
+
+  sections.forEach(function (s) { io.observe(s); });
+})();
+
+</script>
+
+</body>
+</html>
