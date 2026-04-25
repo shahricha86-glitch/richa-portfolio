@@ -85,7 +85,7 @@
    RESET
    ═══════════════════════════════════════════════ */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; cursor: none; }
-html { scroll-behavior: smooth; cursor: none; overflow-x: hidden; }
+html { scroll-behavior: smooth; cursor: none; overflow-x: hidden; scroll-snap-type: y proximity; }
 /* rgba fallback — no CSS var() support for alpha on a var; keep raw value */
 ::selection      { background: rgba(247,209,2,0.75); color: var(--color-ink); }
 ::-moz-selection { background: rgba(247,209,2,0.75); color: var(--color-ink); }
@@ -369,13 +369,13 @@ a, button, input, select, textarea, label { cursor: none; }
 
 .cards { padding: 0 var(--gutter); position: relative; }
 
-.card-wrap { position: sticky; transform-origin: top center; margin-bottom: 40vh; text-decoration: none; color: inherit; }
+.card-wrap { display: block; position: sticky; transform-origin: top center; margin-bottom: 15vh; text-decoration: none; color: inherit; scroll-snap-align: start; scroll-snap-stop: always; }
 .card-wrap:last-child { margin-bottom: 0; }
-.card-wrap:nth-child(1) { top: 120px; z-index: 1; }
-.card-wrap:nth-child(2) { top: 160px; z-index: 2; }
-.card-wrap:nth-child(3) { top: 200px; z-index: 3; }
+.card-wrap:nth-child(1) { top: 120px; z-index: 1; scroll-margin-top: 120px; }
+.card-wrap:nth-child(2) { top: 170px; z-index: 2; scroll-margin-top: 170px; }
+.card-wrap:nth-child(3) { top: 220px; z-index: 3; scroll-margin-top: 220px; }
 .card-wrap__sticky { transform-origin: top center; }
-.cards__spacer { height: 80px; }
+.cards__spacer { height: 80vh; }
 
 /* ═══════════════════════════════════════════════
    PROJECT CARD  (.card block)
@@ -414,6 +414,14 @@ a, button, input, select, textarea, label { cursor: none; }
   font-weight: 400; font-size: 14px; line-height: 18px;
   text-transform: uppercase; color: var(--color-ink);
   border: 1px dashed var(--color-ink); padding: 4px 12px; white-space: nowrap;
+}
+/* Separator-style tags (experimental — applied per-card with .card--tag-sep) */
+.card--tag-sep .card__tag { border: none; padding: 4px 8px; }
+.card--tag-sep .card__tag:first-child { padding-left: 0; }
+.card__tag-sep {
+  align-self: center; flex-shrink: 0;
+  width: 0; height: 14px;
+  border-left: 1px dashed var(--color-ink);
 }
 .card__media-wrap { display: flex; flex-direction: column; position: relative; flex: 1; max-width: 48%; justify-content: flex-start; }
 .card__media      { flex: none; display: flex; align-items: flex-start; justify-content: flex-end; height: auto; }
@@ -503,7 +511,14 @@ footer::before {
 .footer__socials a { color: var(--color-ink); text-decoration: none; font-weight: 600; position: relative; padding-bottom: 3px; display: inline-block; }
 .footer__socials a:hover { text-decoration: none; }
 .footer__sep  { color: var(--color-ink-subtle); }
-.footer__copy { font-family: var(--font-interface); font-size: 14px; color: var(--color-ink-subtle); margin-top: auto; }
+.footer__copy { font-family: var(--font-interface); font-size: 14px; color: var(--color-ink-subtle); }
+/* Desktop/tablet: absolutely position copyright at bottom-left to keep it in the left column visually */
+@media (min-width: 769px) {
+  .footer__copy { position: absolute; bottom: 64px; left: var(--gutter); }
+}
+@media (min-width: 769px) and (max-width: 1024px) {
+  .footer__copy { left: var(--gutter-tablet); }
+}
 
 .footer__nav  { display: flex; list-style: none; margin-top: 6px; }
 .footer__col  { display: flex; flex-direction: column; gap: 10px; }
@@ -571,11 +586,11 @@ footer::before {
   #work               { padding: 64px 0 0; }
   #work .work__head   { padding: 0 var(--gutter-mobile); }
   .cards              { padding: 0 var(--gutter-mobile); }
-  .card-wrap          { margin-bottom: 15vh; }
+  .card-wrap          { margin-bottom: 15vh; scroll-snap-stop: always; }
   .card-wrap:last-child { margin-bottom: 0; }
-  .card-wrap:nth-child(1) { top: 80px; }
-  .card-wrap:nth-child(2) { top: 100px; }
-  .card-wrap:nth-child(3) { top: 120px; }
+  .card-wrap:nth-child(1) { top: 80px; scroll-margin-top: 80px; }
+  .card-wrap:nth-child(2) { top: 130px; scroll-margin-top: 130px; }
+  .card-wrap:nth-child(3) { top: 180px; scroll-margin-top: 180px; }
   .card {
     flex-direction: column; height: auto; min-height: 0;
     padding: var(--gutter-mobile); overflow: visible; gap: 8px;
