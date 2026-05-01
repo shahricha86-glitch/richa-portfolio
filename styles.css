@@ -24,6 +24,7 @@
   --_stone: #EEEDE6;
   --_mint:  #EBF8F1;
   --_grey:  #6B6B6B;
+  --_mid:   #7E7E7E;
   --_rule:  #E6E6E6;
   --_green: #22C55E;
 
@@ -35,6 +36,7 @@
   /* ── Text & Strokes ──────────────────────────── */
   --color-ink:          var(--_ink);    /* primary text, brand identity */
   --color-ink-subtle:   var(--_grey);   /* secondary text, metadata */
+  --color-body:         var(--_mid);    /* body text in case studies, placeholder text */
   --color-divider:      var(--_rule);   /* separates regions — borders & rules */
 
   /* ── Interaction ──────────────────────────────── */
@@ -69,6 +71,7 @@
   --gutter-tablet:     48px;  /* tablet horizontal page gutter */
   --gutter-mobile:     26px;  /* mobile horizontal page gutter */
   --space-block:       48px;  /* vertical breathing room between content blocks (text↔image, image↔text) */
+  --space-content:     16px;  /* tighter gap between related content items within a block (subhead↔body, image↔caption, etc.) */
 
   /* ── Motion: Easing ───────────────────────────── */
   --ease-enter:   cubic-bezier(.22, 1, .36, 1);   /* scroll reveals, page entrances */
@@ -236,7 +239,7 @@ a, button, input, select, textarea, label { cursor: none; }
   font-weight: 300; font-size: 22px;
   margin-bottom: 24px;
   opacity: 0;
-  animation: fadeIn .8s ease-out 2000ms forwards;
+  animation: fadeIn .55s ease-out 1350ms forwards;
 }
 .hero__headline {
   font-family: var(--font-interface);
@@ -246,18 +249,18 @@ a, button, input, select, textarea, label { cursor: none; }
 .hero__line--1 {
   display: block;
   opacity: 0.4; filter: blur(12px);
-  animation: focusIn 1.2s ease-out 200ms forwards;
+  animation: focusIn .9s ease-out 100ms forwards;
 }
 .hero__line--2 {
   display: block;
   opacity: 0.4; filter: blur(12px);
-  animation: focusIn 1.2s ease-out 800ms forwards;
+  animation: focusIn .9s ease-out 400ms forwards;
 }
 .hero__pills {
   display: flex; flex-wrap: wrap; gap: 12px;
   margin-bottom: 80px;
   opacity: 0;
-  animation: fadeIn .8s ease-out 2300ms forwards;
+  animation: fadeIn .55s ease-out 1550ms forwards;
 }
 
 /* ── Pill  (.pill block) ──────────────────────── */
@@ -299,7 +302,7 @@ a, button, input, select, textarea, label { cursor: none; }
   position: relative;
   display: grid; grid-template-columns: repeat(4, 1fr);
   opacity: 0;
-  animation: fadeIn .8s ease-out 2600ms forwards;
+  animation: fadeIn .55s ease-out 1750ms forwards;
 }
 .stats::before, .stats::after {
   content: '';
@@ -397,10 +400,10 @@ a, button, input, select, textarea, label { cursor: none; }
   font-family: var(--font-interface);
   font-size: 20px; line-height: 28px;
   /* intentionally lighter than --color-ink-subtle — card label tone */
-  color: #7E7E7E;
+  color: var(--color-body);
   margin-bottom: auto; display: flex; align-items: center; gap: 8px;
 }
-.card__label i { font-size: 24px; color: #7E7E7E; }
+.card__label i { font-size: 24px; color: var(--color-body); }
 .card__body   { flex: 0 0 auto; margin-bottom: auto; }
 .card__headline {
   font-family: var(--font-expressive);
@@ -534,6 +537,185 @@ footer::before {
 /* Keep underlines off the lock icons on hover */
 .footer__nav a.icon-link:hover { text-decoration: none; }
 .footer__nav a.icon-link:hover span { text-decoration: underline; }
+
+/* ═══════════════════════════════════════════════
+   CONTACT PAGE  (lets-talk.html)
+   ═══════════════════════════════════════════════ */
+.contact-page {
+  min-height: calc(100vh - var(--nav-height));
+  padding: calc(var(--nav-height) + 80px) var(--gutter) 120px;
+  display: flex;
+  flex-direction: column;
+}
+
+.contact-page__heading {
+  font-size: 48px;
+  line-height: 1.15;
+  margin-bottom: 48px;
+  opacity: 0;
+  animation: fadeIn 0.4s ease-out forwards;
+}
+.contact-page__heading .sans  { font-family: var(--font-interface); font-weight: 500; color: var(--color-ink); }
+.contact-page__heading .serif { font-family: var(--font-expressive); font-weight: 300; font-style: italic; font-size: 0.85em; color: var(--color-ink); }
+
+.contact-wrap {
+  display: grid;
+  grid-template-columns: 5fr 7fr;
+  width: 100%;
+  border: 5px solid #EEEDE6;
+  opacity: 0;
+  animation: fadeIn 0.5s ease-out 0.15s forwards;
+}
+
+/* ── Left column — contact cards ── */
+.contact-col-left {
+  display: flex;
+  flex-direction: column;
+  border-right: 5px solid #EEEDE6;
+}
+
+.contact-item {
+  padding: 30px 44px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border-bottom: 5px solid #EEEDE6;
+}
+.contact-item:last-child { border-bottom: none; }
+
+.contact-item__icon {
+  font-size: 28px;
+  color: var(--color-ink);
+  margin-bottom: 32px;
+}
+
+.contact-item__title {
+  font-family: var(--font-interface);
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--color-ink);
+  margin-bottom: 10px;
+}
+
+.contact-item__body {
+  font-family: var(--font-interface);
+  font-size: 15px;
+  color: var(--color-ink-subtle);
+  line-height: 1.5;
+}
+
+.contact-item__link {
+  color: var(--color-ink);
+  font-weight: 500;
+  text-decoration: none;
+  position: relative;
+  display: inline-block;
+  padding-bottom: 2px;
+  background-image: var(--rule-accent);
+  background-repeat: repeat-x;
+  background-position: 0 1.1em;
+  background-size: 0 2px;
+  transition: background-size var(--duration-instant);
+}
+.contact-item__link:hover { background-size: 13px 2px; }
+
+.contact-copy-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--color-ink-subtle);
+  padding: 2px 4px;
+  margin-left: 6px;
+  display: inline-flex;
+  align-items: center;
+  font-size: 16px;
+  vertical-align: middle;
+  transition: color var(--duration-instant);
+}
+.contact-copy-btn:hover { color: var(--color-ink); }
+
+/* ── Right column — form ── */
+.contact-col-right {
+  padding: 44px 48px;
+  display: flex;
+  flex-direction: column;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  height: 100%;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-group--message {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-label {
+  font-family: var(--font-interface);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-ink);
+  letter-spacing: 0.02em;
+}
+
+.form-input {
+  font-family: var(--font-interface);
+  font-size: 15px;
+  color: var(--color-ink);
+  background-color: transparent;
+  background-image:
+    repeating-linear-gradient(90deg,  var(--color-divider) 0, var(--color-divider) 7px, transparent 7px, transparent 13px),
+    repeating-linear-gradient(90deg,  var(--color-divider) 0, var(--color-divider) 7px, transparent 7px, transparent 13px),
+    repeating-linear-gradient(180deg, var(--color-divider) 0, var(--color-divider) 7px, transparent 7px, transparent 13px),
+    repeating-linear-gradient(180deg, var(--color-divider) 0, var(--color-divider) 7px, transparent 7px, transparent 13px);
+  background-size: 100% 2px, 100% 2px, 2px 100%, 2px 100%;
+  background-position: 0 0, 0 100%, 0 0, 100% 0;
+  background-repeat: no-repeat;
+  border: none;
+  padding: 13px 16px;
+  outline: none;
+  width: 100%;
+  box-sizing: border-box;
+  border-radius: 0;
+}
+.form-input:focus {
+  background-image: none;
+  outline: 1.5px solid var(--color-ink);
+  outline-offset: 0;
+}
+.form-input::placeholder { color: var(--color-body); }
+
+textarea.form-input {
+  flex: 1;
+  min-height: 140px;
+  resize: none;
+}
+
+.contact-submit {
+  font-family: var(--font-interface);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--color-ink);
+  background: var(--color-highlight);
+  border: none;
+  padding: 16px;
+  cursor: pointer;
+  width: 100%;
+  letter-spacing: 0.02em;
+  transition: opacity var(--duration-instant);
+  margin-top: auto;
+}
+.contact-submit:hover { opacity: 0.82; }
 
 /* ═══════════════════════════════════════════════
    TABLET  (769px – 1024px)
@@ -833,11 +1015,12 @@ footer::before {
     background-clip: padding-box;
     background-size: 0px 2px;
     line-height: 1.2;
-    transition: background-size var(--duration-instant);
+    transition: background-size 0s; /* instant exit — prevents static-line flash */
   }
   .cs-sidebar__link:hover span {
     background-size: 13px 2px;
     animation: cs-march .5s linear infinite;
+    transition: background-size 0s; /* instant enter too — animation takes over immediately */
   }
   @keyframes cs-march {
     from { background-position: 0 1.25em; }
@@ -849,6 +1032,7 @@ footer::before {
   .cs-layout__content {
     padding-top: 48px;
     padding-bottom: 120px;
+    min-width: 0; /* prevent CSS Grid blowout: 1fr column stays within its track */
   }
 
 
@@ -1102,6 +1286,30 @@ footer::before {
      margin-top: 30px aligns each to the circle
      midpoint (half of 60px). Arrow via ::after triangle.
      ═══════════════════════════════════════════════ */
+  /* ── Role circle (icon badge used in feature cards & source grids) ── */
+  .cs-role-circle {
+    position: relative;
+    width: 60px;
+    height: 60px;
+    flex-shrink: 0;
+  }
+  .cs-role-circle__bg {
+    width: 60px;
+    height: 60px;
+    display: block;
+    object-fit: contain;
+  }
+  .cs-role-circle__icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 24px;
+    color: #15113A;
+    line-height: 1;
+    pointer-events: none;
+  }
+
   .cs-roles-row {
     display: flex;
     align-items: flex-start;

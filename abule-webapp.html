@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Abulé Web-app Navigation — Richa Kandoi</title>
+  <link rel="icon" type="image/png" href="assets/favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Source+Sans+3:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/@phosphor-icons/web" defer></script>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* ── Abulé Web-app hero ── */
+    .cs-hero {
+      background: #EEEDE6; /* update to final brand color */
+    }
+
+    /* ── Image / video placeholders ── */
+    .cs-img-ph {
+      background: #E8E8E4;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 240px;
+      color: #aaa;
+      font-family: var(--font-interface);
+      font-size: 13px;
+      letter-spacing: 0.04em;
+    }
+    .cs-img-ph::after { content: 'Image placeholder'; }
+    .cs-img-ph--video { min-height: 280px; }
+    .cs-img-ph--video::after { content: 'Video placeholder'; }
+
+    /* ── Research source grid ── */
+    .cs-source-grid {
+      display: flex;
+      gap: 16px;
+      margin: var(--space-block) 0;
+    }
+    .cs-source-grid__item {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 12px;
+    }
+
+    .cs-source-grid__label {
+      font-family: var(--font-interface);
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--color-ink);
+      line-height: 1.3;
+    }
+    .cs-source-grid__body {
+      font-family: var(--font-interface);
+      font-size: 13px;
+      color: var(--color-ink-subtle);
+      line-height: 1.5;
+    }
+    @media (max-width: 600px) {
+      .cs-source-grid { flex-wrap: wrap; }
+      .cs-source-grid__item { flex: 0 0 calc(50% - 8px); }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── Cursor ───────────────────────────────── -->
+<div id="cursor">
+  <span class="cursor__text">View Case Study <i class="ph ph-arrow-up-right cursor__icon"></i></span>
+</div>
+
+<!-- ── Page container ────────────────────────── -->
+<div class="page">
+
+<!-- ── Edge lines ────────────────────────────── -->
+<div class="edge edge--left"></div>
+<div class="edge edge--right"></div>
+
+<!-- ── Nav ───────────────────────────────────── -->
+<nav class="nav-global">
+  <div class="nav__inner">
+    <a href="index.html" class="nav__brand">Richa Kandoi</a>
+    <ul class="nav__links">
+      <li><a href="index.html#work">Work</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+    <a href="mailto:richashah.kandoi@gmail.com" class="nav__cta">Let's Talk</a>
+  </div>
+</nav>
+
+<!-- ── Hero image ─────────────────────────────── -->
+<div class="cs-hero-wrap">
+  <div class="cs-hero">
+    <img src="assets/abule-webapp/hero-feed-1.png" alt="Abulé Web-app Navigation Hero">
+  </div>
+</div>
+
+<!-- ── Page heading ───────────────────────────── -->
+<div class="cs-heading-wrap" id="cs-page-heading">
+  <h1 class="cs-page-title">
+    Abulé Web-app Navigation Redesign
+  </h1>
+</div>
+
+<!-- ── TL;DR ──────────────────────────────────── -->
+<div id="tldr" class="cs-tldr-section scroll-reveal">
+  <div class="cs-tldr-grid">
+
+    <!-- Role & Focus — spans rows 1 and 2 -->
+    <div class="cs-tldr__item" data-tldr="role" style="grid-column: 1; grid-row: 1 / span 2;">
+      <span class="cs-tldr__label">Role &amp; Focus</span>
+      <div class="cs-tldr__value">
+        <ul>
+          <li>Product Designer</li>
+          <li>Research Synthesis</li>
+          <li>Cross-functional Collaboration</li>
+          <li>Defined Design Principles</li>
+          <li>Information Architecture</li>
+          <li>Led Design Explorations (low to high fidelity)</li>
+          <li>Desktop and Mobile Navigation Design</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Problem -->
+    <div class="cs-tldr__item" data-tldr="problem" style="grid-column: 2; grid-row: 1;">
+      <span class="cs-tldr__label">Problem</span>
+      <div class="cs-tldr__value">
+        <ul>
+          <li>Abulé's existing navigation didn't support its nested structure. Group switching was hidden under the community name.</li>
+          <li>Hidden 'Explore Abulé', under Feed, was blocking the core value prop: community discovery.</li>
+          <li>We needed a scalable navigation system that could accommodate growing communities and groups.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Solution & Impact -->
+    <div class="cs-tldr__item" data-tldr="solution" style="grid-column: 2; grid-row: 2;">
+      <span class="cs-tldr__label">Solution &amp; Impact</span>
+      <div class="cs-tldr__value">
+        <ul>
+          <li>A scalable navigation system for desktop and mobile. Overlay for community switching. Pop-out for group switching. Contextual bottom sheet for mobile.</li>
+          <li>Drove core product development, unblocked engineering on the web app and admin portal, and enabled sales demos that converted 7+ prospects.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Timeline -->
+    <div class="cs-tldr__item" data-tldr="timeline" style="grid-column: 1; grid-row: 3;">
+      <span class="cs-tldr__label">Timeline</span>
+      <span class="cs-tldr__value">2 weeks, Dec 2024</span>
+    </div>
+
+    <!-- Tools -->
+    <div class="cs-tldr__item" data-tldr="tools" style="grid-column: 2; grid-row: 3;">
+      <div class="cs-tldr-row" style="display: flex; gap: 80px;">
+        <div class="cs-tldr__item">
+          <span class="cs-tldr__label">Tools</span>
+          <span class="cs-tldr__value">Figma · FigJam · Linear · Microsoft Teams</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ── Dashed divider ─────────────────────────── -->
+<div class="cs-divider-section">
+  <div class="cs-divider"></div>
+</div>
+
+<!-- ── Body: sidebar + content ───────────────── -->
+<div class="cs-layout">
+
+  <aside class="cs-layout__sidebar">
+    <nav aria-label="Case study sections">
+      <a href="#tldr"              class="cs-sidebar__link"><span>- TL;DR</span></a>
+      <a href="#context"           class="cs-sidebar__link"><span>- Context</span></a>
+      <a href="#research"          class="cs-sidebar__link"><span>- Research</span></a>
+      <a href="#finding-solution"  class="cs-sidebar__link"><span>- Finding the Solution</span></a>
+      <a href="#final-design"      class="cs-sidebar__link"><span>- The Final Design</span></a>
+      <a href="#outcome"           class="cs-sidebar__link"><span>- Outcome</span></a>
+    </nav>
+  </aside>
+
+  <main class="cs-layout__content">
+
+    <!-- ════ 01 — Context ════════════════════════ -->
+    <section id="context" class="cs-section scroll-reveal">
+      <span class="cs-section-label">Context</span>
+
+      <!-- Static item 1 -->
+      <div style="margin-bottom: var(--space-block);">
+        <h2 class="cs-heading-static">What's Abulé?</h2>
+        <p class="cs-body">Abulé is a seed-stage care platform that helps families find and connect with support communities. Schools, companies, and nonprofits use it to create communities where members can organise and manage care.</p>
+        <img src="assets/abule-webapp/context-meetemma-1.png" alt="Meet Emma" style="width: 100%; height: auto; display: block; margin-bottom: 10px;">
+        <span class="cs-caption">Meet Emma, a mother of two who recently relocated.</span>
+      </div>
+
+      <!-- Static item 2 -->
+      <div style="margin-bottom: var(--space-block);">
+        <h2 class="cs-heading-static">What was broken?</h2>
+        <p class="cs-body">The existing navigation didn't reflect Abulé's three-level hierarchy, Community → Groups → Features. Users like Emma had no labels and breadcrumbs to know where they were in the nested structure.</p>
+        <img src="assets/abule-webapp/context-problem-2.png" alt="Existing navigation problems" style="width: 100%; height: auto; display: block; margin-top: var(--space-block); margin-bottom: 10px;">
+        <span class="cs-caption" style="max-width: 42%; text-align: left;">Emma joins Groups that sit within Communities, part of larger Abulé platform.</span>
+        <img src="assets/abule-webapp/context-he-3.png" alt="Group switching was hidden under the community name" style="width: 100%; height: auto; display: block; margin: calc(var(--space-block) * 2) 0 10px;">
+        <span class="cs-caption" style="text-align: left;">Group switching was hidden under the community name. One interaction handled both community and group switching, forcing users to remember navigation paths.</span>
+        <img src="assets/abule-webapp/context-he-4.png" alt="Explore Abulé hidden under Feed tab" style="width: 100%; height: auto; display: block; margin: var(--space-block) 0 10px;">
+        <span class="cs-caption" style="text-align: left;">Explore Abulé, the entry point to discovering new communities and people, was hidden under the Feed tab, inaccessible from anywhere else in the app.</span>
+      </div>
+
+      <div class="cs-callout">
+        <p class="cs-callout__text">Abulé couldn't go to market with a navigation that did not support its nested hierarchy structure. Engineering was blocked, they needed the navigation IA before they could build the web app or place admin controls. Sales couldn't demo the multi-community experience to prospects waiting in the pipeline.</p>
+      </div>
+    </section>
+
+    <!-- ════ 02 — Section 2 ══════════════════════ -->
+    <section id="research" class="cs-section scroll-reveal">
+      <span class="cs-section-label">Research</span>
+
+      <p class="cs-body">There was no time or budget for new research. So I synthesized insights from four existing sources to make defensible design decisions.</p>
+
+      <div class="cs-source-grid">
+        <div class="cs-source-grid__item">
+          <div class="cs-role-circle">
+            <img src="assets/abule-admin/roles-row-circle.png" alt="" class="cs-role-circle__bg">
+            <i class="ph ph-chats cs-role-circle__icon"></i>
+          </div>
+          <span class="cs-source-grid__label">Stakeholder Input</span>
+          <span class="cs-source-grid__body">PM + Engineering on technical constraints and business needs</span>
+        </div>
+        <div class="cs-source-grid__item">
+          <div class="cs-role-circle">
+            <img src="assets/abule-admin/roles-row-circle.png" alt="" class="cs-role-circle__bg">
+            <i class="ph ph-puzzle-piece cs-role-circle__icon"></i>
+          </div>
+          <span class="cs-source-grid__label">Product Market Fit</span>
+          <span class="cs-source-grid__body">26 interviews, 49 surveys from June 2024</span>
+        </div>
+        <div class="cs-source-grid__item">
+          <div class="cs-role-circle">
+            <img src="assets/abule-admin/roles-row-circle.png" alt="" class="cs-role-circle__bg">
+            <i class="ph ph-list-checks cs-role-circle__icon"></i>
+          </div>
+          <span class="cs-source-grid__label">Heuristic Analysis</span>
+          <span class="cs-source-grid__body">Current navigation reviewed against Nielsen's principles</span>
+        </div>
+        <div class="cs-source-grid__item">
+          <div class="cs-role-circle">
+            <img src="assets/abule-admin/roles-row-circle.png" alt="" class="cs-role-circle__bg">
+            <i class="ph ph-binoculars cs-role-circle__icon"></i>
+          </div>
+          <span class="cs-source-grid__label">Competitive Analysis</span>
+          <span class="cs-source-grid__body">Discord, Reddit and Slack navigation patterns</span>
+        </div>
+      </div>
+
+      <div class="cs-accordion">
+        <button class="cs-accordion__trigger" aria-expanded="false">
+          User needs from PMF research
+          <i class="ph ph-caret-down cs-accordion__chevron"></i>
+        </button>
+        <div class="cs-accordion__body-wrap">
+          <div class="cs-accordion__body">
+            <div class="cs-accordion__inner">
+              <p class="cs-body">Parents are time-constrained. They need to accomplish tasks quickly and discover relevant communities without effort. If something requires remembering where it's hidden, parents won't find it.</p>
+              <img src="assets/abule-webapp/research-pmf-1.png" alt="PMF Research insights" style="width: 100%; height: auto; display: block; margin: var(--space-block) 0;">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cs-accordion">
+        <button class="cs-accordion__trigger" aria-expanded="false">
+          How established platforms solve this
+          <i class="ph ph-caret-down cs-accordion__chevron"></i>
+        </button>
+        <div class="cs-accordion__body-wrap">
+          <div class="cs-accordion__body">
+            <div class="cs-accordion__inner">
+              <p class="cs-body">Discord, Slack and Reddit separate high-level navigation (discovery and switching) from contextual navigation within a community.</p>
+              <div class="cs-flex-row" style="display: flex; gap: 24px; align-items: flex-start; margin-top: var(--space-block);">
+                <div style="flex: 1; min-width: 0;">
+                  <img src="assets/abule-webapp/research-comp-2.png" alt="Discord and Reddit Explore navigation" style="width: 100%; height: 320px; object-fit: cover; display: block; margin-bottom: 10px;">
+                  <span class="cs-caption" style="display: block; margin-bottom: 0;">Discord and Reddit place Explore in global navigation for quick discovery of new communities.</span>
+                </div>
+                <div style="flex: 1; min-width: 0;">
+                  <img src="assets/abule-webapp/research-comp-3.png" alt="Discord and Slack hierarchical navigation" style="width: 100%; height: 320px; object-fit: cover; display: block; margin-bottom: 10px;">
+                  <span class="cs-caption" style="display: block; margin-bottom: 0;">Discord and Slack use hierarchical navigation so users always know where they are within a server or workspace.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cs-accordion">
+        <button class="cs-accordion__trigger" aria-expanded="false">
+          Defining Design Principles
+          <i class="ph ph-caret-down cs-accordion__chevron"></i>
+        </button>
+        <div class="cs-accordion__body-wrap">
+          <div class="cs-accordion__body">
+            <div class="cs-accordion__inner">
+              <p class="cs-body">From the research I defined three principles to guide every decision that followed.</p>
+              <div class="feature-card-grid" style="margin-top: var(--space-block);">
+                <div class="feature-card">
+                  <div class="cs-role-circle">
+                    <img src="assets/abule-admin/roles-row-circle.png" alt="" class="cs-role-circle__bg">
+                    <i class="ph ph-compass cs-role-circle__icon"></i>
+                  </div>
+                  <p class="feature-card__heading">Prioritize Discovery</p>
+                  <p class="feature-card__body">The path to finding new communities should be as accessible as the path to existing ones.</p>
+                </div>
+                <div class="feature-card">
+                  <div class="cs-role-circle">
+                    <img src="assets/abule-admin/roles-row-circle.png" alt="" class="cs-role-circle__bg">
+                    <i class="ph ph-arrows-split cs-role-circle__icon" style="transform: translate(-50%, -50%) rotate(180deg);"></i>
+                  </div>
+                  <p class="feature-card__heading">Task-Oriented Grouping</p>
+                  <p class="feature-card__body">Switching communities and switching groups are different tasks. The navigation should reflect that difference.</p>
+                </div>
+                <div class="feature-card">
+                  <div class="cs-role-circle">
+                    <img src="assets/abule-admin/roles-row-circle.png" alt="" class="cs-role-circle__bg">
+                    <i class="ph ph-hourglass cs-role-circle__icon"></i>
+                  </div>
+                  <p class="feature-card__heading">Respect Time Constraints</p>
+                  <p class="feature-card__body">Parents and care-seekers complete tasks in short windows. Every critical action must be visible above the fold.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cs-callout">
+        <p class="cs-callout__text">Parents need fast, effortless navigation with no hidden features. Established platforms treat Discovery as a primary nav item. The constraint: fit a three-level hierarchy into 800px, with all critical actions above the fold.</p>
+      </div>
+    </section>
+
+    <!-- ════ 03 — Section 3 ══════════════════════ -->
+    <section id="finding-solution" class="cs-section scroll-reveal">
+      <span class="cs-section-label">Finding the Solution</span>
+
+      <div class="cs-accordion">
+        <button class="cs-accordion__trigger" aria-expanded="false">
+          Aligning on structure
+          <i class="ph ph-caret-down cs-accordion__chevron"></i>
+        </button>
+        <div class="cs-accordion__body-wrap">
+          <div class="cs-accordion__body">
+            <div class="cs-accordion__inner">
+              <p class="cs-body">I proposed a scalable IA to align the team. Three decisions shaped it:</p>
+              <ul class="cs-body" style="margin-top: 16px; padding-left: 20px; display: flex; flex-direction: column; gap: 10px;">
+                <li>Explore Abulé moved to a top-level section, accessible from anywhere in the app.</li>
+                <li>Each community includes a default public General group, giving everyone a shared starting point.</li>
+                <li>Every user begins in Abulé, a platform-managed community that drives initial engagement and onboarding.</li>
+              </ul>
+              <img src="assets/abule-webapp/finding-solution-IA-1.png" alt="Proposed IA structure" style="width: 100%; height: auto; display: block; margin: var(--space-block) 0;">
+              <p class="cs-body">The founder and engineering lead aligned on this structure. But, the real challenge was to design a UI that scales from 5 to 500 communities, each with unlimited groups, while keeping every critical action above the fold. I needed to explore patterns that were infinitely scalable.</p>
+              <img src="assets/abule-webapp/finding-solution-2.png" alt="Scaling challenge" style="width: 65%; height: auto; display: block; margin: var(--space-block) auto 0;">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cs-accordion">
+        <button class="cs-accordion__trigger" aria-expanded="false">
+          Exploration 1: Dual left navigation (didn't work)
+          <i class="ph ph-caret-down cs-accordion__chevron"></i>
+        </button>
+        <div class="cs-accordion__body-wrap">
+          <div class="cs-accordion__body">
+            <div class="cs-accordion__inner">
+              <p class="cs-body">Divided primary nav. into clear segments: community, explore abulé, personal space and secondary nav into groups and features within the selected community.</p>
+              <img src="assets/abule-webapp/finding-solution-de-3.png" alt="Dual left navigation exploration" style="width: 52%; height: auto; display: block; margin: 16px auto;">
+              <p class="cs-body">I tested it with 9 team members including 3 parents. 8 out of 9 found it overwhelming. All three parents said it was too complex. The engineering lead flagged it as a heavy build that would push back the main deadline.</p>
+              <br>
+              <p class="cs-subhead">What didn't work:</p>
+              <p class="cs-body">It didn't scale beyond 3 to 4 communities and relied entirely on icon recognition without labels. But the testing confirmed that having separate zones for community, exploration, and personal tasks was the right direction.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cs-accordion">
+        <button class="cs-accordion__trigger" aria-expanded="false">
+          Design Exploration 2: Navigation with pop-outs
+          <i class="ph ph-caret-down cs-accordion__chevron"></i>
+        </button>
+        <div class="cs-accordion__body-wrap">
+          <div class="cs-accordion__body">
+            <div class="cs-accordion__inner">
+              <p class="cs-body">Building on what Exploration 1 confirmed, I tried a single left nav with pop-outs for both community and group switching.</p>
+              <img src="assets/abule-webapp/finding-solution-DE-4.png" alt="Navigation with pop-outs exploration" style="width: 100%; height: auto; display: block; margin: var(--space-block) 0;">
+              <p class="cs-subhead">What worked?</p>
+              <p class="cs-body">Pop-out for group switching because it:</p>
+              <ul class="cs-body" style="margin-top: 10px; padding-left: 20px; display: flex; flex-direction: column; gap: 10px;">
+                <li>Enabled quick and frequent switching without adding visual clutter.</li>
+                <li>Scaled easily by keeping the group list scrollable.</li>
+                <li>Kept primary nav minimal, fitting most list items above the fold.</li>
+              </ul>
+              <p class="cs-subhead" style="margin-top: var(--space-block);">What didn't work?</p>
+              <p class="cs-body">Community switching via pop-out didn't work. Opening a pop-out while still seeing the full nav behind it added visual noise at the moment a user was trying to make a high-level decision.</p>
+              <br>
+              <p class="cs-subhead" style="font-style: italic;">The group pop-out stayed. Community switching needed something different.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cs-accordion">
+        <button class="cs-accordion__trigger" aria-expanded="false">
+          Design Exploration 3: Overlay for Community Switching
+          <i class="ph ph-caret-down cs-accordion__chevron"></i>
+        </button>
+        <div class="cs-accordion__body-wrap">
+          <div class="cs-accordion__body">
+            <div class="cs-accordion__inner">
+              <p class="cs-body">While working on Squarespace, I noticed their overlay menu handled complexity differently from hierarchical navigation. I could focus on one high-level task (like selecting a page) without seeing all the other management options. I adapted this pattern for Abulé's community switching.</p>
+              <div class="cs-flex-row" style="display: flex; gap: 48px; align-items: flex-start; margin-top: var(--space-block);">
+                <div style="flex: 1; min-width: 0;">
+                  <img src="assets/abule-webapp/finding-solution-DE-5.png" alt="Squarespace overlay pattern" style="height: 380px; width: auto; max-width: 100%; display: block; margin-bottom: var(--space-content);">
+                  <span class="cs-caption" style="margin-bottom: 0;">Squarespace's overlay isolates one task from the rest of the interface.</span>
+                </div>
+                <div style="flex: 1; min-width: 0;">
+                  <img src="assets/abule-webapp/finding-solution-DE-6.png" alt="Abulé community switching overlay" style="height: 380px; width: auto; max-width: 100%; display: block; margin-bottom: var(--space-content);">
+                  <span class="cs-caption" style="margin-bottom: 0;">Overlay pattern adapted for Abulé's community switching.</span>
+                </div>
+              </div>
+              <p class="cs-body" style="margin-top: var(--space-content);">The user opens the overlay intentionally, makes a decision, closes it, and returns to context. It's scrollable and searchable inside, and it scales to any number of communities.</p>
+              <p class="cs-subhead" style="margin-top: var(--space-block);">Why this worked?</p>
+              <ul class="cs-body" style="margin-top: 10px; padding-left: 20px; display: flex; flex-direction: column; gap: 10px;">
+                <li><strong>Isolates high-level tasks:</strong> Community selection happens in a focused overlay.</li>
+                <li><strong>Infinitely scalable:</strong> Works with 5 or 5,000 communities.</li>
+                <li><strong>On-demand &amp; intentional:</strong> Deep structure only appears when needed.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cs-accordion">
+        <button class="cs-accordion__trigger" aria-expanded="false">
+          Small Changes, Big Impact
+          <i class="ph ph-caret-down cs-accordion__chevron"></i>
+        </button>
+        <div class="cs-accordion__body-wrap">
+          <div class="cs-accordion__body">
+            <div class="cs-accordion__inner">
+              <p class="cs-subhead">Moved Messages and Notifications to top right.</p>
+              <ul class="cs-body" style="margin-top: 10px; padding-left: 20px; display: flex; flex-direction: column; gap: 10px;">
+                <li>Aligns with user habits for critical features.</li>
+                <li>Enables seamless access via drawer from any screen.</li>
+                <li>Optimized Left Nav Space, keeping main items above the fold.</li>
+              </ul>
+              <img src="assets/abule-webapp/finding-solution-DE-7.png" alt="Messages and Notifications moved to top right" style="width: 100%; height: auto; display: block; margin: var(--space-block) 0;">
+              <p class="cs-subhead">Added collapsible list items for Explore Abulé &amp; User's Space.</p>
+              <ul class="cs-body" style="margin-top: 10px; padding-left: 20px; display: flex; flex-direction: column; gap: 10px;">
+                <li>Manages information density while providing flexibility to users to personalize their navigation.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cs-callout">
+        <p class="cs-callout__text">Three explorations led to one system. The group pop-out handled contextual switching. An overlay pattern solved community switching: focused, scalable, on-demand. Messages and notifications moved to the top right and collapsible sections kept the nav clean.</p>
+      </div>
+    </section>
+
+    <!-- ════ 04 — What I Designed ════════════════ -->
+    <section id="final-design" class="cs-section scroll-reveal">
+      <span class="cs-section-label">The Final Design</span>
+
+      <div class="cs-accordion">
+        <button class="cs-accordion__trigger" aria-expanded="false">
+          Core Navigation
+          <i class="ph ph-caret-down cs-accordion__chevron"></i>
+        </button>
+        <div class="cs-accordion__body-wrap">
+          <div class="cs-accordion__body">
+            <div class="cs-accordion__inner">
+              <video src="assets/abule-webapp/vimeo%20videos/video-1.mp4" controls muted playsinline style="width: 100%; display: block; border-radius: 8px; aspect-ratio: 16/9; margin-bottom: 16px;"></video>
+              <ul class="cs-body" style="padding-left: 20px; display: flex; flex-direction: column; gap: 10px; text-align: left;">
+                <li>Clear separation between Community navigation, Explore Abulé, and User's Personal Space.</li>
+                <li>Every new user begins in the default community, Abulé, managed by platform team.</li>
+                <li>From here, users can discover new communities through Explore Abulé.</li>
+                <li>Clear visual hierarchy maintained throughout, with critical navigation items staying above the fold.</li>
+              </ul>
+              <p class="cs-subhead" style="margin-top: var(--space-block);">Switching Community</p>
+              <video src="assets/abule-webapp/vimeo%20videos/video-2.mp4" controls muted playsinline style="width: 100%; display: block; border-radius: 8px; aspect-ratio: 16/9; margin: 16px 0;"></video>
+              <ul class="cs-body" style="padding-left: 20px; display: flex; flex-direction: column; gap: 10px; text-align: left;">
+                <li>Users switch communities via the Communities item in the left nav, which opens an overlay for focused, intentional switching.</li>
+                <li>Each Community opens to its General Group feed by default.</li>
+                <li>Joined communities are organized under 'Your Communities' for quick overview and switching.</li>
+                <li>Search and "Create a Community" options available at the top of overlay.</li>
+              </ul>
+              <p class="cs-subhead" style="margin-top: var(--space-block);">Switching Groups within a Community</p>
+              <video src="assets/abule-webapp/vimeo%20videos/video-3.mp4" controls muted playsinline style="width: 100%; display: block; border-radius: 8px; aspect-ratio: 16/9; margin: 16px 0;"></video>
+              <ul class="cs-body" style="padding-left: 20px; display: flex; flex-direction: column; gap: 10px; text-align: left;">
+                <li>Groups' list item in the left nav reveals a pop-out menu—keeping users in context.</li>
+                <li>Groups are organized as:
+                  <ul style="margin-top: 8px; padding-left: 20px; display: flex; flex-direction: column; gap: 6px; list-style: none;">
+                    <li>- Public (e.g. General Group) - shown first.</li>
+                    <li>- Private (joined, pending, or available to request) - organized by access level.</li>
+                  </ul>
+                </li>
+                <li>Selecting a group updates the feed, breadcrumbs, and left nav highlight to maintain clear wayfinding.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cs-accordion">
+        <button class="cs-accordion__trigger" aria-expanded="false">
+          Role-based navigation
+          <i class="ph ph-caret-down cs-accordion__chevron"></i>
+        </button>
+        <div class="cs-accordion__body-wrap">
+          <div class="cs-accordion__body">
+            <div class="cs-accordion__inner">
+              <p class="cs-body">The navigation adapts by role without creating a separate interface. Same structure, same locations. Admin actions appear inline within the same structure and at the same locations.</p>
+              <video src="assets/abule-webapp/vimeo%20videos/createCommunity.mp4" controls muted playsinline style="width: 100%; display: block; border-radius: 8px; aspect-ratio: 16/9; margin: var(--space-block) 0 10px;"></video>
+              <span class="cs-caption">Emma creates the Working Moms in Tech community from the web app.</span>
+              <div class="cs-flex-row" style="display: flex; gap: 24px; align-items: flex-start; margin-top: var(--space-block);">
+                <div style="flex: 1; min-width: 0;">
+                  <img src="assets/abule-webapp/final-design-1.png" alt="Member view" style="width: 100%; height: auto; display: block; margin-bottom: 12px;">
+                  <p style="font-family: var(--font-interface); font-size: 14px; font-weight: 600; color: var(--color-ink); margin-bottom: 6px;">What Emma sees as a Member:</p>
+                  <ul style="font-family: var(--font-interface); font-size: 14px; font-style: italic; color: var(--color-ink-subtle); line-height: 1.5; padding-left: 18px; display: flex; flex-direction: column; gap: 4px;">
+                    <li>Groups with lock icons on private ones.</li>
+                    <li>Request to join action.</li>
+                    <li>Groups with pending join request.</li>
+                  </ul>
+                </div>
+                <div style="flex: 1; min-width: 0;">
+                  <img src="assets/abule-webapp/final-design-2.png" alt="Admin view" style="width: 100%; height: auto; display: block; margin-bottom: 12px;">
+                  <p style="font-family: var(--font-interface); font-size: 14px; font-weight: 600; color: var(--color-ink); margin-bottom: 6px;">What Emma sees as an Admin:</p>
+                  <ul style="font-family: var(--font-interface); font-size: 14px; font-style: italic; color: var(--color-ink-subtle); line-height: 1.5; padding-left: 18px; display: flex; flex-direction: column; gap: 4px;">
+                    <li>Same groups in same location.</li>
+                    <li>Edit icons on groups.</li>
+                    <li>'Add a Group' button.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cs-accordion">
+        <button class="cs-accordion__trigger" aria-expanded="false">
+          Mobile Navigation
+          <i class="ph ph-caret-down cs-accordion__chevron"></i>
+        </button>
+        <div class="cs-accordion__body-wrap">
+          <div class="cs-accordion__body">
+            <div class="cs-accordion__inner">
+              <p class="cs-body">Desktop was prioritised first to validate the nested hierarchy and unblock enterprise sales demos. A teammate had started the mobile navigation structure. I completed and refined it.</p>
+              <p class="cs-subhead" style="margin-top: 12px;">The mobile system has three parts:</p>
+              <ol class="cs-body" style="margin-top: 12px; padding-left: 22px; display: flex; flex-direction: column; gap: 12px;">
+                <li>A bottom bar with thumb-friendly primary actions (Home, Messages, Create, Notifications, Profile) based on expected frequency of use.</li>
+                <li>Contextual navigation within the Home tab maintaining the desktop hierarchy in a collapsed format.</li>
+                <li>A consolidated Personal Space in the Profile tab.</li>
+              </ol>
+              <img src="assets/abule-webapp/final-design-3.png" alt="Mobile navigation" style="width: 100%; height: auto; display: block; margin-top: var(--space-block);">
+              <p class="cs-subhead" style="margin-top: var(--space-block);">Contextual Bottom Sheets</p>
+              <p class="cs-body">The '+' button adapts based on user's current screen making it relevant to the user's current task.</p>
+              <p class="cs-body" style="margin-top: 12px;">On pages without creation actions, the '+' button provides Explore Abulé features, helping users discover new communities and people easily.</p>
+              <img src="assets/abule-webapp/final-design-4.png" alt="Contextual bottom sheets" style="width: 100%; height: auto; display: block; margin-top: var(--space-block);">
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ════ 05 — Outcome ════════════════════════ -->
+    <section id="outcome" class="cs-section scroll-reveal">
+      <span class="cs-section-label">Outcome</span>
+
+      <p class="cs-body">The product has not launched yet, so user-facing metrics are not available. The downstream impact of solving the navigation is what I can point to.</p>
+
+      <div class="feature-card-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 48px; margin-top: var(--space-block);">
+
+        <div class="feature-card">
+          <div class="cs-role-circle">
+            <img src="assets/abule-admin/roles-row-circle.png" alt="" class="cs-role-circle__bg">
+            <i class="ph ph-diamonds-four cs-role-circle__icon"></i>
+          </div>
+          <p class="feature-card__heading">Drove core product development</p>
+          <p class="feature-card__body">Navigation is the foundation of the web app. Getting it right unblocked everything that followed. Every screen, feature, and user flow was built on this IA.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="cs-role-circle">
+            <img src="assets/abule-admin/roles-row-circle.png" alt="" class="cs-role-circle__bg">
+            <i class="ph ph-resize cs-role-circle__icon"></i>
+          </div>
+          <p class="feature-card__heading">Enabled scalable growth</p>
+          <p class="feature-card__body">The overlay and pop-out system supports unlimited communities and groups. The platform can grow and support multiple user roles without needing restructuring.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="cs-role-circle">
+            <img src="assets/abule-admin/roles-row-circle.png" alt="" class="cs-role-circle__bg">
+            <i class="ph ph-code cs-role-circle__icon"></i>
+          </div>
+          <p class="feature-card__heading">Unblocked engineering</p>
+          <p class="feature-card__body">The IA gave engineering a clear structure to build the web app, define admin controls, and move key features inline. This reduced the scope of the admin portal.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="cs-role-circle">
+            <img src="assets/abule-admin/roles-row-circle.png" alt="" class="cs-role-circle__bg">
+            <i class="ph ph-trend-up cs-role-circle__icon"></i>
+          </div>
+          <p class="feature-card__heading">Converted 7+ prospects</p>
+          <p class="feature-card__body">The navigation prototype enabled sales demos of the multi-community experience for the first time. It helped convert 7+ enterprise prospects in the pipeline.</p>
+        </div>
+
+      </div>
+
+      <div class="cs-accordion" style="margin-top: var(--space-block);">
+        <button class="cs-accordion__trigger" aria-expanded="false">
+          Validating the design
+          <i class="ph ph-caret-down cs-accordion__chevron"></i>
+        </button>
+        <div class="cs-accordion__body-wrap">
+          <div class="cs-accordion__body">
+            <div class="cs-accordion__inner">
+
+              <p class="cs-subhead">Post Launch (Week 1–2):</p>
+              <ol class="cs-list">
+                <li>Monitor discovery analytics + support metrics
+                  <ul style="list-style: disc; padding-left: 20px; margin-top: 8px; margin-bottom: 0;">
+                    <li style="margin-bottom: 0;">Time to find new communities (target: &lt;2 min)</li>
+                    <li style="margin-bottom: 0;">% of users exploring beyond default community</li>
+                    <li style="margin-bottom: 0;">Navigation-related ticket volume</li>
+                  </ul>
+                </li>
+                <li>Conduct 5–8 user interviews
+                  <ul style="list-style: disc; padding-left: 20px; margin-top: 8px; margin-bottom: 0;">
+                    <li style="margin-bottom: 0;">Validate navigation mental models</li>
+                    <li style="margin-bottom: 0;">Assess community vs. group distinction clarity</li>
+                  </ul>
+                </li>
+              </ol>
+
+              <p class="cs-subhead">Iterations:</p>
+              <ol class="cs-list">
+                <li>Test community stacking methods
+                  <ul style="list-style: disc; padding-left: 20px; margin-top: 8px;">
+                    <li>Based on alphabetical, recency, frequency</li>
+                  </ul>
+                </li>
+                <li>Introduce brand identity in top navigation bar
+                  <ul style="list-style: disc; padding-left: 20px; margin-top: 8px;">
+                    <li>Collaborated with the PM and engineering team to manage technical updates across all screens</li>
+                  </ul>
+                </li>
+              </ol>
+
+              <img src="assets/abule-webapp/outcome-1.png" alt="Outcome" style="width: 100%; height: auto; display: block;">
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h2 class="cs-heading-static" style="margin-top: var(--space-block);">Learnings and Reflections:</h2>
+
+      <p class="cs-body">Working without a research budget meant relying more intentionally on existing data from 26 interviews and 49 survey responses. The constraint wasn't lack of insight, but turning existing data into decisions instead of generating new research.</p>
+      <p class="cs-body">The most important moment in this project was not a design decision, but aligning the IA with the founder and engineering lead. This gave every exploration clear success criteria and helped translate research insights into a shared product structure.</p>
+      <p class="cs-body">I tested early directions with teammates who are close to the target users. With more time, I would have run quick usability tests on the community switching overlay with parents before final implementation.</p>
+
+    </section>
+
+  </main><!-- /cs-layout__content -->
+</div><!-- /cs-layout -->
+
+<!-- ── Footer ─────────────────────────────────── -->
+<div id="site-footer"></div>
+
+</div><!-- /page -->
+
+<script src="footer.js"></script>
+<script src="main.js"></script>
+<script>
+/* ─── SCROLL POSITION PRESERVATION (refresh only) ── */
+(function () {
+  if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'manual';
+  }
+  var key = 'abule-webapp-scroll';
+  var navType = (performance.getEntriesByType('navigation')[0] || {}).type;
+  if (navType === 'reload') {
+    var saved = sessionStorage.getItem(key);
+    if (saved !== null) {
+      window.scrollTo(0, parseInt(saved, 10));
+    }
+  }
+  sessionStorage.removeItem(key);
+  window.addEventListener('beforeunload', function () {
+    sessionStorage.setItem(key, String(window.scrollY));
+  });
+})();
+
+/* ─── ACCORDION ─────────────────────────────────── */
+(function () {
+  document.addEventListener('click', function (e) {
+    var accordion = e.target.closest('.cs-accordion');
+    if (!accordion) return;
+    // Block toggle when clicking on videos or text content
+    // Allow toggle on: trigger, images, whitespace (div/section backgrounds)
+    var tag = e.target.tagName.toUpperCase();
+    var isTextOrVideo = ['VIDEO', 'SOURCE', 'P', 'LI', 'OL', 'UL',
+      'H1', 'H2', 'H3', 'H4', 'H5', 'H6',
+      'SPAN', 'STRONG', 'EM', 'A', 'BLOCKQUOTE', 'PRE', 'CODE'].indexOf(tag) !== -1;
+    if (isTextOrVideo) return;
+    if (e.target.closest('video')) return;
+
+    var isOpen = accordion.classList.contains('is-open');
+    accordion.classList.toggle('is-open');
+    var btn = accordion.querySelector('.cs-accordion__trigger');
+    if (btn) btn.setAttribute('aria-expanded', String(!isOpen));
+
+    accordion.classList.add('is-marching');
+    var bodyWrap = accordion.querySelector('.cs-accordion__body-wrap');
+
+    if (isOpen) {
+      var navEl     = document.querySelector('.nav-global');
+      var navH      = navEl ? navEl.offsetHeight : 64;
+      var triggerTop = accordion.getBoundingClientRect().top;
+      if (triggerTop < navH) {
+        var accordionDocTop = triggerTop + window.scrollY;
+        window.scrollTo(0, Math.max(0, accordionDocTop - navH - 24));
+      }
+    }
+
+    bodyWrap.addEventListener('transitionend', function stop() {
+      accordion.classList.remove('is-marching');
+      bodyWrap.removeEventListener('transitionend', stop);
+    });
+  });
+})();
+
+/* ─── TL;DR LINK — scroll heading to mid-viewport ── */
+(function () {
+  var tldrLink = document.querySelector('.cs-sidebar__link[href="#tldr"]');
+  var heading  = document.getElementById('cs-page-heading');
+  if (!tldrLink || !heading) return;
+  tldrLink.addEventListener('click', function (e) {
+    e.preventDefault();
+    heading.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  });
+})();
+
+/* ─── SIDEBAR ACTIVE STATE ──────────────────────── */
+(function () {
+  var links = Array.from(document.querySelectorAll('.cs-sidebar__link'));
+  var sections = links.map(function(link) {
+    return document.querySelector(link.getAttribute('href'));
+  }).filter(Boolean);
+
+  if (!links.length || !sections.length) return;
+
+  function onScroll() {
+    var scrollPos = window.scrollY + (window.innerHeight * 0.4);
+    var currentId = '';
+
+    sections.forEach(function (sec) {
+      if (scrollPos >= sec.offsetTop) {
+        currentId = sec.getAttribute('id');
+      }
+    });
+
+    if (currentId) {
+      links.forEach(function (link) {
+        if (link.getAttribute('href') === '#' + currentId) {
+          link.classList.add('is-active');
+        } else {
+          link.classList.remove('is-active');
+        }
+      });
+    }
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll, { passive: true });
+  onScroll();
+})();
+
+</script>
+
+</body>
+</html>
