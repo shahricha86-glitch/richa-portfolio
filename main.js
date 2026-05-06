@@ -34,13 +34,13 @@
     navLinks.forEach(function (link) {
       var href = link.getAttribute('href') || '';
 
-      /* Hash match: href="#work" or href="index.html#work" with hash="#work" */
+      /* Hash match: href="#work" or href="/#work" with hash="#work" */
       if (hash && href.endsWith(hash)) {
         link.classList.add('is-active');
         return;
       }
 
-      /* Exact page match: href="about.html" and path ends with "about.html" */
+      /* Exact page match: href="/about" and path ends with "about.html" */
       if (!href.includes('#') && href !== '#' && href !== '' && path.endsWith(href)) {
         link.classList.add('is-active');
         return;
