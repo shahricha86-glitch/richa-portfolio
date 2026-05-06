@@ -1062,6 +1062,10 @@ textarea.form-input {
 .desc-link:hover span {
   text-decoration: underline;
 }
+.desc-link i {
+  display: inline-block;
+  text-decoration: none;
+}
 
 /* ── Mobile: single column ───────────────────── */
 @media (max-width: 900px) {
