@@ -12,7 +12,7 @@ document.getElementById('site-footer').innerHTML = `
     <ul class="footer__nav">
       <li class="footer__col">
         <a href="/#work" class="footer__link--main">Work</a>
-        <a href="/password?to=/abule-admin" class="footer__link--sub icon-link"><i class="ph ph-lock-key" style="margin-right:6px; font-size:1.1em; vertical-align:-2px;"></i><span>Admin Portal Design</span></a>
+        <a href="/password?to=/abule-adminportal" class="footer__link--sub icon-link"><i class="ph ph-lock-key" style="margin-right:6px; font-size:1.1em; vertical-align:-2px;"></i><span>Admin Portal Design</span></a>
         <a href="/layerpath" class="footer__link--sub">Layerpath Website &amp; Web-app Redesign</a>
         <a href="/password?to=/abule-webapp" class="footer__link--sub icon-link"><i class="ph ph-lock-key" style="margin-right:6px; font-size:1.1em; vertical-align:-2px;"></i><span>Web-app Navigation Redesign</span></a>
         <a href="/about" class="footer__link--main" style="margin-top:24px;">About</a>
