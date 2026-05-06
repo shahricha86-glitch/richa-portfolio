@@ -18,22 +18,53 @@
   });
 })();
 
-/* ─── NAV ACTIVE STATE (clicked = bold) ─────── */
+/* ─── NAV ACTIVE STATE ─────────────────────── */
 (function () {
   var navLinks = Array.from(document.querySelectorAll('.nav__links a'));
 
+  function clearActive() {
+    navLinks.forEach(function (l) { l.classList.remove('is-active'); });
+  }
+
+  /* Set active on page load based on current URL */
+  (function () {
+    var path = window.location.pathname;
+    var hash = window.location.hash; /* e.g. "#work" */
+
+    navLinks.forEach(function (link) {
+      var href = link.getAttribute('href') || '';
+
+      /* Hash match: href="#work" or href="index.html#work" with hash="#work" */
+      if (hash && href.endsWith(hash)) {
+        link.classList.add('is-active');
+        return;
+      }
+
+      /* Exact page match: href="about.html" and path ends with "about.html" */
+      if (!href.includes('#') && href !== '#' && href !== '' && path.endsWith(href)) {
+        link.classList.add('is-active');
+        return;
+      }
+
+      /* Case study pages — Work link is always active */
+      var isCaseStudy = /abule|layerpath|lets-talk/.test(path);
+      if (isCaseStudy && href.includes('#work')) {
+        link.classList.add('is-active');
+      }
+    });
+  })();
+
+  /* Update active on click */
   navLinks.forEach(function (link) {
     link.addEventListener('click', function () {
-      navLinks.forEach(function (l) { l.classList.remove('is-active'); });
+      clearActive();
       link.classList.add('is-active');
     });
   });
 
   var brand = document.querySelector('.nav__brand');
   if (brand) {
-    brand.addEventListener('click', function () {
-      navLinks.forEach(function (l) { l.classList.remove('is-active'); });
-    });
+    brand.addEventListener('click', function () { clearActive(); });
   }
 })();
 
@@ -247,4 +278,173 @@
 
   window.addEventListener('resize', () => slideTo(currentIndex, false));
   slideTo(0, false);
+})();
+
+/* ─── ABOUT GALLERY CAROUSELS ───────────────── */
+(function () {
+  function initCarousel(trackId, dotsId, descId) {
+    var track = document.getElementById(trackId);
+    if (!track) return;
+
+    var viewport = track.closest('.about-carousel__viewport');
+    var frame    = track.closest('.about-carousel__frame');
+    if (!viewport || !frame) return;
+
+    var slides  = Array.from(track.children);
+    var count   = slides.length;
+    var current = 0;
+
+    var btnPrev = frame.querySelector('.about-carousel__btn--prev');
+    var btnNext = frame.querySelector('.about-carousel__btn--next');
+    var descEl  = descId ? document.getElementById(descId) : null;
+
+    /* ── Build dot elements ── */
+    var dotsEl   = dotsId ? document.getElementById(dotsId) : null;
+    var dotEls   = [];
+    var N_VIS    = 5;    /* dots visible at once when count > N_VIS */
+    var DOT_STEP = 12;   /* 7px dot + 5px gap */
+    var dotsRow  = null; /* inner scrolling row, only when count > N_VIS */
+
+    if (dotsEl && count > 1) {
+      if (count > N_VIS) {
+        /* Clip box + scrolling row for the sliding window */
+        var clip = document.createElement('div');
+        clip.className = 'about-carousel__dots-clip';
+        dotsRow = document.createElement('div');
+        dotsRow.className = 'about-carousel__dots-row';
+        clip.appendChild(dotsRow);
+        dotsEl.appendChild(clip);
+      }
+      for (var d = 0; d < count; d++) {
+        var dot = document.createElement('span');
+        dot.className = 'about-carousel__dot';
+        (function (pos) {
+          dot.addEventListener('click', function () { go(pos); });
+        })(d);
+        (dotsRow || dotsEl).appendChild(dot);
+        dotEls.push(dot);
+      }
+    }
+
+    /* Active dot is always kept at the centre of the 5-dot window.
+       ws shifts so active lands at position 2 (0-indexed middle). */
+    function updateDots() {
+      if (!dotEls.length) return;
+      var ws = 0;
+      if (count > N_VIS) {
+        ws = Math.max(0, Math.min(current - 2, count - N_VIS));
+        dotsRow.style.transform = 'translateX(-' + (ws * DOT_STEP) + 'px)';
+      }
+      dotEls.forEach(function (d, pos) {
+        var isActive   = pos === current;
+        var posInWin   = pos - ws;
+        var isLeftDim  = count > N_VIS && posInWin === 0 && ws > 0;
+        var isRightDim = count > N_VIS && posInWin === N_VIS - 1 && (ws + N_VIS < count);
+        var isDim      = (isLeftDim || isRightDim) && !isActive;
+
+        d.classList.toggle('about-carousel__dot--active', isActive);
+        if (isActive) {
+          d.style.width   = '';      /* CSS sets 20px */
+          d.style.height  = '7px';
+          d.style.opacity = '1';
+        } else if (isDim) {
+          d.style.width   = '4px';
+          d.style.height  = '4px';
+          d.style.opacity = '0.35';
+        } else {
+          d.style.width   = '7px';
+          d.style.height  = '7px';
+          d.style.opacity = '1';
+        }
+      });
+    }
+
+    function vw() { return viewport.offsetWidth; }
+
+    function sizeSlides() {
+      var w = vw();
+      slides.forEach(function (s) { s.style.width = w + 'px'; });
+    }
+
+    function go(index) {
+      var isWrap = index < 0 || index >= count;
+      var next   = ((index % count) + count) % count;
+
+      if (isWrap) {
+        track.style.transition = 'none';
+        current = next;
+        track.style.transform = 'translateX(-' + (current * vw()) + 'px)';
+        track.offsetHeight;          /* force reflow */
+        track.style.transition = '';
+      } else {
+        current = next;
+        track.style.transform = 'translateX(-' + (current * vw()) + 'px)';
+      }
+      updateDots();
+      if (descEl) {
+        descEl.innerHTML = slides[current] ? (slides[current].getAttribute('data-desc') || '') : '';
+      }
+    }
+
+    sizeSlides();
+    go(0);
+
+    if (btnPrev) btnPrev.addEventListener('click', function () { go(current - 1); });
+    if (btnNext) btnNext.addEventListener('click', function () { go(current + 1); });
+
+    window.addEventListener('resize', function () { sizeSlides(); go(current); }, { passive: true });
+  }
+
+  initCarousel('travel-track', 'travel-dots');
+  initCarousel('ai-track',     'ai-dots',    'ai-desc');
+  initCarousel('arch-track',   'arch-dots');
+  initCarousel('fifth-track',  'fifth-dots');
+})();
+
+/* ─── BITS & PIECES FILL ALIGNMENT ──────────── */
+(function () {
+  if (!document.querySelector('.about-gallery__grid')) return;
+
+  function alignFills() {
+    var ticaFrame = document.querySelector('#fifth-track') &&
+                    document.querySelector('#fifth-track').closest('.about-carousel__frame');
+    var archItem  = document.querySelector('#arch-track') &&
+                    document.querySelector('#arch-track').closest('.about-gallery__item');
+    if (!ticaFrame || !archItem) return;
+    var archFrame = archItem.querySelector('.about-carousel__frame');
+    if (!archFrame) return;
+
+    /* Reset all inline overrides */
+    ticaFrame.style.minHeight = '';
+    archFrame.style.height    = '';
+    archFrame.style.flex      = '';
+    archItem.style.flex       = '';
+    archItem.style.marginTop  = '';
+
+    /* After browser reflows the reset */
+    requestAnimationFrame(function () {
+      /* 1. Freeze Architecture at its current natural height */
+      var archH = archFrame.getBoundingClientRect().height;
+      archFrame.style.flex   = 'none';
+      archFrame.style.height = archH.toFixed(1) + 'px';
+      archItem.style.flex    = '0 0 auto';
+
+      /* 2. Increase TICA frame height by 30% */
+      var ticaH = ticaFrame.getBoundingClientRect().height;
+      ticaFrame.style.minHeight = (ticaH * 1.3).toFixed(1) + 'px';
+
+      /* 3. After TICA has grown, align Architecture bottom with TICA bottom */
+      requestAnimationFrame(function () {
+        var ticaBottom = ticaFrame.getBoundingClientRect().bottom;
+        var archItemTop = archItem.getBoundingClientRect().top;
+        var marginTop = ticaBottom - archH - archItemTop;
+        if (marginTop > 0) {
+          archItem.style.marginTop = marginTop.toFixed(1) + 'px';
+        }
+      });
+    });
+  }
+
+  window.addEventListener('load', alignFills);
+  window.addEventListener('resize', alignFills);
 })();

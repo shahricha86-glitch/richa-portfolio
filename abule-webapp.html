@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Source+Sans+3:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
-  <script src="https://unpkg.com/@phosphor-icons/web" defer></script>
+  <script src="https://unpkg.com/@phosphor-icons/web@2.1.1" defer></script>
   <link rel="stylesheet" href="styles.css" />
   <style>
     /* ── Abulé Web-app hero ── */
@@ -36,7 +36,8 @@
     /* ── Research source grid ── */
     .cs-source-grid {
       display: flex;
-      gap: 16px;
+      column-gap: 20px;
+      row-gap: 16px;
       margin: var(--space-block) 0;
     }
     .cs-source-grid__item {
@@ -62,16 +63,16 @@
       color: var(--color-ink-subtle);
       line-height: 1.5;
     }
-    @media (max-width: 600px) {
+    @media (max-width: 768px) {
       .cs-source-grid { flex-wrap: wrap; }
-      .cs-source-grid__item { flex: 0 0 calc(50% - 8px); }
+      .cs-source-grid__item { flex: 0 0 calc(50% - 10px); }
     }
   </style>
 </head>
 <body>
 
 <!-- ── Cursor ───────────────────────────────── -->
-<div id="cursor">
+<div id="cursor" aria-hidden="true">
   <span class="cursor__text">View Case Study <i class="ph ph-arrow-up-right cursor__icon"></i></span>
 </div>
 
@@ -90,7 +91,7 @@
       <li><a href="index.html#work">Work</a></li>
       <li><a href="about.html">About</a></li>
     </ul>
-    <a href="mailto:richashah.kandoi@gmail.com" class="nav__cta">Let's Talk</a>
+    <a href="lets-talk.html" class="nav__cta">Let's Talk</a>
   </div>
 </nav>
 
@@ -589,7 +590,7 @@
 
       <p class="cs-body">The product has not launched yet, so user-facing metrics are not available. The downstream impact of solving the navigation is what I can point to.</p>
 
-      <div class="feature-card-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 48px; margin-top: var(--space-block);">
+      <div class="feature-card-grid feature-card-grid--2col" style="margin-top: var(--space-block);">
 
         <div class="feature-card">
           <div class="cs-role-circle">
@@ -679,7 +680,7 @@
       <h2 class="cs-heading-static" style="margin-top: var(--space-block);">Learnings and Reflections:</h2>
 
       <p class="cs-body">Working without a research budget meant relying more intentionally on existing data from 26 interviews and 49 survey responses. The constraint wasn't lack of insight, but turning existing data into decisions instead of generating new research.</p>
-      <p class="cs-body">The most important moment in this project was not a design decision, but aligning the IA with the founder and engineering lead. This gave every exploration clear success criteria and helped translate research insights into a shared product structure.</p>
+      <p class="cs-body">The most important moment in this project was aligning the IA with the founder and engineering lead. This gave every exploration clear success criteria and helped translate research insights into a shared product structure.</p>
       <p class="cs-body">I tested early directions with teammates who are close to the target users. With more time, I would have run quick usability tests on the community switching overlay with parents before final implementation.</p>
 
     </section>
@@ -694,6 +695,7 @@
 
 <script src="footer.js"></script>
 <script src="main.js"></script>
+<script src="accordion.js"></script>
 <script>
 /* ─── SCROLL POSITION PRESERVATION (refresh only) ── */
 (function () {
@@ -714,44 +716,7 @@
   });
 })();
 
-/* ─── ACCORDION ─────────────────────────────────── */
-(function () {
-  document.addEventListener('click', function (e) {
-    var accordion = e.target.closest('.cs-accordion');
-    if (!accordion) return;
-    // Block toggle when clicking on videos or text content
-    // Allow toggle on: trigger, images, whitespace (div/section backgrounds)
-    var tag = e.target.tagName.toUpperCase();
-    var isTextOrVideo = ['VIDEO', 'SOURCE', 'P', 'LI', 'OL', 'UL',
-      'H1', 'H2', 'H3', 'H4', 'H5', 'H6',
-      'SPAN', 'STRONG', 'EM', 'A', 'BLOCKQUOTE', 'PRE', 'CODE'].indexOf(tag) !== -1;
-    if (isTextOrVideo) return;
-    if (e.target.closest('video')) return;
-
-    var isOpen = accordion.classList.contains('is-open');
-    accordion.classList.toggle('is-open');
-    var btn = accordion.querySelector('.cs-accordion__trigger');
-    if (btn) btn.setAttribute('aria-expanded', String(!isOpen));
-
-    accordion.classList.add('is-marching');
-    var bodyWrap = accordion.querySelector('.cs-accordion__body-wrap');
-
-    if (isOpen) {
-      var navEl     = document.querySelector('.nav-global');
-      var navH      = navEl ? navEl.offsetHeight : 64;
-      var triggerTop = accordion.getBoundingClientRect().top;
-      if (triggerTop < navH) {
-        var accordionDocTop = triggerTop + window.scrollY;
-        window.scrollTo(0, Math.max(0, accordionDocTop - navH - 24));
-      }
-    }
-
-    bodyWrap.addEventListener('transitionend', function stop() {
-      accordion.classList.remove('is-marching');
-      bodyWrap.removeEventListener('transitionend', stop);
-    });
-  });
-})();
+/* ─── ACCORDION — see accordion.js ──────────────── */
 
 /* ─── TL;DR LINK — scroll heading to mid-viewport ── */
 (function () {

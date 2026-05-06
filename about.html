@@ -8,13 +8,13 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Source+Sans+3:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
-  <script src="https://unpkg.com/@phosphor-icons/web" defer></script>
+  <script src="https://unpkg.com/@phosphor-icons/web@2.1.1" defer></script>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
 
 <!-- ── Cursor ───────────────────────────────── -->
-<div id="cursor">
+<div id="cursor" aria-hidden="true">
   <span class="cursor__text">View Case Study <i class="ph ph-arrow-up-right cursor__icon"></i></span>
 </div>
 
@@ -31,51 +31,172 @@
     <a href="index.html" class="nav__brand">Richa Kandoi</a>
     <ul class="nav__links">
       <li><a href="index.html#work">Work</a></li>
-      <li><a href="index.html#about" class="is-active">About</a></li>
+      <li><a href="about.html" class="is-active">About</a></li>
     </ul>
-    <a href="mailto:richashah.kandoi@gmail.com" class="nav__cta">Let's Talk</a>
+    <a href="lets-talk.html" class="nav__cta">Let's Talk</a>
   </div>
 </nav>
 
 <!-- ── Main About Shell ──────────────────────── -->
-<main style="padding: 160px var(--gutter) 120px; min-height: 80vh;">
-  <!-- Put your about page content here -->
-   <h1 class="hero__title section__heading" style="margin-bottom: 40px;">About Me.</h1>
-   <p class="section__desc">This is your blank canvas.</p>
+<main class="about-main">
+  
+  <div class="contact-wrap about-hero">
+    <!-- Left Column (Bio) -->
+    <div class="contact-col-left about-hero__text">
+      <p class="cs-body">My formal design journey began after I found a book about skyscrapers and became obsessed. I got my degree in architecture, moved through projects on three continents, a multi-building campus in India, modular floating homes in the Netherlands, and eventually landed in New York, the city I dreamed about in that book.</p>
+      <p class="cs-body">After nearly a decade of multi-year timelines, I was ready for faster cycles and more direct user impact. The transition was natural and the work was familiar: understanding people, and designing solutions that actually get used. Two years in, I've worked on a care-tech platform, AI-powered tools, and design systems that help teams move faster.</p>
+      <p class="cs-body">I've lived in seven cities and speak five languages. I ask questions that bring clarity, learn fast, love designing solutions that make life easier for both users and the teams I work with.</p>
+    </div>
+
+    <!-- Right Column (Hero Image) -->
+    <div class="contact-col-right about-hero__img">
+      <img src="assets/about/hero-1.png" alt="Richa Kandoi" />
+    </div>
+  </div>
+
+  <!-- ── Gallery ───────────────────────────────── -->
+  <div class="about-gallery">
+    <h2 class="section__heading about-gallery__heading"><span class="sans">Bits and </span><span class="serif">pieces</span></h2>
+
+    <div class="about-gallery__grid">
+
+      <!-- Left column: Travel + Things I Care About -->
+      <div class="about-gallery__col">
+
+        <div class="about-gallery__item">
+          <div class="about-carousel__frame">
+            <div class="about-carousel__viewport about-carousel__viewport--tall">
+              <div class="about-carousel__track" id="travel-track">
+                <img src="assets/about/travel-7.png" alt="" class="about-carousel__slide">
+                <img src="assets/about/travel-8.png" alt="" class="about-carousel__slide">
+                <img src="assets/about/travel-9.png" alt="" class="about-carousel__slide">
+                <img src="assets/about/travel-10.png" alt="" class="about-carousel__slide">
+                <img src="assets/about/travel-11.png" alt="" class="about-carousel__slide">
+                <img src="assets/about/travel-0.png" alt="" class="about-carousel__slide">
+                <img src="assets/about/travel-1.png" alt="" class="about-carousel__slide">
+                <img src="assets/about/travel-2.png" alt="" class="about-carousel__slide">
+                <img src="assets/about/travel-3.png" alt="" class="about-carousel__slide">
+                <img src="assets/about/travel-4.png" alt="" class="about-carousel__slide">
+                <img src="assets/about/travel-5.png" alt="" class="about-carousel__slide">
+                <img src="assets/about/travel-6.png" alt="" class="about-carousel__slide">
+              </div>
+            </div>
+            <button class="about-carousel__btn about-carousel__btn--prev" aria-label="Previous"><i class="ph ph-caret-left"></i></button>
+            <button class="about-carousel__btn about-carousel__btn--next" aria-label="Next"><i class="ph ph-caret-right"></i></button>
+          </div>
+          <div class="about-carousel__dots" id="travel-dots"></div>
+          <span class="about-gallery__label">Travel</span>
+          <p class="about-gallery__desc testi__role">I've explored ~30 countries and am always drawn to how people live and how culture shapes design.</p>
+        </div>
+
+        <div class="about-gallery__item about-gallery__item--fill">
+          <div class="about-carousel__frame">
+            <div class="about-carousel__viewport about-carousel__viewport--tica">
+              <div class="about-carousel__track" id="fifth-track">
+                <div class="about-carousel__slide about-carousel__slide--card">
+                  <h3 class="card-topic__heading">Sustainability</h3>
+                  <p class="card-topic__body">Building Sift partly because returning one wrong purchase shouldn't cost the planet.</p>
+                </div>
+                <div class="about-carousel__slide about-carousel__slide--card">
+                  <h3 class="card-topic__heading">Climate &amp; Environment</h3>
+                  <p class="card-topic__body">Genuinely want to leave the planet better than I found it.</p>
+                </div>
+                <div class="about-carousel__slide about-carousel__slide--card">
+                  <h3 class="card-topic__heading">Science &amp; Technology</h3>
+                  <p class="card-topic__body">Endlessly fascinated by how innovation keeps expanding what humans can achieve.</p>
+                </div>
+                <div class="about-carousel__slide about-carousel__slide--card">
+                  <h3 class="card-topic__heading">World Politics</h3>
+                  <p class="card-topic__body">Hard to look away when the world is changing so fast.</p>
+                </div>
+                <div class="about-carousel__slide about-carousel__slide--card">
+                  <h3 class="card-topic__heading">Children's Education</h3>
+                  <p class="card-topic__body">If we get education right, who knows what they'll solve.</p>
+                </div>
+                <div class="about-carousel__slide about-carousel__slide--card">
+                  <h3 class="card-topic__heading">Grief &amp; Healing</h3>
+                  <p class="card-topic__body">More people should talk about this.</p>
+                </div>
+                <div class="about-carousel__slide about-carousel__slide--card">
+                  <h3 class="card-topic__heading">Yoga</h3>
+                  <p class="card-topic__body">For when I'm stuck. Always helps.</p>
+                </div>
+                <div class="about-carousel__slide about-carousel__slide--card">
+                  <h3 class="card-topic__heading">Board Games</h3>
+                  <p class="card-topic__body">Catan is an all time favorite. Azul and Terraforming Mars second.</p>
+                </div>
+                <div class="about-carousel__slide about-carousel__slide--card">
+                  <h3 class="card-topic__heading">Hosting &amp; Entertaining</h3>
+                  <p class="card-topic__body">Any excuse to get people around a table.</p>
+                </div>
+              </div>
+            </div>
+            <button class="about-carousel__btn about-carousel__btn--prev" aria-label="Previous"><i class="ph ph-caret-left"></i></button>
+            <button class="about-carousel__btn about-carousel__btn--next" aria-label="Next"><i class="ph ph-caret-right"></i></button>
+          </div>
+          <div class="about-carousel__dots" id="fifth-dots"></div>
+          <span class="about-gallery__label">Things I Care About</span>
+          <p class="about-gallery__desc testi__role" style="min-height:44px"></p>
+        </div>
+
+      </div>
+
+      <!-- Right column: AI Experiments + Architecture -->
+      <div class="about-gallery__col">
+
+        <div class="about-gallery__item">
+          <div class="about-carousel__frame">
+            <div class="about-carousel__viewport about-carousel__viewport--ai">
+              <div class="about-carousel__track" id="ai-track">
+                <img src="assets/about/ai-1.png" alt="" class="about-carousel__slide" data-desc="Built Here, a web app nudging people toward real human connection. <a href='https://here-app-jet.vercel.app/' target='_blank' rel='noopener' class='desc-link'><span>Try it</span> <i class='ph ph-arrow-right'></i></a>">
+                <img src="assets/about/ai-2.png" alt="" class="about-carousel__slide" data-desc="Building Sift, an AI-powered research workspace for considered buying decisions.">
+              </div>
+            </div>
+            <button class="about-carousel__btn about-carousel__btn--prev" aria-label="Previous"><i class="ph ph-caret-left"></i></button>
+            <button class="about-carousel__btn about-carousel__btn--next" aria-label="Next"><i class="ph ph-caret-right"></i></button>
+          </div>
+          <div class="about-carousel__dots" id="ai-dots"></div>
+          <span class="about-gallery__label">AI Experiments</span>
+          <p class="about-gallery__desc testi__role" id="ai-desc"></p>
+        </div>
+
+        <div class="about-gallery__item about-gallery__item--fill">
+          <div class="about-carousel__frame">
+            <div class="about-carousel__viewport about-carousel__viewport--arch">
+              <div class="about-carousel__track" id="arch-track">
+                <img src="assets/about/architecture-1.png" alt="" class="about-carousel__slide">
+                <img src="assets/about/architecture-0.png" alt="" class="about-carousel__slide">
+                <img src="assets/about/architecture-2.png" alt="" class="about-carousel__slide">
+                <img src="assets/about/architecture-3.png" alt="" class="about-carousel__slide">
+                <img src="assets/about/architecture-4.png" alt="" class="about-carousel__slide">
+                <img src="assets/about/architecture-5.png" alt="" class="about-carousel__slide">
+                <img src="assets/about/architecture-6.png" alt="" class="about-carousel__slide">
+                <img src="assets/about/architecture-7.png" alt="" class="about-carousel__slide">
+                <img src="assets/about/architecture-8.png" alt="" class="about-carousel__slide">
+              </div>
+            </div>
+            <button class="about-carousel__btn about-carousel__btn--prev" aria-label="Previous"><i class="ph ph-caret-left"></i></button>
+            <button class="about-carousel__btn about-carousel__btn--next" aria-label="Next"><i class="ph ph-caret-right"></i></button>
+          </div>
+          <div class="about-carousel__dots" id="arch-dots"></div>
+          <span class="about-gallery__label">Architecture</span>
+          <p class="about-gallery__desc testi__role">8+ years of architectural practice from India to Amsterdam, scaling projects from modular floating homes to multi-building mountain campuses.</p>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
 </main>
 
 <!-- ── Footer — identical to homepage ────────── -->
-<footer class="scroll-reveal">
-  <div class="footer__left">
-    <h2 class="footer__heading">
-      <span class="sans">Made with </span><span class="serif">care.</span>
-    </h2>
-    <div class="footer__socials">
-      <a href="#" target="_blank">R&eacute;sum&eacute;</a>
-      <span class="footer__sep">&middot;</span>
-      <a href="https://www.linkedin.com/in/richa-kandoi/" target="_blank">LinkedIn</a>
-      <span class="footer__sep">&middot;</span>
-      <a href="javascript:void(0)" id="copyEmailLink">Email</a>
-    </div>
-    <p class="footer__copy">Website &copy; 2026 Richa Kandoi</p>
-  </div>
-
-  <div class="footer__right">
-    <ul class="footer__nav">
-      <li class="footer__col">
-        <a href="index.html#work" class="footer__link--main">Work</a>
-        <a href="index.html#work" class="footer__link--sub icon-link"><i class="ph ph-lock-key" style="margin-right:6px; font-size:1.1em; vertical-align:-2px;"></i><span>Admin Portal Design</span></a>
-        <a href="index.html#work" class="footer__link--sub">Layerpath Website &amp; Web-app Redesign</a>
-        <a href="index.html#work" class="footer__link--sub icon-link"><i class="ph ph-lock-key" style="margin-right:6px; font-size:1.1em; vertical-align:-2px;"></i><span>Web-app Navigation Redesign</span></a>
-        <a href="index.html#about" class="footer__link--main" style="margin-top: 24px;">About</a>
-      </li>
-    </ul>
-  </div>
-</footer>
+<div id="site-footer"></div>
 
 </div><!-- /page -->
 
 <script src="main.js"></script>
+<script src="footer.js"></script>
 
 </body>
 </html>

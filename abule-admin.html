@@ -8,14 +8,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Source+Sans+3:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
-  <script src="https://unpkg.com/@phosphor-icons/web" defer></script>
+  <script src="https://unpkg.com/@phosphor-icons/web@2.1.1" defer></script>
   <link rel="stylesheet" href="styles.css" />
 
 </head>
 <body>
 
 <!-- ── Cursor ───────────────────────────────── -->
-<div id="cursor">
+<div id="cursor" aria-hidden="true">
   <span class="cursor__text">View Case Study <i class="ph ph-arrow-up-right cursor__icon"></i></span>
 </div>
 
@@ -34,7 +34,7 @@
       <li><a href="index.html#work">Work</a></li>
       <li><a href="about.html">About</a></li>
     </ul>
-    <a href="mailto:richashah.kandoi@gmail.com" class="nav__cta">Let's Talk</a>
+    <a href="lets-talk.html" class="nav__cta">Let's Talk</a>
   </div>
 </nav>
 
@@ -206,32 +206,50 @@
                 <!-- Six roles row -->
                 <div class="cs-roles-row">
                   <div class="cs-roles-row__item">
-                    <img src="assets/abule-admin/roles-row-owner.png" alt="Owner" class="cs-roles-row__img">
+                    <div class="cs-role-circle">
+                      <img src="assets/abule-admin/roles-row-circle.png" alt="" class="cs-role-circle__bg">
+                      <i class="ph ph-crown cs-role-circle__icon"></i>
+                    </div>
                     <span class="cs-roles-row__name">Owner</span>
                   </div>
                   <span class="cs-roles-row__connector" aria-hidden="true"></span>
                   <div class="cs-roles-row__item">
-                    <img src="assets/abule-admin/roles-row-superadmin.png" alt="Super Admin" class="cs-roles-row__img">
+                    <div class="cs-role-circle">
+                      <img src="assets/abule-admin/roles-row-circle.png" alt="" class="cs-role-circle__bg">
+                      <i class="ph ph-star cs-role-circle__icon"></i>
+                    </div>
                     <span class="cs-roles-row__name">Super Admin</span>
                   </div>
                   <span class="cs-roles-row__connector" aria-hidden="true"></span>
                   <div class="cs-roles-row__item">
-                    <img src="assets/abule-admin/roles-row-admin.png" alt="Admin" class="cs-roles-row__img">
+                    <div class="cs-role-circle">
+                      <img src="assets/abule-admin/roles-row-circle.png" alt="" class="cs-role-circle__bg">
+                      <i class="ph ph-user-check cs-role-circle__icon"></i>
+                    </div>
                     <span class="cs-roles-row__name">Admin</span>
                   </div>
                   <span class="cs-roles-row__connector" aria-hidden="true"></span>
                   <div class="cs-roles-row__item">
-                    <img src="assets/abule-admin/roles-row-comm-mod.png" alt="Community Mod." class="cs-roles-row__img">
+                    <div class="cs-role-circle">
+                      <img src="assets/abule-admin/roles-row-circle.png" alt="" class="cs-role-circle__bg">
+                      <i class="ph ph-shield cs-role-circle__icon"></i>
+                    </div>
                     <span class="cs-roles-row__name">Community Mod.</span>
                   </div>
                   <span class="cs-roles-row__connector" aria-hidden="true"></span>
                   <div class="cs-roles-row__item">
-                    <img src="assets/abule-admin/roles-row-group-admin.png" alt="Group Admin" class="cs-roles-row__img">
+                    <div class="cs-role-circle">
+                      <img src="assets/abule-admin/roles-row-circle.png" alt="" class="cs-role-circle__bg">
+                      <i class="ph ph-users-three cs-role-circle__icon"></i>
+                    </div>
                     <span class="cs-roles-row__name">Group Admin</span>
                   </div>
                   <span class="cs-roles-row__connector" aria-hidden="true"></span>
                   <div class="cs-roles-row__item">
-                    <img src="assets/abule-admin/roles-row-group-mod.png" alt="Group Mod." class="cs-roles-row__img">
+                    <div class="cs-role-circle">
+                      <img src="assets/abule-admin/roles-row-circle.png" alt="" class="cs-role-circle__bg">
+                      <i class="ph ph-microphone cs-role-circle__icon"></i>
+                    </div>
                     <span class="cs-roles-row__name">Group Mod.</span>
                   </div>
                 </div>
@@ -431,37 +449,13 @@
 </div><!-- /cs-layout -->
 
 <!-- ── Footer — identical to homepage ────────── -->
-<footer class="scroll-reveal">
-  <div class="footer__left">
-    <h2 class="footer__heading">
-      <span class="sans">Made with </span><span class="serif">care.</span>
-    </h2>
-    <div class="footer__socials">
-      <a href="#" target="_blank">R&eacute;sum&eacute;</a>
-      <span class="footer__sep">&middot;</span>
-      <a href="https://www.linkedin.com/in/richa-kandoi/" target="_blank">LinkedIn</a>
-      <span class="footer__sep">&middot;</span>
-      <a href="javascript:void(0)" id="copyEmailLink">Email</a>
-    </div>
-    <p class="footer__copy">Website &copy; 2026 Richa Kandoi</p>
-  </div>
-
-  <div class="footer__right">
-    <ul class="footer__nav">
-      <li class="footer__col">
-        <a href="index.html#work" class="footer__link--main">Work</a>
-        <a href="index.html#work" class="footer__link--sub icon-link"><span>Admin Portal Design</span></a>
-        <a href="index.html#work" class="footer__link--sub">Layerpath Website &amp; Web-app Redesign</a>
-        <a href="index.html#work" class="footer__link--sub icon-link"><span>Web-app Navigation Redesign</span></a>
-        <a href="about.html" class="footer__link--main" style="margin-top: 24px;">About</a>
-      </li>
-    </ul>
-  </div>
-</footer>
+<div id="site-footer"></div>
 
 </div><!-- /page -->
 
 <script src="main.js"></script>
+<script src="footer.js"></script>
+<script src="accordion.js"></script>
 <script>
 /* ─── SCROLL POSITION PRESERVATION (refresh only) ── */
 (function () {
@@ -483,38 +477,7 @@
   });
 })();
 
-/* ─── ACCORDION ─────────────────────────────────── */
-(function () {
-  document.addEventListener('click', function (e) {
-    var accordion = e.target.closest('.cs-accordion');
-    if (!accordion) return;
-    var isOpen = accordion.classList.contains('is-open');
-    accordion.classList.toggle('is-open');
-    var btn = accordion.querySelector('.cs-accordion__trigger');
-    if (btn) btn.setAttribute('aria-expanded', String(!isOpen));
-
-    accordion.classList.add('is-marching');
-    var bodyWrap = accordion.querySelector('.cs-accordion__body-wrap');
-
-    if (isOpen) {
-      /* Closing: only scroll if the accordion trigger has been scrolled above
-         the nav (user is viewing content inside the accordion body). If the
-         trigger is already visible in the viewport, close in place — no scroll. */
-      var navEl     = document.querySelector('.nav-global');
-      var navH      = navEl ? navEl.offsetHeight : 64;
-      var triggerTop = accordion.getBoundingClientRect().top;
-      if (triggerTop < navH) {
-        var accordionDocTop = triggerTop + window.scrollY;
-        window.scrollTo(0, Math.max(0, accordionDocTop - navH - 24));
-      }
-    }
-
-    bodyWrap.addEventListener('transitionend', function stop() {
-      accordion.classList.remove('is-marching');
-      bodyWrap.removeEventListener('transitionend', stop);
-    });
-  });
-})();
+/* ─── ACCORDION — see accordion.js ──────────────── */
 
 /* ─── TL;DR LINK — scroll heading to mid-viewport ── */
 (function () {

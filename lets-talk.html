@@ -8,13 +8,13 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Source+Sans+3:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
-  <script src="https://unpkg.com/@phosphor-icons/web" defer></script>
+  <script src="https://unpkg.com/@phosphor-icons/web@2.1.1" defer></script>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
 
 <!-- ── Cursor ───────────────────────────────── -->
-<div id="cursor">
+<div id="cursor" aria-hidden="true">
   <span class="cursor__text">View Case Study <i class="ph ph-arrow-up-right cursor__icon"></i></span>
 </div>
 
@@ -53,7 +53,7 @@
         <i class="ph ph-linkedin-logo contact-item__icon"></i>
         <div class="contact-item__title">LinkedIn</div>
         <div class="contact-item__body">
-          <a href="https://www.linkedin.com/in/richa-kandoi/" target="_blank" class="contact-item__link">richa-kandoi</a>
+          <a href="https://www.linkedin.com/in/richa-kandoi/" target="_blank" rel="noopener noreferrer" class="contact-item__link">richa-kandoi</a>
         </div>
       </div>
 
@@ -80,16 +80,16 @@
 
     <!-- ── Right column — form ── -->
     <div class="contact-col-right">
-      <form class="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+      <form class="contact-form" action="https://formspree.io/f/xdabzayk" method="POST">
 
         <div class="form-group">
           <label class="form-label" for="name">Name*</label>
-          <input class="form-input" type="text" id="name" name="name" placeholder="Your Name" required />
+          <input class="form-input" type="text" id="name" name="name" placeholder="Your Name" autocomplete="name" required />
         </div>
 
         <div class="form-group">
           <label class="form-label" for="email">Email*</label>
-          <input class="form-input" type="email" id="email" name="email" placeholder="hello@site.com" required />
+          <input class="form-input" type="email" id="email" name="email" placeholder="hello@site.com" autocomplete="email" required />
         </div>
 
         <div class="form-group form-group--message">
