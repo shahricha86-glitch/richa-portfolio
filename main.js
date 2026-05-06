@@ -47,7 +47,7 @@
       }
 
       /* Case study pages — Work link is always active */
-      var isCaseStudy = /abule|layerpath|lets-talk/.test(path);
+      var isCaseStudy = /abule|layerpath/.test(path);
       if (isCaseStudy && href.includes('#work')) {
         link.classList.add('is-active');
       }
@@ -410,6 +410,19 @@
                     document.querySelector('#fifth-track').closest('.about-carousel__frame');
     var archItem  = document.querySelector('#arch-track') &&
                     document.querySelector('#arch-track').closest('.about-gallery__item');
+
+    /* On mobile (single column), clear any inline overrides and bail */
+    if (window.innerWidth <= 900) {
+      if (ticaFrame) { ticaFrame.style.minHeight = ''; }
+      if (archItem)  {
+        var af = archItem.querySelector('.about-carousel__frame');
+        if (af) { af.style.height = ''; af.style.flex = ''; }
+        archItem.style.flex      = '';
+        archItem.style.marginTop = '';
+      }
+      return;
+    }
+
     if (!ticaFrame || !archItem) return;
     var archFrame = archItem.querySelector('.about-carousel__frame');
     if (!archFrame) return;

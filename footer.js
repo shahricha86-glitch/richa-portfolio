@@ -1,7 +1,7 @@
 document.getElementById('site-footer').innerHTML = `
 <footer style="position:relative;opacity:1;transform:none;filter:none;">
   <div class="footer__left">
-    <h2 class="footer__heading"><span class="sans">Made with </span><span class="serif">care.</span></h2>
+    <h2 class="footer__heading"><span class="sans">Made with </span><span class="serif">sharp corners.</span></h2>
     <div class="footer__socials">
       <a href="https://docs.google.com/document/d/17Sbe0jfaM_j-DL7hASyOlNv6RHQaP1VL7gTOgmSByLw/edit?tab=t.0" target="_blank" rel="noopener">R&eacute;sum&eacute;</a><span class="footer__sep">&middot;</span>
       <a href="https://www.linkedin.com/in/richa-kandoi/" target="_blank" rel="noopener noreferrer">LinkedIn</a><span class="footer__sep">&middot;</span>

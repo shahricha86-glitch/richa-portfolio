@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Source+Sans+3:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
   <script src="https://unpkg.com/@phosphor-icons/web@2.1.1" defer></script>
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="styles.css?v=2" />
   <style>
     /* ── Layerpath hero ── */
     .cs-hero {
@@ -57,6 +57,22 @@
     }
     .cs-img-ph--video::after {
       content: 'Video placeholder';
+    }
+    /* ── Sidebar boxed variant (layerpath only) ── */
+    /* TO UNDO: remove this block + the --boxed class from <aside> below */
+    .cs-layout__sidebar--boxed {
+      margin-top: 48px;          /* pushes box top to align with Context eyebrow in right col */
+      padding: 20px;             /* equal padding all sides */
+      padding-top: 20px;         /* explicit override of base padding-top: 48px */
+      border: 1px solid var(--color-divider);
+    }
+    @media (max-width: 768px) {
+      .cs-layout__sidebar--boxed {
+        margin-top: 0;
+        padding-left: 0;
+        padding-right: 0;
+        border: none;
+      }
     }
   </style>
 
@@ -169,7 +185,7 @@
 <!-- ── Body: sidebar + content ──────────────────── -->
 <div class="cs-layout">
 
-  <aside class="cs-layout__sidebar">
+  <aside class="cs-layout__sidebar cs-layout__sidebar--boxed">
     <nav aria-label="Case study sections">
       <a href="#tldr"              class="cs-sidebar__link"><span>- TL;DR</span></a>
       <a href="#context"           class="cs-sidebar__link"><span>- Context</span></a>
