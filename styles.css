@@ -352,6 +352,8 @@ a, button, input, select, textarea, label { cursor: none; }
 /* ── Approach section ────────────────────────── */
 #approach {
   position: relative;
+  margin-top: 120px;
+  padding: 120px 0;
 }
 #approach::before {
   content: '';
@@ -806,7 +808,9 @@ textarea.form-input {
 
 /* Mobile: hide image entirely */
 @media (max-width: 600px) {
-  .about-main { padding: 100px var(--gutter-mobile) 80px; }
+  .about-main { padding: 100px var(--gutter-mobile) 72px; }
+  #approach { margin-top: 72px; padding: 72px 0; }
+  .about-gallery__heading { padding-top: 72px; }
   .about-hero__img { display: none; }
   .about-hero__text { padding: 36px 28px; border-bottom: none; }
   /* Higher specificity than .contact-col-left in the 768px block which comes later */
@@ -941,8 +945,8 @@ textarea.form-input {
 }
 .card-topic__heading {
   font-family: var(--font-expressive);
-  font-weight: 300;
-  font-size: 22px;
+  font-weight: 500;
+  font-size: 20px;
   line-height: 1.25;
   margin: 0 0 10px;
   color: var(--color-ink);

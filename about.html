@@ -10,6 +10,68 @@
   <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Source+Sans+3:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
   <script src="https://unpkg.com/@phosphor-icons/web@2.1.1" defer></script>
   <link rel="stylesheet" href="styles.css?v=2" />
+  <style>
+    /* ── Flip Card Component (approach section) ── */
+    .flip-card {
+      perspective: 1000px;
+      cursor: pointer;
+      min-height: 280px;
+    }
+    .flip-card__inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      min-height: inherit;
+      transform-style: preserve-3d;
+      transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .flip-card:hover .flip-card__inner {
+      transform: rotateY(180deg);
+    }
+    .flip-card__front,
+    .flip-card__back {
+      position: absolute;
+      inset: 0;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      background: #eeede6;
+      padding: 40px;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+    .flip-card__back {
+      transform: rotateY(180deg);
+      gap: 24px;
+    }
+    .flip-card__hint {
+      position: absolute;
+      bottom: 40px;
+      left: 40px;
+      font-size: 18px;
+      color: var(--color-ink-subtle);
+      opacity: 0.45;
+      transition: opacity 0.15s ease;
+      pointer-events: none;
+    }
+    .flip-card:hover .flip-card__hint { opacity: 0; }
+    .flip-card__heading {
+      font-family: var(--font-expressive);
+      font-weight: 500;
+      font-size: 20px;
+      line-height: 1.75;
+      color: var(--color-ink);
+      margin: 0;
+    }
+    .flip-card__body {
+      font-family: var(--font-interface);
+      font-size: 15px;
+      line-height: 1.6;
+      color: var(--color-ink-subtle);
+      margin: 0;
+    }
+  </style>
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-T0KZ8VMDX6"></script>
   <script>
@@ -63,25 +125,56 @@
   </div>
 
   <!-- ── Approach ─────────────────────────────── -->
-  <section id="approach" class="section" style="width: 100%; margin-top: 120px; padding: 120px 0;">
+  <section id="approach" class="section" style="width: 100%;">
     <div class="approach__head scroll-reveal">
       <h2 class="section__heading">
         <span class="sans">How I approach </span><span class="serif">design.</span>
       </h2>
     </div>
     <div class="approach__grid">
-      <div class="approach__card">
-        <h3 class="approach__card-heading">I research deeply.</h3>
-        <p class="approach__card-body">Whether I'm planning a trip to Iceland or buying ice-skates for the first time I consider all moving parts. That mindset flows into my UX work. I explore edge cases and connect user needs with business goals while making design decisions.</p>
+
+      <!-- Card 1 -->
+      <div class="flip-card">
+        <div class="flip-card__inner">
+          <div class="flip-card__front">
+            <i class="ph ph-arrow-up-right flip-card__hint"></i>
+            <h3 class="flip-card__heading">I research deeply.</h3>
+          </div>
+          <div class="flip-card__back">
+            <h3 class="flip-card__heading">I research deeply.</h3>
+            <p class="flip-card__body">Whether planning a trip to Iceland or buying ice-skates for the first time, I consider all moving parts. That mindset flows into my UX work. I explore edge cases and connect user needs with business goals to make design decisions.</p>
+          </div>
+        </div>
       </div>
-      <div class="approach__card">
-        <h3 class="approach__card-heading">Design should first serve the human it's made for.</h3>
-        <p class="approach__card-body">Design is about solving problems. I value aesthetics and I find purpose in making things intuitive, clear and useful, striking a balance between function and form, knowing that usability should guide creativity.</p>
+
+      <!-- Card 2 -->
+      <div class="flip-card">
+        <div class="flip-card__inner">
+          <div class="flip-card__front">
+            <i class="ph ph-arrow-up-right flip-card__hint"></i>
+            <h3 class="flip-card__heading">Design should first serve the human it's made for.</h3>
+          </div>
+          <div class="flip-card__back">
+            <h3 class="flip-card__heading">Design should first serve the human it's made for.</h3>
+            <p class="flip-card__body">Design is about solving problems. I value aesthetics but I find purpose in making things intuitive, clear and useful, where usability guides creativity and function and form coexist.</p>
+          </div>
+        </div>
       </div>
-      <div class="approach__card">
-        <h3 class="approach__card-heading">Good design takes patience and iteration.</h3>
-        <p class="approach__card-body">Architecture taught me to value long timelines and continuous refinement. In UX, I apply the same mindset; testing and learning until they truly work for the people using them.</p>
+
+      <!-- Card 3 -->
+      <div class="flip-card">
+        <div class="flip-card__inner">
+          <div class="flip-card__front">
+            <i class="ph ph-arrow-up-right flip-card__hint"></i>
+            <h3 class="flip-card__heading">Good design takes patience and iteration.</h3>
+          </div>
+          <div class="flip-card__back">
+            <h3 class="flip-card__heading">Good design takes patience and iteration.</h3>
+            <p class="flip-card__body">Architecture taught me to value long timelines and continuous refinement. In UX, I apply the same mindset; testing and learning until they truly work for the people using them.</p>
+          </div>
+        </div>
       </div>
+
     </div>
   </section>
 
