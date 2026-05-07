@@ -829,7 +829,7 @@ textarea.form-input {
 }
 .about-gallery__heading {
   margin: 0 0 48px;
-  padding-top: 48px;
+  padding-top: 120px;
 }
 /* Full-width dashed rule at top — bottom separator comes from footer::before */
 .about-gallery::before {
@@ -1381,6 +1381,7 @@ textarea.form-input {
     column-gap: var(--cs-col-gap);
     align-items: start;
     padding: 0 var(--gutter);
+    padding-bottom: 48px;
   }
 
   /* ── Sidebar nav: sticky inside its grid column ── */
