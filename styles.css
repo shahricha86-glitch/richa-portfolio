@@ -1498,6 +1498,12 @@ textarea.form-input {
     grid-template-columns: 1fr 1fr;
     gap: 48px;
   }
+  /* 3-column grid variant */
+  .feature-card-grid--3col {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
   .feature-card {
     display: flex;
     flex-direction: column;
@@ -1921,4 +1927,5 @@ textarea.form-input {
     .cs-tldr-row { flex-direction: column; gap: 28px !important; }
     /* Outcome feature cards: 1 per row on mobile */
     .feature-card-grid--2col { grid-template-columns: 1fr; gap: 32px; }
+    .feature-card-grid--3col { grid-template-columns: 1fr; gap: 32px; }
   }
