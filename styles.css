@@ -415,7 +415,7 @@ a, button, input, select, textarea, label { cursor: none; }
 /* ═══════════════════════════════════════════════
    WORK SECTION
    ═══════════════════════════════════════════════ */
-#work { padding: 64px 0 0 0; }
+#work { padding: 64px 0 0 0; scroll-margin-top: var(--nav-height); }
 #work .work__head { padding: 0 var(--gutter); }
 
 .cards { padding: 0 var(--gutter); position: relative; }
