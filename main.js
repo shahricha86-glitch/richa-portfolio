@@ -199,13 +199,13 @@
   let isTransitioning = false;
 
   const dots = dotsContainer
-    ? Array.from(dotsContainer.querySelectorAll('.testi__dot'))
+    ? Array.from(dotsContainer.querySelectorAll('.dot-nav__dot'))
     : [];
 
   function updateDots(index) {
     const realIndex = index % realCount;
     dots.forEach((dot, i) =>
-      dot.classList.toggle('testi__dot--active', i === realIndex)
+      dot.classList.toggle('dot-nav__dot--active', i === realIndex)
     );
   }
 
@@ -246,6 +246,11 @@
   });
 
   dots.forEach((dot, i) => {
+    dot.addEventListener('touchend', (e) => {
+      e.preventDefault();
+      if (isTransitioning) return;
+      slideTo(i, true);
+    });
     dot.addEventListener('click', () => {
       if (isTransitioning) return;
       slideTo(i, true);
@@ -302,7 +307,7 @@
     var dotsEl   = dotsId ? document.getElementById(dotsId) : null;
     var dotEls   = [];
     var N_VIS    = 5;    /* dots visible at once when count > N_VIS */
-    var DOT_STEP = 12;   /* 7px dot + 5px gap */
+    var DOT_STEP = 16;   /* 8px dot + 8px gap = 16px per slot */
     var dotsRow  = null; /* inner scrolling row, only when count > N_VIS */
 
     if (dotsEl && count > 1) {
@@ -317,8 +322,9 @@
       }
       for (var d = 0; d < count; d++) {
         var dot = document.createElement('span');
-        dot.className = 'about-carousel__dot';
+        dot.className = 'dot-nav__dot';
         (function (pos) {
+          dot.addEventListener('touchend', function (e) { e.preventDefault(); go(pos); });
           dot.addEventListener('click', function () { go(pos); });
         })(d);
         (dotsRow || dotsEl).appendChild(dot);
@@ -342,19 +348,16 @@
         var isRightDim = count > N_VIS && posInWin === N_VIS - 1 && (ws + N_VIS < count);
         var isDim      = (isLeftDim || isRightDim) && !isActive;
 
-        d.classList.toggle('about-carousel__dot--active', isActive);
-        if (isActive) {
-          d.style.width   = '';      /* CSS sets 20px */
-          d.style.height  = '7px';
-          d.style.opacity = '1';
-        } else if (isDim) {
+        d.classList.toggle('dot-nav__dot--active', isActive);
+        if (isDim) {
           d.style.width   = '4px';
           d.style.height  = '4px';
           d.style.opacity = '0.35';
         } else {
-          d.style.width   = '7px';
-          d.style.height  = '7px';
-          d.style.opacity = '1';
+          /* Let CSS handle all sizes — clear any prior inline overrides */
+          d.style.width   = '';
+          d.style.height  = '';
+          d.style.opacity = '';
         }
       });
     }

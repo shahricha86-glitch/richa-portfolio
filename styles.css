@@ -88,7 +88,7 @@
    RESET
    ═══════════════════════════════════════════════ */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; cursor: none; }
-html { scroll-behavior: smooth; cursor: none; overflow-x: hidden; scroll-snap-type: y proximity; }
+html { scroll-behavior: smooth; cursor: none; overflow-x: hidden; scroll-snap-type: y proximity; scroll-padding-top: calc(var(--nav-height) + 16px); }
 /* rgba fallback — no CSS var() support for alpha on a var; keep raw value */
 /* Raw values (no CSS vars) — var() inside ::selection fails on some mobile browsers */
 ::selection      { background: rgba(247,209,2,0.75); color: #15113A; }
@@ -415,7 +415,7 @@ a, button, input, select, textarea, label { cursor: none; }
 /* ═══════════════════════════════════════════════
    WORK SECTION
    ═══════════════════════════════════════════════ */
-#work { padding: 64px 0 0 0; scroll-margin-top: var(--nav-height); }
+#work { padding: 64px 0 0 0; scroll-margin-top: calc(var(--nav-height) + 16px); scroll-snap-align: start; }
 #work .work__head { padding: 0 var(--gutter); }
 
 .cards { padding: 0 var(--gutter); position: relative; }
@@ -525,17 +525,9 @@ a, button, input, select, textarea, label { cursor: none; }
 .testi__dots {
   display: none;
   align-items: center; justify-content: center;
-  gap: 1px; margin-top: 16px;
+  gap: 8px; margin-top: 16px;
 }
-.testi__dot {
-  box-sizing: content-box;
-  width: 9px; height: 9px; border-radius: 999px;
-  background: var(--color-divider); background-clip: content-box;
-  padding: 7.5px;
-  transition: width .35s var(--ease-spring), background .35s ease;
-  flex-shrink: 0;
-}
-.testi__dot--active { width: 26px; background: var(--color-ink); background-clip: content-box; }
+/* Individual dot styles live in components.css (.dot-nav__dot) */
 
 /* ═══════════════════════════════════════════════
    FOOTER
@@ -990,18 +982,19 @@ textarea.form-input {
 .about-carousel__btn--next { right: 12px; }
 
 /* ── Dot indicators ─────────────────────────── */
+/* Individual dot styles → components.css (.dot-nav__dot) */
 .about-carousel__dots {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 5px;           /* used for carousels with ≤ 5 slides (no clip) */
+  gap: 8px;
   margin-top: 8px;
-  height: 16px;
 }
 /* Scrolling window clip — wraps the dot row when count > 5 */
 .about-carousel__dots-clip {
   overflow: hidden;
-  width: calc(4 * 7px + 4 * 5px + 20px); /* 68px: 2 inactive each side + 20px active + 4 gaps */
+  /* 5 visible: 4 inactive (8px) + 4 gaps (8px) + 1 active (22px) = 86px */
+  width: 86px;
   height: 16px;
   display: flex;
   align-items: center;
@@ -1009,24 +1002,9 @@ textarea.form-input {
 .about-carousel__dots-row {
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 8px;
   flex-shrink: 0;
   transition: transform 0.35s ease;
-}
-.about-carousel__dot {
-  width: 7px;
-  height: 7px;    /* never changes */
-  border-radius: 999px;
-  background: var(--color-divider);
-  flex-shrink: 0;
-  cursor: pointer;
-  transition: width 0.35s ease, height 0.35s ease,
-              background 0.35s ease, opacity 0.35s ease;
-}
-/* Active: only width grows, height stays 7px */
-.about-carousel__dot--active {
-  width: 20px;
-  background: var(--color-ink);
 }
 
 /* ── Section label + description ─────────────── */
@@ -1150,12 +1128,19 @@ textarea.form-input {
   .nav__links li      { display: contents; }
   .nav__brand, .nav__links a, .nav__cta { font-size: 16px; }
   .hero               { padding: calc(var(--nav-height) + 48px) var(--gutter-mobile) 0; }
-  .hero__greeting     { font-size: 18px; }
-  .hero__headline     { font-size: 32px; }
+  .hero__greeting     { font-size: 15px; }
+  .hero__headline     { font-size: clamp(18px, 7vw, 32px); }
+  /* Disable blur animation — WebKit GPU compositing creates white bg on mobile */
+  .hero__line--1,
+  .hero__line--2      { filter: none; opacity: 0; }
+  .hero__line--1      { animation: fadeIn .9s ease-out 100ms forwards; }
+  .hero__line--2      { animation: fadeIn .9s ease-out 400ms forwards; }
   .hero__pills        { margin-bottom: 48px; flex-wrap: wrap; }
   .pill               { font-size: 15px; padding: 7px 14px; }
   .stats              { grid-template-columns: repeat(2,1fr); margin-left: -26px; margin-right: -26px; }
   .stats__cell        { padding: 24px var(--gutter-mobile); }
+  /* 2-col grid: cell 3 (odd, col 1 of row 2) must not get a vertical rule */
+  .stats__cell:nth-child(odd)::before { display: none; }
   .stats__number      { font-size: 22px; }
   .section            { padding: 72px var(--gutter-mobile); }
   .section__heading   { font-size: 30px; margin-bottom: 32px; }

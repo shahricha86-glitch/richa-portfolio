@@ -10,68 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Source+Sans+3:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
   <script src="https://unpkg.com/@phosphor-icons/web@2.1.1" defer></script>
   <link rel="stylesheet" href="styles.css?v=2" />
-  <style>
-    /* ── Flip Card Component (approach section) ── */
-    .flip-card {
-      perspective: 1000px;
-      cursor: pointer;
-      min-height: 280px;
-    }
-    .flip-card__inner {
-      position: relative;
-      width: 100%;
-      height: 100%;
-      min-height: inherit;
-      transform-style: preserve-3d;
-      transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    .flip-card:hover .flip-card__inner {
-      transform: rotateY(180deg);
-    }
-    .flip-card__front,
-    .flip-card__back {
-      position: absolute;
-      inset: 0;
-      backface-visibility: hidden;
-      -webkit-backface-visibility: hidden;
-      background: #eeede6;
-      padding: 40px;
-      box-sizing: border-box;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-    }
-    .flip-card__back {
-      transform: rotateY(180deg);
-      gap: 24px;
-    }
-    .flip-card__hint {
-      position: absolute;
-      bottom: 40px;
-      left: 40px;
-      font-size: 18px;
-      color: var(--color-ink-subtle);
-      opacity: 0.45;
-      transition: opacity 0.15s ease;
-      pointer-events: none;
-    }
-    .flip-card:hover .flip-card__hint { opacity: 0; }
-    .flip-card__heading {
-      font-family: var(--font-expressive);
-      font-weight: 500;
-      font-size: 20px;
-      line-height: 1.75;
-      color: var(--color-ink);
-      margin: 0;
-    }
-    .flip-card__body {
-      font-family: var(--font-interface);
-      font-size: 15px;
-      line-height: 1.6;
-      color: var(--color-ink-subtle);
-      margin: 0;
-    }
-  </style>
+  <link rel="stylesheet" href="components.css" />
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-T0KZ8VMDX6"></script>
   <script>
@@ -321,6 +260,26 @@
 
 <script src="main.js"></script>
 <script src="footer.js"></script>
+<script>
+  document.querySelectorAll('.flip-card').forEach(function(card) {
+    var isHoverDevice = window.matchMedia('(hover: hover)').matches;
+
+    card.addEventListener('click', function() {
+      if (isHoverDevice) {
+        // Desktop: click on back (while hovering) → lock to front
+        card.classList.add('is-locked-front');
+      } else {
+        // Mobile/tablet: tap to flip, tap again to flip back
+        card.classList.toggle('is-flipped');
+      }
+    });
+
+    card.addEventListener('mouseleave', function() {
+      // Cursor left — reset everything so next hover works normally
+      card.classList.remove('is-locked-front');
+    });
+  });
+</script>
 
 </body>
 </html>

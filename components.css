@@ -1,0 +1,133 @@
+/* ═══════════════════════════════════════════════
+   COMPONENTS
+   Reusable UI components shared across pages.
+   ═══════════════════════════════════════════════
+
+   Contents:
+   1.  Dot Nav   (.dot-nav__dot)
+   2.  Flip Card (.flip-card)
+
+   ═══════════════════════════════════════════════ */
+
+
+/* ── 1. DOT NAV ──────────────────────────────────
+   Reusable dot indicator for any carousel.
+
+   Container (context-specific — controls layout,
+   gap, and visibility):
+     .testi__dots        — testimonial carousel
+     .about-carousel__dots — about page carousels
+
+   Both containers use gap: 8px so dot spacing
+   is consistent everywhere.
+
+   Component elements:
+     .dot-nav__dot         inactive dot
+     .dot-nav__dot--active active pill
+
+   JS: toggle .dot-nav__dot--active on the current dot.
+   ─────────────────────────────────────────────── */
+.dot-nav__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--color-divider);
+  flex-shrink: 0;
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: width 0.35s ease, height 0.35s ease,
+              background 0.35s ease, opacity 0.35s ease;
+}
+.dot-nav__dot--active {
+  width: 22px;
+  background: var(--color-ink);
+}
+
+
+/* ── 2. FLIP CARD ────────────────────────────────
+   Two-sided card that flips on hover (desktop)
+   or tap (mobile/tablet).
+
+   Structure:
+     .flip-card
+       .flip-card__inner
+         .flip-card__front
+           .flip-card__hint   (arrow icon, fades on flip)
+           .flip-card__heading
+         .flip-card__back
+           .flip-card__heading
+           .flip-card__body
+
+   Behaviour:
+     Desktop (hover capable): hover flips to back.
+       Click while on back locks to front (.is-locked-front).
+       mouseleave resets lock.
+     Mobile/tablet: click/tap toggles .is-flipped.
+
+   JS: see about.html inline script.
+   ─────────────────────────────────────────────── */
+.flip-card {
+  perspective: 1000px;
+  cursor: pointer;
+  min-height: 280px;
+}
+.flip-card__inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: inherit;
+  transform-style: preserve-3d;
+  transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+@media (hover: hover) {
+  .flip-card:hover:not(.is-locked-front) .flip-card__inner {
+    transform: rotateY(180deg);
+  }
+}
+.flip-card.is-flipped .flip-card__inner {
+  transform: rotateY(180deg);
+}
+.flip-card__front,
+.flip-card__back {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  background: #eeede6;
+  padding: 40px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+.flip-card__back {
+  transform: rotateY(180deg);
+  justify-content: center;
+  gap: 24px;
+}
+.flip-card__hint {
+  position: absolute;
+  bottom: 40px;
+  left: 40px;
+  font-size: 18px;
+  color: var(--color-ink-subtle);
+  opacity: 0.45;
+  transition: opacity 0.15s ease;
+  pointer-events: none;
+}
+.flip-card:hover .flip-card__hint { opacity: 0; }
+.flip-card__heading {
+  font-family: var(--font-expressive);
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 1.75;
+  color: var(--color-ink);
+  margin: 0;
+}
+.flip-card__body {
+  font-family: var(--font-interface);
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--color-ink-subtle);
+  margin: 0;
+}
