@@ -84,7 +84,12 @@
       }
     }
   </style>
-  <script>if(!sessionStorage.getItem('rk_unlocked')){window.location.replace('password.html?to=abule-webapp.html');}</script>
+  <style>body{visibility:hidden}</style>
+  <script>
+    fetch('/api/check')
+      .then(function(r){ r.ok ? document.body.style.visibility='' : window.location.replace('password.html?to=abule-webapp.html'); })
+      .catch(function(){ window.location.replace('password.html?to=abule-webapp.html'); });
+  </script>
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-T0KZ8VMDX6"></script>
   <script>
