@@ -28,6 +28,7 @@ module.exports = async function handler(req, res) {
   const cookies = parseCookies(req.headers.cookie);
   const cookieValue = cookies['cs_auth'];
 
+  res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate');
   if (!cookieValue) {
     return res.status(401).json({ error: 'unauthorized' });
   }
@@ -55,5 +56,6 @@ module.exports = async function handler(req, res) {
     return res.status(401).json({ error: 'unauthorized' });
   }
 
+  res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate');
   return res.status(200).json({ ok: true });
 };
