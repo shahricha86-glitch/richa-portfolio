@@ -87,7 +87,7 @@
   <style>body{visibility:hidden}</style>
   <script>
     fetch('/api/check', { cache: 'no-store' })
-      .then(function(r){ r.ok ? document.body.style.visibility='' : window.location.replace('password.html?to=abule-webapp.html'); })
+      .then(function(r){ r.ok ? document.body.style.visibility='visible' : window.location.replace('password.html?to=abule-webapp.html'); })
       .catch(function(){ window.location.replace('password.html?to=abule-webapp.html'); });
   </script>
   <!-- Google tag (gtag.js) -->
