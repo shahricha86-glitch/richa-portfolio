@@ -31,8 +31,8 @@
   <style>body{visibility:hidden}</style>
   <script>
     fetch('/api/check', { cache: 'no-store' })
-      .then(function(r){ r.ok ? document.body.style.visibility='visible' : window.location.replace('password.html?to=abule-adminportal.html'); })
-      .catch(function(){ window.location.replace('password.html?to=abule-adminportal.html'); });
+      .then(function(r){ r.ok ? document.body.style.visibility='visible' : window.location.replace('password?to=abule-adminportal'); })
+      .catch(function(){ window.location.replace('password?to=abule-adminportal'); });
   </script>
 
   <!-- Google tag (gtag.js) -->
