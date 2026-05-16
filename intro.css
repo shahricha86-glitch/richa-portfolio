@@ -1,0 +1,52 @@
+/* ── Intro entrance animation ────────────────────────────────────────────
+   Based on Startify Framer template: 1.2s delay, spring-ease, blur+slide.
+   To fully disable: remove the <link> and <script> tags from index.html.
+   ────────────────────────────────────────────────────────────────────── */
+
+@keyframes intro-slide-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes intro-blur-up {
+  from { opacity: 0; filter: blur(10px); transform: translateY(10px); }
+  to   { opacity: 1; filter: blur(0px); transform: translateY(0); }
+}
+
+/* Override existing hero animations when intro is active */
+.intro-active .hero__greeting {
+  opacity: 0;
+  animation: intro-slide-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) 1.2s both;
+}
+
+.intro-active .hero__line--1 {
+  opacity: 0;
+  filter: none;
+  animation: intro-blur-up 0.9s cubic-bezier(0.16, 1, 0.3, 1) 1.2s both;
+}
+
+.intro-active .hero__line--2 {
+  opacity: 0;
+  filter: none;
+  animation: intro-blur-up 0.9s cubic-bezier(0.16, 1, 0.3, 1) 1.35s both;
+}
+
+.intro-active .hero__pills {
+  opacity: 0;
+  animation: intro-slide-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) 1.5s both;
+}
+
+.intro-active .stats {
+  opacity: 0;
+  animation: intro-slide-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) 1.65s both;
+}
+
+/* Mobile: no blur (filter already disabled in styles.css for mobile) */
+@media (max-width: 768px) {
+  .intro-active .hero__line--1 {
+    animation: intro-slide-up 0.9s cubic-bezier(0.16, 1, 0.3, 1) 1.2s both;
+  }
+  .intro-active .hero__line--2 {
+    animation: intro-slide-up 0.9s cubic-bezier(0.16, 1, 0.3, 1) 1.35s both;
+  }
+}

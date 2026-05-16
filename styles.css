@@ -451,7 +451,7 @@ a, button, input, select, textarea, label { cursor: none; }
   color: var(--color-body);
   margin-bottom: auto; display: flex; align-items: center; gap: 8px;
 }
-.card__label i { font-size: 24px; color: var(--color-body); }
+.card__label i { font-size: 20px; line-height: 1; color: var(--color-body); }
 .card__body   { flex: 0 0 auto; margin-bottom: auto; }
 .card__headline {
   font-family: var(--font-expressive);
@@ -652,6 +652,23 @@ footer::before {
 }
 .contact-item__link:hover { color: var(--color-ink); text-decoration: underline; }
 
+.contact-item__icon-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: block;
+  align-self: flex-start;
+  margin-bottom: 32px;
+  color: var(--color-ink);
+  transition: opacity var(--duration-instant);
+}
+.contact-item__icon-btn:hover { opacity: 0.65; }
+.contact-item__icon-btn .contact-item__icon { margin-bottom: 0; }
+.contact-item__icon-link { display: block; margin-bottom: 32px; color: var(--color-ink); text-decoration: none; transition: opacity var(--duration-instant); }
+.contact-item__icon-link:hover { opacity: 0.65; text-decoration: none; }
+.contact-item__icon-link .contact-item__icon { margin-bottom: 0; }
+
 .contact-copy-btn {
   background: none;
   border: none;
@@ -665,7 +682,8 @@ footer::before {
   vertical-align: middle;
   transition: color var(--duration-instant);
 }
-.contact-copy-btn:hover { color: var(--color-ink); }
+.contact-copy-btn { text-decoration: none; }
+.contact-copy-btn:hover { color: var(--color-ink); text-decoration: none; }
 
 /* ── Right column — form ── */
 .contact-col-right {
