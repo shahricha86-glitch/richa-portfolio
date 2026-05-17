@@ -233,6 +233,14 @@ a, button, input, select, textarea, label { cursor: none; }
   from { opacity: 0; }
   to   { opacity: 1; }
 }
+@keyframes hero-slide-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes hero-blur-up {
+  from { opacity: 0; filter: blur(10px); transform: translateY(10px); }
+  to   { opacity: 1; filter: blur(0px);  transform: translateY(0); }
+}
 
 .hero__body { transition: filter .28s ease; }
 
@@ -241,7 +249,7 @@ a, button, input, select, textarea, label { cursor: none; }
   font-weight: 300; font-size: 22px;
   margin-bottom: 24px;
   opacity: 0;
-  animation: fadeIn .55s ease-out 1050ms forwards;
+  animation: hero-slide-up 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both;
 }
 .hero__headline {
   font-family: var(--font-interface);
@@ -250,19 +258,19 @@ a, button, input, select, textarea, label { cursor: none; }
 }
 .hero__line--1 {
   display: block;
-  opacity: 0.4; filter: blur(12px);
-  animation: focusIn .9s ease-out 100ms forwards;
+  opacity: 0;
+  animation: hero-blur-up 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both;
 }
 .hero__line--2 {
   display: block;
-  opacity: 0.4; filter: blur(12px);
-  animation: focusIn .9s ease-out 400ms forwards;
+  opacity: 0;
+  animation: hero-blur-up 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both;
 }
 .hero__pills {
   display: flex; flex-wrap: wrap; gap: 12px;
   margin-bottom: 80px;
   opacity: 0;
-  animation: fadeIn .55s ease-out 1200ms forwards;
+  animation: hero-slide-up 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.5s both;
 }
 
 /* ── Pill  (.pill block) ──────────────────────── */
@@ -304,7 +312,7 @@ a, button, input, select, textarea, label { cursor: none; }
   position: relative;
   display: grid; grid-template-columns: repeat(4, 1fr);
   opacity: 0;
-  animation: fadeIn .55s ease-out 1350ms forwards;
+  animation: hero-slide-up 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.6s both;
 }
 .stats::before, .stats::after {
   content: '';
@@ -1149,10 +1157,8 @@ textarea.form-input {
   .hero__greeting     { font-size: 15px; }
   .hero__headline     { font-size: clamp(18px, 7vw, 32px); }
   /* Disable blur animation — WebKit GPU compositing creates white bg on mobile */
-  .hero__line--1,
-  .hero__line--2      { filter: none; opacity: 0; }
-  .hero__line--1      { animation: fadeIn .9s ease-out 100ms forwards; }
-  .hero__line--2      { animation: fadeIn .9s ease-out 400ms forwards; }
+  .hero__line--1      { animation: hero-slide-up 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both; }
+  .hero__line--2      { animation: hero-slide-up 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both; }
   .hero__pills        { margin-bottom: 48px; flex-wrap: wrap; }
   .pill               { font-size: 15px; padding: 7px 14px; }
   .stats              { grid-template-columns: repeat(2,1fr); margin-left: -26px; margin-right: -26px; }
