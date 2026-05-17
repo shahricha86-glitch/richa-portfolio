@@ -1157,7 +1157,7 @@ textarea.form-input {
   .hero__greeting     { font-size: 15px; }
   /* Scale headline so each span stays on one line across all phone sizes.
      At 390px: 4.5vw = 17.5px — "Product Designer. Ex-architect." fits in ~338px content area. */
-  .hero__headline     { font-size: clamp(15px, 4.5vw, 32px); }
+  .hero__headline     { font-size: clamp(17px, 5.5vw, 32px); }
   /* Disable blur animation — WebKit GPU compositing creates white bg on mobile */
   .hero__line--1      { animation: hero-slide-up 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both; }
   .hero__line--2      { animation: hero-slide-up 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both; }
