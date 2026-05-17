@@ -1155,7 +1155,9 @@ textarea.form-input {
   .nav__brand, .nav__links a, .nav__cta { font-size: 16px; }
   .hero               { padding: calc(var(--nav-height) + 48px) var(--gutter-mobile) 0; }
   .hero__greeting     { font-size: 15px; }
-  .hero__headline     { font-size: clamp(18px, 7vw, 32px); }
+  /* Scale headline so each span stays on one line across all phone sizes.
+     At 390px: 4.5vw = 17.5px — "Product Designer. Ex-architect." fits in ~338px content area. */
+  .hero__headline     { font-size: clamp(15px, 4.5vw, 32px); }
   /* Disable blur animation — WebKit GPU compositing creates white bg on mobile */
   .hero__line--1      { animation: hero-slide-up 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both; }
   .hero__line--2      { animation: hero-slide-up 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both; }
@@ -1165,6 +1167,13 @@ textarea.form-input {
   .stats__cell        { padding: 24px var(--gutter-mobile); }
   /* 2-col grid: cell 3 (odd, col 1 of row 2) must not get a vertical rule */
   .stats__cell:nth-child(odd)::before { display: none; }
+  /* Horizontal dashed rule between row 1 and row 2 of the 2×2 stats grid */
+  .stats__cell:nth-child(3)::after,
+  .stats__cell:nth-child(4)::after {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: var(--rule-h);
+  }
   .stats__number      { font-size: 22px; }
   .section            { padding: 72px var(--gutter-mobile); }
   .section__heading   { font-size: 30px; margin-bottom: 32px; }
