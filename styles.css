@@ -88,7 +88,7 @@
    RESET
    ═══════════════════════════════════════════════ */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; cursor: none; }
-html { scroll-behavior: smooth; cursor: none; overflow-x: hidden; scroll-snap-type: y proximity; scroll-padding-top: calc(var(--nav-height) + 16px); }
+html { scroll-behavior: smooth; cursor: none; overflow-x: hidden; scroll-snap-type: y proximity; scroll-padding-top: calc(var(--nav-height) + 16px); -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 /* rgba fallback — no CSS var() support for alpha on a var; keep raw value */
 /* Raw values (no CSS vars) — var() inside ::selection fails on some mobile browsers */
 ::selection      { background: rgba(247,209,2,0.75); color: #15113A; }
@@ -98,6 +98,8 @@ body {
   color: var(--color-ink);
   font-family: var(--font-interface);
   cursor: none;
+  -webkit-text-size-adjust: 100%; /* prevent Chrome/iOS from auto-boosting font sizes */
+  text-size-adjust: 100%;
 }
 a, button, input, select, textarea, label { cursor: none; }
 
@@ -650,6 +652,8 @@ footer::before {
   font-size: 15px;
   color: var(--color-ink-subtle);
   line-height: 1.5;
+  display: flex;
+  align-items: center;
 }
 
 .contact-item__link {
@@ -1157,7 +1161,8 @@ textarea.form-input {
   .hero__greeting     { font-size: 15px; }
   /* Scale headline so each span stays on one line across all phone sizes.
      At 390px: 4.5vw = 17.5px — "Product Designer. Ex-architect." fits in ~338px content area. */
-  .hero__headline     { font-size: clamp(17px, 5.5vw, 32px); }
+  /* JS (fitHeroHeadline) overrides this at runtime; CSS fallback prevents 54px base from applying */
+  .hero__headline     { font-size: clamp(18px, 5.5vw, 24px); }
   /* Disable blur animation — WebKit GPU compositing creates white bg on mobile */
   .hero__line--1      { animation: hero-slide-up 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both; }
   .hero__line--2      { animation: hero-slide-up 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both; }
@@ -1222,7 +1227,7 @@ textarea.form-input {
   .contact-col-left   { border-right: none; border-bottom: 5px solid #EEEDE6; }
   .contact-item       { padding: 24px 24px; }
   .contact-col-right  { padding: 28px 24px; }
-  .contact-page__heading { font-size: 32px; }
+  .contact-page__heading { font-size: 32px; margin-bottom: 32px; }
 }
 
 /* ═══════════════════════════════════════════════
@@ -1377,6 +1382,34 @@ textarea.form-input {
   }
   .cs-tldr__value li:last-child {
     margin-bottom: 0;
+  }
+
+  /* ── TLDR two-column layout (Abulé Admin Portal) ── */
+  .cs-tldr__col--left {
+    display: flex;
+    flex-direction: column;
+  }
+  .cs-tldr__col--right {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+  .cs-tldr__col--left [data-tldr="timeline"] {
+    margin-top: auto;
+    padding-top: 28px;
+  }
+  /* What's Abulé plain body text (no bullet) */
+  [data-tldr="whats-abule"] .cs-tldr__value {
+    font-family: var(--font-interface);
+    font-size: var(--cs-body-size);
+    color: var(--cs-body-color);
+  }
+
+  /* ── Sidebar boxed variant (Abulé Admin Portal) ── */
+  .cs-layout__sidebar--boxed {
+    margin-top: 48px;
+    padding: 20px;
+    border: 1px solid var(--color-divider);
   }
 
   /* ── Dashed divider (full-bleed) ── */
@@ -1911,6 +1944,12 @@ textarea.form-input {
       overflow-x: auto;
       scrollbar-width: none;
       border-bottom: 1px solid var(--color-divider);
+    }
+    .cs-layout__sidebar--boxed {
+      margin-top: 0;
+      padding-left: 0;
+      padding-right: 0;
+      border: none;
     }
     .cs-layout__sidebar::-webkit-scrollbar { display: none; }
     .cs-layout__sidebar nav {
