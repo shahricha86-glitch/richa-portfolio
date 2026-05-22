@@ -464,3 +464,76 @@
   window.addEventListener('load', alignFills);
   window.addEventListener('resize', alignFills);
 })();
+
+/* ─── HERO HEADLINE FIT (mobile) ────────────────
+   Finds the largest font-size where both spans
+   fit on one line — no orphans, no guessing.    */
+(function () {
+  function fitHeroHeadline() {
+    var headline = document.querySelector('.hero__headline');
+    if (!headline || window.innerWidth > 768) {
+      if (headline) headline.style.fontSize = '';
+      return;
+    }
+
+    headline.style.fontSize = '';
+
+    /* getBoundingClientRect gives the true visual width, not scroll width */
+    var containerW = headline.getBoundingClientRect().width;
+    if (!containerW) return;
+
+    var spans = Array.from(headline.querySelectorAll('span'));
+
+    /* Binary search: largest font-size (capped at 32px) where every span
+       fits unwrapped in one line within the container */
+    var lo = 14, hi = 32;
+    for (var i = 0; i < 20; i++) {
+      var mid = (lo + hi) / 2;
+      headline.style.fontSize = mid + 'px';
+
+      var overflows = spans.some(function (s) {
+        var saved = s.getAttribute('style') || '';
+        s.style.display    = 'inline-block';
+        s.style.whiteSpace = 'nowrap';
+        var w = s.getBoundingClientRect().width;
+        s.setAttribute('style', saved);
+        return w > containerW + 1;
+      });
+
+      if (overflows) hi = mid;
+      else lo = mid;
+    }
+    headline.style.fontSize = lo + 'px';
+  }
+
+  fitHeroHeadline();
+  window.addEventListener('resize', fitHeroHeadline);
+})();
+
+/* ─── TOOL TICKER — pixel-perfect seamless loop ── */
+(function () {
+  function initTicker() {
+    var track = document.querySelector('.tool-ticker__track');
+    if (!track) return;
+    var items = track.querySelectorAll('.tool-ticker__item');
+    if (!items.length) return;
+    var half = Math.floor(items.length / 2);
+    // Sum the widths of the first half (one set) including their margin-right
+    var setWidth = 0;
+    for (var i = 0; i < half; i++) {
+      var style = window.getComputedStyle(items[i]);
+      setWidth += items[i].getBoundingClientRect().width
+        + parseFloat(style.marginRight || 0);
+    }
+    track.style.setProperty('--ticker-translate', '-' + setWidth + 'px');
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initTicker);
+  } else {
+    // Images may still be loading — wait one frame after load
+    window.addEventListener('load', function () {
+      requestAnimationFrame(initTicker);
+    });
+  }
+})();
