@@ -443,7 +443,7 @@ a, button, input, select, textarea, label { cursor: none; }
    ═══════════════════════════════════════════════ */
 .card {
   display: flex; justify-content: space-between; align-items: stretch;
-  padding: 60px; overflow: hidden;
+  padding: 40px 60px; overflow: hidden;
   /* rgba used for subtle border opacity */
   border: .5px solid rgba(21,17,58,.12);
   border-radius: 0;
@@ -453,38 +453,48 @@ a, button, input, select, textarea, label { cursor: none; }
 .card--warm { background: var(--color-surface-warm); }
 .card--cool { background: var(--color-surface-cool); }
 
-.card__content { display: flex; flex-direction: column; flex: 0 0 auto; max-width: 48%; }
+.card__content { display: flex; flex-direction: column; flex: 0 0 auto; max-width: 44%; justify-content: center; gap: 48px; align-self: stretch; }
+.card__top { display: flex; flex-direction: column; gap: 30px; }
 .card__label {
   font-family: var(--font-interface);
-  font-size: 20px; line-height: 28px;
+  font-size: 16px; line-height: 20px;
   /* intentionally lighter than --color-ink-subtle — card label tone */
   color: var(--color-body);
-  margin-bottom: auto; display: flex; align-items: center; gap: 8px;
+  display: flex; align-items: center; gap: 8px;
 }
 .card__label i { font-size: 20px; line-height: 1; color: var(--color-body); }
-.card__body   { flex: 0 0 auto; margin-bottom: auto; }
+.card__body   { flex: 0 0 auto; }
 .card__headline {
   font-family: var(--font-expressive);
-  font-weight: 500; font-size: 24px; line-height: 1.3;
+  font-weight: 500; font-size: 18px; line-height: 1.45;
   color: var(--color-ink); margin: 0;
 }
 .card__footer { flex-shrink: 0; }
 .card__tags   { display: flex; flex-wrap: nowrap; gap: 8px; }
 .card__tag {
   font-family: var(--font-interface);
-  font-weight: 400; font-size: 14px; line-height: 18px;
-  text-transform: uppercase; color: var(--color-ink);
-  border: 1px dashed var(--color-ink); padding: 4px 12px; white-space: nowrap;
+  font-weight: 400; font-size: 12px; line-height: 18px;
+  text-transform: uppercase; color: var(--color-body);
+  border: 1px solid var(--color-body); padding: 4px 12px; white-space: nowrap;
 }
 /* Separator-style tags (experimental — applied per-card with .card--tag-sep) */
-.card--tag-sep .card__tag { border: none; padding: 4px 8px; }
-.card--tag-sep .card__tag:first-child { padding-left: 0; }
-.card__tag-sep {
-  align-self: center; flex-shrink: 0;
-  width: 0; height: 14px;
-  border-left: 1px dashed var(--color-ink);
+.card--tag-sep .card__tag { border: 1px solid var(--color-body); padding: 4px 12px; }
+.card--tag-sep .card__tag:first-child { padding-left: 12px; }
+.card__tag-sep { display: none; }
+.card__media-wrap { display: flex; flex-direction: column; position: relative; flex: 1; max-width: 46%; justify-content: flex-start; }
+.card__lock-badge {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  display: flex; align-items: center; justify-content: center;
+  border: 1px solid var(--color-body);
+  border-radius: 50%;
+  padding: 15px;
+  background: transparent;
 }
-.card__media-wrap { display: flex; flex-direction: column; position: relative; flex: 1; max-width: 48%; justify-content: flex-start; }
+.card__lock-badge i { font-size: 25px; color: var(--color-body); line-height: 1; }
+.card__lock-badge svg { stroke-width: 1; }
 .card__media      { flex: none; display: flex; align-items: flex-start; justify-content: flex-end; height: auto; }
 .card__media img  { display: block; max-width: 100%; width: auto; height: auto; object-fit: contain; }
 
