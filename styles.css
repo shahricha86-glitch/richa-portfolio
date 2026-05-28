@@ -1205,6 +1205,7 @@ textarea.form-input {
   .cards              { padding: 0 var(--gutter-tablet); }
   .card               { flex-direction: column; height: auto; min-height: 0; padding: 36px; overflow: visible; gap: 8px; }
   .card__content      { display: contents; }
+  .card__top          { display: contents; }
   .card__label        { order: 1; margin-bottom: 0; }
   .card__media-wrap   { order: 2; flex: none; width: 100%; max-width: 100%; min-height: 0; justify-content: center; align-items: center; margin-top: 8px; margin-bottom: 8px; }
   .card__body         { order: 3; margin-top: 8px; margin-bottom: 0; }
@@ -1282,6 +1283,7 @@ textarea.form-input {
     padding: var(--gutter-mobile); overflow: visible; gap: 8px;
   }
   .card__content      { display: contents; }
+  .card__top          { display: contents; }
   .card__label        { order: 1; font-size: 15px; margin-bottom: 0; }
   .card__media-wrap   { order: 2; flex: none; width: 100%; max-width: 100%; min-height: 0; justify-content: center; align-items: center; margin-top: 6px; margin-bottom: 6px; }
   .card__body         { order: 3; margin-top: 6px; margin-bottom: 0; }
