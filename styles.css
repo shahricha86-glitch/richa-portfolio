@@ -987,9 +987,9 @@ textarea.form-input {
   min-height: 0;
 }
 
-/* ── Image frame: #eeede6 fill ──────────────── */
+/* ── Image frame: #F4F3EF fill ──────────────── */
 .about-carousel__frame {
-  background: #eeede6;
+  background: #F4F3EF;
   position: relative;
   overflow: hidden;
 }
@@ -1032,7 +1032,7 @@ textarea.form-input {
   height: 100%;
   object-fit: contain;
   display: block;
-  background: #eeede6;
+  background: #F4F3EF;
 }
 /* Text card slides (Things I Care About) */
 .about-carousel__slide--card {
@@ -1081,7 +1081,8 @@ textarea.form-input {
   background: transparent;
   border: none;
   font-size: 20px;
-  color: var(--color-ink);
+  color: var(--color-ink-subtle);
+  opacity: 0.75;
   cursor: pointer;
   transition: opacity 0.2s, transform 0.2s;
 }

@@ -93,7 +93,7 @@
   inset: 0;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
-  background: #eeede6;
+  background: #F4F3EF;
   padding: 40px;
   box-sizing: border-box;
   display: flex;
@@ -111,7 +111,7 @@
   left: 40px;
   font-size: 18px;
   color: var(--color-ink-subtle);
-  opacity: 0.45;
+  opacity: 0.75;
   transition: opacity 0.15s ease;
   pointer-events: none;
 }

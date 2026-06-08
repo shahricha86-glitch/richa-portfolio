@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Flip Card — Component Test</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Source+Sans+3:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/@phosphor-icons/web@2.1.1" defer></script>
+  <link rel="stylesheet" href="styles.css?v=3" />
+  <style>
+    /* ── Flip Card Component ──────────────────────── */
+
+    .flip-card {
+      /* Matches the 1fr column from approach__grid */
+      perspective: 1000px;
+      cursor: pointer;
+
+      /* Match existing approach card height behaviour */
+      min-height: 280px;
+    }
+
+    .flip-card__inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      min-height: inherit;
+      transform-style: preserve-3d;
+      transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Flip on hover (desktop) */
+    .flip-card:hover .flip-card__inner {
+      transform: rotateY(180deg);
+    }
+
+    .flip-card__front,
+    .flip-card__back {
+      position: absolute;
+      inset: 0;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden; /* Safari */
+
+      background: #eeede6;
+      padding: 40px;
+      box-sizing: border-box;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start; /* heading at top, matching back face */
+    }
+
+    .flip-card__back {
+      transform: rotateY(180deg);
+      justify-content: flex-start; /* heading at top, body below */
+      gap: 24px;
+    }
+
+    /* ── Hint arrow — bottom-left, aligned with card content padding ── */
+    .flip-card__hint {
+      position: absolute;
+      bottom: 40px;
+      left: 40px;
+      font-size: 18px; /* 16px + ~10% */
+      color: var(--color-ink-subtle);
+      opacity: 0.45;
+      transition: opacity 0.15s ease;
+      pointer-events: none;
+    }
+    .flip-card:hover .flip-card__hint {
+      opacity: 0;
+    }
+
+    /* ── Typography ── */
+    .flip-card__heading {
+      font-family: var(--font-expressive);
+      font-weight: 500;
+      font-size: 18px;   /* back to original */
+      line-height: 1.75;
+      color: var(--color-ink);
+      margin: 0;
+    }
+
+    .flip-card__body {
+      font-family: var(--font-interface);
+      font-size: 15px;
+      line-height: 1.6;
+      color: var(--color-ink-subtle);
+      margin: 0;
+    }
+
+    /* ── Test page scaffold ───────────────────────── */
+    .test-scaffold {
+      padding: 120px var(--gutter);
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .test-label {
+      grid-column: 1 / -1;
+      font-family: var(--font-interface);
+      font-size: 13px;
+      color: var(--color-ink-subtle);
+      margin-bottom: 8px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="page">
+<div class="edge edge--left"></div>
+<div class="edge edge--right"></div>
+
+<div class="test-scaffold">
+  <p class="test-label">Hover each card to flip ↓</p>
+
+  <!-- Card 1 -->
+  <div class="flip-card">
+    <div class="flip-card__inner">
+      <div class="flip-card__front">
+        <i class="ph ph-arrow-up-right flip-card__hint"></i>
+        <h3 class="flip-card__heading">I research deeply.</h3>
+      </div>
+      <div class="flip-card__back">
+        <h3 class="flip-card__heading">I research deeply.</h3>
+        <p class="flip-card__body">Whether planning a trip to Iceland or buying ice-skates for the first time, I consider all moving parts. That mindset flows into my UX work. I explore edge cases and connect user needs with business goals to make design decisions.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Card 2 -->
+  <div class="flip-card">
+    <div class="flip-card__inner">
+      <div class="flip-card__front">
+        <i class="ph ph-arrow-up-right flip-card__hint"></i>
+        <h3 class="flip-card__heading">Design should first serve the human it's made for.</h3>
+      </div>
+      <div class="flip-card__back">
+        <h3 class="flip-card__heading">Design should first serve the human it's made for.</h3>
+        <p class="flip-card__body">Design is about solving problems. I value aesthetics but I find purpose in making things intuitive, clear and useful, where usability guides creativity and function and form coexist.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Card 3 -->
+  <div class="flip-card">
+    <div class="flip-card__inner">
+      <div class="flip-card__front">
+        <i class="ph ph-arrow-up-right flip-card__hint"></i>
+        <h3 class="flip-card__heading">Good design takes patience and iteration.</h3>
+      </div>
+      <div class="flip-card__back">
+        <h3 class="flip-card__heading">Good design takes patience and iteration.</h3>
+        <p class="flip-card__body">Architecture taught me to value long timelines and continuous refinement. In UX, I apply the same mindset; testing and learning until they truly work for the people using them.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+</body>
+</html>
