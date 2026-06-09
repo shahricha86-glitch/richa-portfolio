@@ -15,6 +15,78 @@
   <link rel="stylesheet" href="components.css" />
   <style>
   /* page-specific overrides go here — shared styles are in styles.css */
+  #cursor.cursor--active.cursor--try-it { width: 120px; }
+
+  /* ── AI Side Projects ─────────────────────────── */
+  #ai-projects {
+    padding: 64px 0;
+    position: relative;
+  }
+  #ai-projects::before {
+    content: '';
+    position: absolute; top: 0; left: calc(50% - 50vw); width: 100vw; height: 2px;
+    background: var(--rule-h);
+  }
+  .ai-projects__head { padding: 0 var(--gutter); }
+  .ai-cards {
+    padding: 0 var(--gutter);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  .ai-card {
+    border: 1px solid var(--color-divider);
+    background: transparent;
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: inherit;
+    overflow: hidden;
+  }
+  .ai-card__media {
+    flex: 1;
+    padding: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .ai-card__media img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: contain;
+  }
+  .ai-card__content {
+    padding: 20px 64px 64px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .ai-card__label {
+    font-family: var(--font-interface);
+    font-size: 16px;
+    line-height: 20px;
+    color: var(--color-body);
+  }
+  .ai-card__desc {
+    font-family: var(--font-expressive);
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.6;
+    color: var(--color-ink);
+  }
+  @media (min-width: 769px) and (max-width: 1024px) {
+    .ai-projects__head { padding: 0 var(--gutter-tablet); }
+    .ai-cards { padding: 0 var(--gutter-tablet); gap: 16px; }
+  }
+  @media (max-width: 768px) {
+    #ai-projects { padding: 56px 0; }
+    .ai-projects__head { padding: 0 var(--gutter-mobile); }
+    .ai-cards { padding: 0 var(--gutter-mobile); grid-template-columns: 1fr; gap: 16px; }
+    .ai-card--here .ai-card__media,
+    .ai-card--sift .ai-card__media { padding: var(--gutter-mobile); }
+    .ai-card__content { padding: 16px var(--gutter-mobile) var(--gutter-mobile); }
+  }
   </style>
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-T0KZ8VMDX6"></script>
@@ -212,6 +284,41 @@
   </div>
 </section>
 
+<!-- ── AI Side Projects ──────────────────────── -->
+<section id="ai-projects">
+  <div class="ai-projects__head">
+    <div class="eyebrow">On the side</div>
+    <h2 class="section__heading">
+      <span class="sans">Building with </span><span class="serif">AI.</span>
+    </h2>
+  </div>
+  <div class="ai-cards">
+
+    <!-- Here -->
+    <a href="https://here-app-jet.vercel.app/" class="ai-card ai-card--here" target="_blank" rel="noopener noreferrer">
+      <div class="ai-card__media">
+        <img src="assets/here-3.png" alt="Here app" />
+      </div>
+      <div class="ai-card__content">
+        <p class="ai-card__label">Here · 2026</p>
+        <p class="ai-card__desc">Designed and shipped a live web app that nudges people toward real human connection.</p>
+      </div>
+    </a>
+
+    <!-- Sift -->
+    <div class="ai-card ai-card--sift">
+      <div class="ai-card__media">
+        <img src="assets/sift-2.png" alt="Sift research workspace" />
+      </div>
+      <div class="ai-card__content">
+        <p class="ai-card__label">Sift · Early Concept · In-progress</p>
+        <p class="ai-card__desc">Designing an AI-native workspace for buying decisions, from conversation flow to memory logic.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
 <!-- ── Tool Stack ────────────────────────────── -->
 <section class="tool-stack">
   <div class="tool-stack__head scroll-reveal">
@@ -331,5 +438,23 @@
 
 <script src="main.js"></script>
 <script src="footer.js"></script>
+<script>
+/* ── Here card cursor ────────────────────────── */
+(function () {
+  var cursor     = document.getElementById('cursor');
+  var hereCard   = document.querySelector('.ai-card--here');
+  if (!cursor || !hereCard) return;
+  var cursorText = cursor.querySelector('.cursor__text');
+  var original   = cursorText ? cursorText.innerHTML : '';
+  hereCard.addEventListener('mouseenter', function () {
+    if (cursorText) cursorText.innerHTML = 'Try it! <i class="ph ph-arrow-up-right cursor__icon"></i>';
+    cursor.classList.add('cursor--active', 'cursor--try-it');
+  });
+  hereCard.addEventListener('mouseleave', function () {
+    cursor.classList.remove('cursor--active', 'cursor--try-it');
+    if (cursorText) cursorText.innerHTML = original;
+  });
+})();
+</script>
 </body>
 </html>
