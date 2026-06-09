@@ -1102,9 +1102,9 @@ textarea.form-input {
 /* Scrolling window clip — wraps the dot row when count > 5 */
 .about-carousel__dots-clip {
   overflow: hidden;
-  /* 5 visible: 4 inactive (8px) + 4 gaps (8px) + 1 active (22px) = 86px */
-  width: 86px;
-  height: 16px;
+  /* 5 visible: 4 inactive (6px) + 4 gaps (8px) + 1 active (20px) = 76px */
+  width: 76px;
+  height: 10px;
   display: flex;
   align-items: center;
 }
@@ -1170,16 +1170,16 @@ textarea.form-input {
   /* Top/bottom gap = left/right gap (64px) via letterbox, no extra CSS margin */
   .about-carousel__viewport--ai   { margin-top: 0; margin-bottom: 0; height: 220px; }
   .about-carousel__viewport--arch { margin-top: 0; margin-bottom: 0; }
-  .about-gallery__item--fill .about-carousel__viewport--arch { height: 250px; }
+  .about-gallery__item--fill .about-carousel__viewport--ai { height: 250px; }
   .about-carousel__viewport--tica { margin-top: 9px; margin-bottom: 9px; }
   .about-gallery__item--fill .about-carousel__viewport--tica { height: 200px; }
 
-  /* Reorder gallery items: AI → Travel → Architecture → TICA */
+  /* Reorder gallery items: Architecture → Travel → AI → TICA */
   .about-gallery__col { display: contents; }
   .about-gallery__item { min-width: 0; }
-  .about-gallery__item--ai     { order: 1; }
+  .about-gallery__item--arch   { order: 1; }
   .about-gallery__item--travel { order: 2; }
-  .about-gallery__item--arch   { order: 3; }
+  .about-gallery__item--ai     { order: 3; }
   .about-gallery__item--tica   { order: 4; }
 }
 

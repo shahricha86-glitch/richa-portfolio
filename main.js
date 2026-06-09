@@ -287,7 +287,7 @@
 
 /* ─── ABOUT GALLERY CAROUSELS ───────────────── */
 (function () {
-  function initCarousel(trackId, dotsId, descId) {
+  function initCarousel(trackId, dotsId, descId, autoplayMs) {
     var track = document.getElementById(trackId);
     if (!track) return;
 
@@ -307,7 +307,7 @@
     var dotsEl   = dotsId ? document.getElementById(dotsId) : null;
     var dotEls   = [];
     var N_VIS    = 5;    /* dots visible at once when count > N_VIS */
-    var DOT_STEP = 16;   /* 8px dot + 8px gap = 16px per slot */
+    var DOT_STEP = 14;   /* 6px dot + 8px gap = 14px per slot */
     var dotsRow  = null; /* inner scrolling row, only when count > N_VIS */
 
     if (dotsEl && count > 1) {
@@ -342,23 +342,11 @@
         dotsRow.style.transform = 'translateX(-' + (ws * DOT_STEP) + 'px)';
       }
       dotEls.forEach(function (d, pos) {
-        var isActive   = pos === current;
-        var posInWin   = pos - ws;
-        var isLeftDim  = count > N_VIS && posInWin === 0 && ws > 0;
-        var isRightDim = count > N_VIS && posInWin === N_VIS - 1 && (ws + N_VIS < count);
-        var isDim      = (isLeftDim || isRightDim) && !isActive;
-
+        var isActive = pos === current;
         d.classList.toggle('dot-nav__dot--active', isActive);
-        if (isDim) {
-          d.style.width   = '4px';
-          d.style.height  = '4px';
-          d.style.opacity = '0.35';
-        } else {
-          /* Let CSS handle all sizes — clear any prior inline overrides */
-          d.style.width   = '';
-          d.style.height  = '';
-          d.style.opacity = '';
-        }
+        d.style.width   = '';
+        d.style.height  = '';
+        d.style.opacity = '';
       });
     }
 
@@ -396,12 +384,20 @@
     if (btnNext) btnNext.addEventListener('click', function () { go(current + 1); });
 
     window.addEventListener('resize', function () { sizeSlides(); go(current); }, { passive: true });
+
+    if (autoplayMs) {
+      var timer = setInterval(function () { go(current + 1); }, autoplayMs);
+      frame.addEventListener('mouseenter', function () { clearInterval(timer); });
+      frame.addEventListener('mouseleave', function () {
+        timer = setInterval(function () { go(current + 1); }, autoplayMs);
+      });
+    }
   }
 
   initCarousel('travel-track', 'travel-dots');
   initCarousel('ai-track',     'ai-dots',    'ai-desc');
   initCarousel('arch-track',   'arch-dots');
-  initCarousel('fifth-track',  'fifth-dots');
+  initCarousel('fifth-track',  'fifth-dots', null, 3000);
 })();
 
 /* ─── BITS & PIECES FILL ALIGNMENT ──────────── */
@@ -411,8 +407,8 @@
   function alignFills() {
     var ticaFrame = document.querySelector('#fifth-track') &&
                     document.querySelector('#fifth-track').closest('.about-carousel__frame');
-    var archItem  = document.querySelector('#arch-track') &&
-                    document.querySelector('#arch-track').closest('.about-gallery__item');
+    var archItem  = document.querySelector('#ai-track') &&
+                    document.querySelector('#ai-track').closest('.about-gallery__item');
 
     /* On mobile (single column), clear any inline overrides and bail */
     if (window.innerWidth <= 900) {
