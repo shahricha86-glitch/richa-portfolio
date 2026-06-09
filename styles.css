@@ -1507,6 +1507,10 @@ textarea.form-input {
     padding: 20px;
     border: 1px solid var(--color-divider);
   }
+  /* Higher specificity (2 classes) to beat .cs-layout__sidebar's padding-top: 48px */
+  .cs-layout__sidebar.cs-layout__sidebar--boxed {
+    padding-top: 20px;
+  }
 
   /* ── Dashed divider (full-bleed) ── */
   .cs-divider-section {
