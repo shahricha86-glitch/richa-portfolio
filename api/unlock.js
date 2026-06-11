@@ -38,7 +38,7 @@ module.exports = async function handler(req, res) {
   const maxAge = 60 * 60 * 24 * 30; // 30 days
 
   res.setHeader('Set-Cookie',
-    `cs_auth=${cookieValue}; HttpOnly; Secure; SameSite=Strict; Path=/; Max-Age=${maxAge}`
+    `cs_auth=${cookieValue}; HttpOnly; Secure; SameSite=Lax; Path=/; Max-Age=${maxAge}`
   );
 
   return res.status(200).json({ ok: true });
