@@ -1266,6 +1266,7 @@ textarea.form-input {
     background: var(--rule-h);
   }
   .stats__number      { font-size: 22px; }
+  .stats__label       { white-space: normal; }
   .section            { padding: 72px var(--gutter-mobile); }
   .section__heading   { font-size: 30px; margin-bottom: 32px; }
   .section__heading .serif { font-size: 26px; }
